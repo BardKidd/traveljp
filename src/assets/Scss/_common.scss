@@ -1,0 +1,73 @@
+@import "./variable";
+// btn
+.mainBtn {
+  display: inline-block;
+  overflow: hidden;
+  position: relative;
+  > span {
+    transition: 0.2s linear;
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    width: 120%;
+    height: 120%;
+    background-color: $primary;
+    transform: rotate(45deg);
+    left: -110%;
+    top: 90%;
+  }
+  &:hover {
+    &::after {
+      animation: mainBtn 0.7s 1;
+      top: -10%;
+      left: -10%;
+    }
+  }
+}
+@keyframes mainBtn {
+  0% {
+    top: 90%;
+    left: -110%;
+  }
+  50% {
+    top: -30%;
+    left: 10%;
+  }
+  100% {
+    top: -10%;
+    left: -10%;
+  }
+}
+
+// Text
+.primary-red {
+  color: #da3c3e;
+}
+.bg-primary-red {
+  background-color: #da3c3e;
+}
+.primary-white {
+  color: #fff;
+}
+.bg-primary-white {
+  background-color: #fff;
+}
+.primary-black {
+  color: #181210;
+}
+.bg-primary-black {
+  background-color: #181210;
+}
+.primary-retouch {
+  color: #beb0a7;
+}
+.bg-primary-retouch {
+  background-color: #beb0a7;
+}
+.primary-retouch2 {
+  color: #f4eee3;
+}
+.bg-primary-retouch2 {
+  background-color: #f4eee3;
+}

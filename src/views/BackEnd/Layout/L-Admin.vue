@@ -1,0 +1,26 @@
+<template>
+  <section class="flex flex-row container">
+    <div class="w-1/6 h-full min-h-screen bg-primary-retouch2 shadow-xl">
+      <SideBar></SideBar>
+    </div>
+    <div class="w-5/6">
+      <NavBar></NavBar>
+
+      <section class="p-8">
+        <router-view></router-view>
+      </section>
+    </div>
+  </section>
+</template>
+
+<script>
+import SideBar from "./L-Sidebar.vue";
+import NavBar from "./L-Navbar.vue";
+export default {
+  name: "BackendAdmin",
+  components: {
+    SideBar,
+    NavBar,
+  },
+};
+</script>
