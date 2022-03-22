@@ -3,6 +3,10 @@ const CompressionWebpackPlugin = require("compression-webpack-plugin");
 const productionGzipExtensions = /\.(js|css|json|txt|html|ico|svg)(\?.*)?$/i;
 const Timestamp = new Date().getTime();
 
+const AutoImport = require("unplugin-auto-import/webpack");
+const Components = require("unplugin-vue-components/webpack");
+const { ElementPlusResolver } = require("unplugin-vue-components/resolvers");
+
 let jsFileName =
   process.env.NODE_ENV === "production"
     ? `js/[name].js`
@@ -41,12 +45,12 @@ module.exports = defineConfig({
         threshold: 10240,
         minRatio: 0.8,
       }),
-      // AutoImport({
-      //   resolvers: [ElementPlusResolver()],
-      // }),
-      // Components({
-      //   resolvers: [ElementPlusResolver()],
-      // }),
+      AutoImport({
+        resolvers: [ElementPlusResolver()],
+      }),
+      Components({
+        resolvers: [ElementPlusResolver()],
+      }),
     ],
     output: {
       // 補上 Timestamp 更新版本
