@@ -28,7 +28,7 @@
       </router-link>
       <router-link
         class="flex flex-wrap opacity-60 hover:opacity-100 items-center"
-        to="#"
+        :to="{ name: 'BOrderList' }"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -47,7 +47,7 @@
       </router-link>
       <router-link
         class="flex flex-wrap opacity-60 hover:opacity-100 items-center"
-        to="#"
+        :to="{ name: 'BCoupon' }"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -72,7 +72,7 @@
       </router-link>
       <router-link
         class="flex flex-wrap opacity-60 hover:opacity-100 items-center"
-        to="#"
+        :to="{ name: 'BTravelNotes' }"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -127,3 +127,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+.router-link-exact-active {
+  opacity: 1;
+}
+</style>

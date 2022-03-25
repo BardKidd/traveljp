@@ -25,6 +25,30 @@ const routes = [
             /* webpackChunkName: "BStrictPlan" */ "@/views/BackEnd/Functions/StrictPlan.vue"
           ),
       },
+      {
+        path: "borderlist",
+        name: "BOrderList",
+        component: () =>
+          import(
+            /* webpackChunkName: "BOrderList" */ "@/views/BackEnd/Functions/OrderList.vue"
+          ),
+      },
+      {
+        path: "bcoupon",
+        name: "BCoupon",
+        component: () =>
+          import(
+            /* webpackChunkName: "BCoupon" */ "@/views/BackEnd/Functions/Coupon.vue"
+          ),
+      },
+      {
+        path: "btravelnotes",
+        name: "BTravelNotes",
+        component: () =>
+          import(
+            /* webpackChunkName: "BTravelNotes" */ "@/views/BackEnd/Functions/TravelNotes.vue"
+          ),
+      },
     ],
   },
   {

@@ -34,7 +34,7 @@
 import { ref } from "vue";
 import Pagination from "@/components/Pagination.vue";
 export default {
-  name: "BStrictPlan",
+  name: "BOrderList",
 
   setup() {
     let rows = [

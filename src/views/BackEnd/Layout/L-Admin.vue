@@ -7,7 +7,7 @@
       <div class="w-5/6">
         <NavBar></NavBar>
 
-        <section class="p-8">
+        <section class="p-14">
           <router-view></router-view>
         </section>
       </div>
