@@ -1,8 +1,6 @@
 <template>
-  <section
-    class="bg-primary-retouch2 shadow-md text-right cursor-pointer w-full p-2.5"
-  >
-    <div class="text-2xl primary-black">
+  <section class="bg-primary-retouch2 shadow-md text-right w-full p-2.5">
+    <div class="cursor-pointer inline-flex justify-end">
       <router-link :to="{ name: 'L-Main' }">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -19,11 +17,6 @@
             />
           </g>
         </svg>
-        <!-- <font-awesome-icon
-          title="登出"
-          class="pr-2"
-          :icon="['fas', 'right-to-bracket']"
-        /> -->
       </router-link>
     </div>
   </section>
