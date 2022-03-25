@@ -1,0 +1,43 @@
+@import "./variable";
+.orderBar_Title {
+  &_Name {
+    border-color: $primary;
+    &:hover {
+      color: $primary;
+    }
+    &--active {
+      background-color: $primary;
+      color: $white;
+      margin-top: -10px;
+      padding-top: 20px;
+      border: 2px solid $primary;
+      &:hover {
+        color: $white;
+      }
+    }
+  }
+}
+.orderBar_Content {
+  > input,
+  select {
+    cursor: pointer;
+    border: 2px solid $retouch2;
+    padding: 10px 25px;
+    color: $black;
+    font-weight: 400;
+    border-radius: 3px;
+  }
+  > button {
+    font-family: PMingLiU, DFKai-sb, serif;
+    cursor: pointer;
+    border: 2px solid $primary;
+    border-radius: 3px;
+    padding: 10px 25px;
+    color: $black;
+    font-weight: bold;
+    &:hover {
+      background-color: $primary;
+      color: $white;
+    }
+  }
+}

@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import Logo from "@/assets/Image/logo.png";
+import Logo from "@/assets/Image/logo_red.png";
 export default {
   name: "L-TopBar",
   setup() {

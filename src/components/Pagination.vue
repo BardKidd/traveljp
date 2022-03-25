@@ -1,14 +1,12 @@
 <template>
-  <!-- <el-pagination
+  <el-pagination
     :page-sizes="[5, 10, 20, 50]"
-    :page-size="pageSize"
     background
-    :current-page="currentPage"
     layout="prev, pager, next, sizes"
     :total="total"
-  >
-  </el-pagination> -->
-  <div>123</div>
+    v-model:page-size="pageSize"
+    v-model:current-page="currentPage"
+  />
 </template>
 
 <script>
@@ -22,38 +20,20 @@ export default {
     },
   },
   setup(props, { emit }) {
-    console.log(props.total);
     let currentPage = ref(1);
     let pageSize = ref(20);
 
-    watch(currentPage, (n) => {
-      emit("page", n);
-    });
     watch(pageSize, (n) => {
-      emit("size", n);
+      emit("handlePageSize", n);
     });
+    watch(currentPage, (n) => {
+      emit("handleCurrentPage", n);
+    });
+
     return {
       currentPage,
       pageSize,
     };
   },
-  // data() {
-  //   return {
-  //     // 這裡的資料才是主要操作的資料
-  //     currentPage: 1,
-  //     pageSize: 20,
-  //   };
-  // },
-  // methods: {},
-  // watch: {
-  //   currentPage(n) {
-  //     const vm = this;
-  //     vm.$emit("page", n);
-  //   },
-  //   pageSize(n) {
-  //     const vm = this;
-  //     vm.$emit("size", n);
-  //   },
-  // },
 };
 </script>

@@ -1,17 +1,16 @@
 .mainBG {
+  position: relative;
+
+  object-fit: cover;
+  object-position: center;
+  height: 110vh;
+  overflow: hidden;
+}
+.image_overlay {
   position: absolute;
   top: 0;
   left: 0;
-  background-image: url(../Image/mainBg.jpg);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  height: 100vh;
-  &:after {
-    content: "";
-    display: block;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.3);
-  }
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.2);
 }
