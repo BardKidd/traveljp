@@ -31,13 +31,22 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import axios from "axios";
+import { onMounted /*inject */ } from "vue";
 import Pagination from "@/components/Pagination.vue";
+import {
+  getNewCurrent,
+  getNewSize,
+  newCurrent,
+  newSize,
+} from "@/components/Methods/ChangePage.js";
+// import getProducts from "./Methods/Products/GetProducts.js";
 export default {
   name: "BStrictPlan",
 
   setup() {
-    let rows = [
+    // const axios = inject("axios");
+    const rows = [
       {
         date: "2016-05-03",
         name: "Tom",
@@ -70,15 +79,16 @@ export default {
       },
     ];
 
-    let newCurrent = ref(1);
-    function getNewCurrent(num) {
-      newCurrent.value = num;
-    }
+    const getProducts = () => {
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/products/all`;
+      axios.get(api).then((res) => {
+        console.log(res.data);
+      });
+    };
 
-    let newSize = ref(20);
-    function getNewSize(num) {
-      newSize.value = num;
-    }
+    onMounted(() => {
+      getProducts();
+    });
 
     return {
       rows,

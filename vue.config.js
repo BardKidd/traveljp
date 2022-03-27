@@ -6,6 +6,7 @@ const Timestamp = new Date().getTime();
 const AutoImport = require("unplugin-auto-import/webpack");
 const Components = require("unplugin-vue-components/webpack");
 const { ElementPlusResolver } = require("unplugin-vue-components/resolvers");
+// const webpack = require("webpack");
 
 let jsFileName =
   process.env.NODE_ENV === "production"
@@ -45,6 +46,12 @@ module.exports = defineConfig({
         threshold: 10240,
         minRatio: 0.8,
       }),
+      // new webpack.DefinePlugin({
+      //   "process.env": {
+      //     API: process.env.VUE_APP_API,
+      //     PATH: process.env.VUE_APP_PATH,
+      //   },
+      // }),
       AutoImport({
         resolvers: [ElementPlusResolver()],
       }),
