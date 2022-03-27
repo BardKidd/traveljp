@@ -32,7 +32,7 @@
 
 <script>
 import axios from "axios";
-import { onMounted /*inject */ } from "vue";
+import { onMounted } from "vue";
 import Pagination from "@/components/Pagination.vue";
 import {
   getNewCurrent,
@@ -40,12 +40,10 @@ import {
   newCurrent,
   newSize,
 } from "@/components/Methods/ChangePage.js";
-// import getProducts from "./Methods/Products/GetProducts.js";
 export default {
   name: "BStrictPlan",
 
   setup() {
-    // const axios = inject("axios");
     const rows = [
       {
         date: "2016-05-03",

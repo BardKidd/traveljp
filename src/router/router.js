@@ -52,6 +52,12 @@ const routes = [
     ],
   },
   {
+    path: "/login",
+    name: "Login",
+    component: () =>
+      import(/* webpackChunkName: "Login" */ "@/views/BackEnd/Login/Login.vue"),
+  },
+  {
     path: "/:pathMatch(.*)*", // vue-router4 將 * 號改為此寫法
     redirect: "/",
   },

@@ -7,10 +7,10 @@ import VueAxios from "vue-axios";
 import "@/assets/tailwind.css";
 import "@/assets/Scss/all.scss";
 
-const app = createApp(App).use(store).use(router);
+/* Element plus，其他元件都用自動引入的方式 */
+import { ElNotification } from "element-plus";
+import "element-plus/dist/index.css";
 
-app
-  .use(VueAxios, axios)
-  //   .provide("axios", app.config.globalProperties.axios)
-
-  .mount("#app");
+const app = createApp(App);
+app.provide("$ELNotification", ElNotification);
+app.use(store).use(router).use(VueAxios, axios).mount("#app");
