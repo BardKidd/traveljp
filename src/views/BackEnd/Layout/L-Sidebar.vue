@@ -130,6 +130,6 @@ export default {
 
 <style lang="scss">
 .router-link-exact-active {
-  opacity: 1;
+  opacity: 1 !important;
 }
 </style>

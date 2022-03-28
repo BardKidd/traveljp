@@ -1,25 +1,44 @@
 <template>
+  <div>
+    <button
+      type="button"
+      @click="commonModalVisible = true"
+      class="primaryBtn mb-3"
+    >
+      新增
+    </button>
+  </div>
   <el-table
     :data="rows.slice((newCurrent - 1) * newSize, newCurrent * newSize)"
     stripe
     style="width: 100%"
     border
   >
+    <el-table-column align="center" sortable prop="category" label="類別" />
+    <el-table-column align="center" sortable prop="title" label="名稱" />
+    <el-table-column align="center" sortable prop="content" label="說明" />
+    <el-table-column align="center" sortable prop="origin_price" label="原價" />
+    <el-table-column align="center" sortable prop="price" label="價格" />
     <el-table-column
       align="center"
       sortable
-      prop="date"
-      label="Date"
-      width="180"
+      prop="is_enabled"
+      label="是否啟用"
     />
-    <el-table-column
-      align="center"
-      sortable
-      prop="name"
-      label="Name"
-      width="180"
-    />
-    <el-table-column align="center" sortable prop="address" label="Address" />
+    <el-table-column>
+      <template #default="scope">
+        <div class="flex flex-wrap">
+          <button
+            type="button"
+            class="primaryBtn mr-2"
+            @click="ts(scope.$index, scope.row)"
+          >
+            編輯
+          </button>
+          <button class="dangerBtn" type="button">刪除</button>
+        </div>
+      </template>
+    </el-table-column>
   </el-table>
 
   <Pagination
@@ -28,12 +47,13 @@
     v-if="rows.length > 0"
     :total="rows.length"
   ></Pagination>
+  <CommonModal :commonModalVisible="commonModalVisible"></CommonModal>
 </template>
 
 <script>
-import axios from "axios";
-import { onMounted } from "vue";
-import { useStore } from "vuex";
+// import axios from "axios";
+import { onMounted, ref } from "vue";
+// import { useStore } from "vuex";
 import Pagination from "@/components/Pagination.vue";
 import {
   getNewCurrent,
@@ -41,58 +61,15 @@ import {
   newCurrent,
   newSize,
 } from "@/components/Methods/ChangePage.js";
+import CommonModal from "@/components/CommonModal.vue";
+import { getProducts, rows } from "./Methods/Products/StrictPlan";
 export default {
   name: "BStrictPlan",
 
   setup() {
-    let rows = [
-      {
-        date: "2016-05-03",
-        name: "Tom",
-        address: "No. 189, Grove St, Los Angeles",
-      },
-      {
-        date: "2016-05-02",
-        name: "Tom",
-        address: "No. 189, Grove St, Los Angeles",
-      },
-      {
-        date: "2016-05-04",
-        name: "Tom",
-        address: "No. 189, Grove St, Los Angeles",
-      },
-      {
-        date: "2016-05-01",
-        name: "Tom",
-        address: "No. 189, Grove St, Los Angeles",
-      },
-      {
-        date: "2016-05-01",
-        name: "Tom99",
-        address: "No. 189, Grove St, Los Angeles",
-      },
-      {
-        date: "2016-05-01",
-        name: "Tom99",
-        address: "N555555o. 189, Grove St, Los Angeles",
-      },
-    ];
-    const store = useStore();
-
-    const getProducts = () => {
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/products/all`;
-      store.commit("ISLOADING", true);
-      axios.get(api).then((res) => {
-        if (res.data.success) {
-          rows = res.data.products;
-        }
-
-        store.commit("ISLOADING", false);
-      });
-    };
-
+    const commonModalVisible = ref(false);
     onMounted(() => {
-      getProducts();
+      getProducts(1);
     });
 
     return {
@@ -101,11 +78,13 @@ export default {
       getNewCurrent,
       newSize,
       getNewSize,
+      commonModalVisible,
     };
   },
 
   components: {
     Pagination,
+    CommonModal,
   },
 };
 </script>

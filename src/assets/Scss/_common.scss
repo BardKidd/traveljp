@@ -39,35 +39,71 @@
     left: -10%;
   }
 }
+.primaryBtn {
+  background-color: $retouch;
+  color: $white;
+  padding: 5px 10px;
+  border: 1px solid $retouch;
+  border-radius: 5px;
+  font-weight: bold;
+  &:hover {
+    background-color: darken($retouch, 10%);
+    border: 1px solid darken($retouch, 10%);
+  }
+}
+.dangerBtn {
+  background-color: $primary;
+  color: $white;
+  padding: 5px 8px;
+  border: 1px solid $primary;
+  border-radius: 5px;
+  font-weight: bold;
+  &:hover {
+    background-color: darken($primary, 10%);
+    border: 1px solid darken($primary, 10%);
+  }
+}
+.cancelBtn {
+  background-color: $retouch2;
+  color: $white;
+  padding: 5px 10px;
+  border: 1px solid $retouch2;
+  border-radius: 5px;
+  font-weight: bold;
+  &:hover {
+    background-color: darken($retouch2, 10%);
+    border: 1px solid darken($retouch2, 10%);
+  }
+}
 
 // Text
 .primary-red {
-  color: #da3c3e;
+  color: $primary;
 }
 .bg-primary-red {
-  background-color: #da3c3e;
+  background-color: $primary;
 }
 .primary-white {
-  color: #fff;
+  color: $white;
 }
 .bg-primary-white {
-  background-color: #fff;
+  background-color: $white;
 }
 .primary-black {
-  color: #181210;
+  color: $black;
 }
 .bg-primary-black {
-  background-color: #181210;
+  background-color: $black;
 }
 .primary-retouch {
-  color: #beb0a7;
+  color: $retouch;
 }
 .bg-primary-retouch {
-  background-color: #beb0a7;
+  background-color: $retouch;
 }
 .primary-retouch2 {
-  color: #f4eee3;
+  color: $retouch2;
 }
 .bg-primary-retouch2 {
-  background-color: #f4eee3;
+  background-color: $retouch2;
 }
