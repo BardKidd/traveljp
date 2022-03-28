@@ -34,19 +34,23 @@ export default {
     const store = useStore();
     const router = useRouter();
 
-    const $ElNotification = inject("$ELNotification");
+    const $ElNotification = inject("$ElNotification");
+
+    // 登出
     const logout = () => {
       const api = `${process.env.VUE_APP_API}/logout`;
       store.commit("ISLOADING", true);
       axios
         .post(api)
         .then((res) => {
-          $ElNotification({
-            title: "成功",
-            message: res.data.message,
-            type: "success",
-          });
-          document.cookie = `TravelJapan=`;
+          if (res.data.success) {
+            $ElNotification({
+              title: "成功",
+              message: res.data.message,
+              type: "success",
+            });
+          }
+          document.cookie = `TravelJapan=; expires=`;
           store.commit("ISLOADING", false);
           router.push({ name: "Login" });
         })

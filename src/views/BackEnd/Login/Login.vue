@@ -90,7 +90,7 @@
 </template>
 
 <script>
-import { ref, inject, computed } from "vue";
+import { ref, inject, computed, onMounted } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import axios from "axios";
@@ -100,7 +100,7 @@ export default {
   setup() {
     const account = ref("");
     const password = ref("");
-    const $ElNotification = inject("$ELNotification");
+    const $ElNotification = inject("$ElNotification");
     const store = useStore();
     const isLoading = computed(() => store.getters.isLoading);
     const router = useRouter();
@@ -126,11 +126,6 @@ export default {
         .then((res) => {
           const { message, success, expired, token } = res.data;
           if (success) {
-            $ElNotification({
-              title: "成功",
-              message: `${message}`,
-              type: "success",
-            });
             document.cookie = `TravelJapan=${token}; expires=${new Date(
               expired
             )}`;
@@ -153,10 +148,34 @@ export default {
         });
     };
 
+    // 是否登入
+    const isLogin = () => {
+      const api = `${process.env.VUE_APP_API}/api/user/check`;
+      store.commit("ISLOADING", true);
+      axios
+        .post(api)
+        .then((res) => {
+          if (res.data.success) {
+            router.push({ name: "L-Admin" });
+          }
+          store.commit("ISLOADING", false);
+        })
+        .catch((error) => {
+          if (error) {
+            store.commit("ISLOADING", false);
+          }
+        });
+    };
+
+    onMounted(() => {
+      isLogin();
+    });
+
     return {
       account,
       password,
       login,
+      isLogin,
       Logo,
       isLoading,
     };

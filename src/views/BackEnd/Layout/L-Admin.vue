@@ -31,8 +31,7 @@ export default {
   setup() {
     const store = useStore();
     const isLoading = computed(() => store.getters.isLoading);
-    console.log("store", store);
-    console.log("isLoading", isLoading);
+
     return {
       zhTW,
       isLoading,

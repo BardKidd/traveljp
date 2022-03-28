@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory } from "vue-router";
+import axios from "axios";
 
 const routes = [
   {
@@ -16,6 +17,7 @@ const routes = [
       import(
         /* webpackChunkName: "L-Admin" */ "@/views/BackEnd/Layout/L-Admin.vue"
       ),
+    meta: { requiresAuth: true },
     children: [
       {
         path: "bstrictplan",
@@ -24,6 +26,7 @@ const routes = [
           import(
             /* webpackChunkName: "BStrictPlan" */ "@/views/BackEnd/Functions/StrictPlan.vue"
           ),
+        meta: { requiresAuth: true },
       },
       {
         path: "borderlist",
@@ -32,6 +35,7 @@ const routes = [
           import(
             /* webpackChunkName: "BOrderList" */ "@/views/BackEnd/Functions/OrderList.vue"
           ),
+        meta: { requiresAuth: true },
       },
       {
         path: "bcoupon",
@@ -40,6 +44,7 @@ const routes = [
           import(
             /* webpackChunkName: "BCoupon" */ "@/views/BackEnd/Functions/Coupon.vue"
           ),
+        meta: { requiresAuth: true },
       },
       {
         path: "btravelnotes",
@@ -48,6 +53,7 @@ const routes = [
           import(
             /* webpackChunkName: "BTravelNotes" */ "@/views/BackEnd/Functions/TravelNotes.vue"
           ),
+        meta: { requiresAuth: true },
       },
     ],
   },
@@ -66,6 +72,21 @@ const routes = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
+});
+
+router.beforeEach((to) => {
+  if (to.meta.requiresAuth) {
+    const api = `${process.env.VUE_APP_API}/api/user/check`;
+    axios.post(api).then((res) => {
+      if (res.data.success) {
+        return true;
+      } else {
+        router.push({ name: "Login" });
+      }
+    });
+  } else {
+    return true;
+  }
 });
 
 export default router;

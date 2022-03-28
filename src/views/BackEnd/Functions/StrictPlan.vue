@@ -45,7 +45,7 @@ export default {
   name: "BStrictPlan",
 
   setup() {
-    const rows = [
+    let rows = [
       {
         date: "2016-05-03",
         name: "Tom",
@@ -83,7 +83,10 @@ export default {
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/products/all`;
       store.commit("ISLOADING", true);
       axios.get(api).then((res) => {
-        console.log(res.data);
+        if (res.data.success) {
+          rows = res.data.products;
+        }
+
         store.commit("ISLOADING", false);
       });
     };

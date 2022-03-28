@@ -17,6 +17,6 @@ import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 
 const app = createApp(App);
-app.provide("$ELNotification", ElNotification);
+app.provide("$ElNotification", ElNotification);
 app.component("LoadingOverlay", Loading);
 app.use(store).use(router).use(VueAxios, api).mount("#app");
