@@ -29,6 +29,7 @@
           placeholder="請輸入您的帳號"
           class="ml-1 font-bold border rounded-md flex-1 p-3"
           type="text"
+          @keyup.enter="login"
         />
       </div>
       <div class="flex flex-wrap items-center w-full mb-3">
@@ -50,6 +51,7 @@
           </g>
         </svg>
         <input
+          @keyup.enter="login"
           v-model="password"
           placeholder="請輸入您的密碼"
           class="ml-1 font-bold border rounded-md flex-1 p-3"
@@ -90,6 +92,7 @@
 <script>
 import { ref, inject, computed } from "vue";
 import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 import axios from "axios";
 import Logo from "@/assets/Image/logo.png";
 export default {
@@ -100,7 +103,9 @@ export default {
     const $ElNotification = inject("$ELNotification");
     const store = useStore();
     const isLoading = computed(() => store.getters.isLoading);
+    const router = useRouter();
 
+    // 登入函式
     const login = () => {
       const api = `${process.env.VUE_APP_API}/admin/signin`;
       const sendItem = {
@@ -119,16 +124,23 @@ export default {
       axios
         .post(api, sendItem)
         .then((res) => {
-          if (res.data.success) {
+          const { message, success, expired, token } = res.data;
+          if (success) {
             $ElNotification({
               title: "成功",
-              message: `${res.data.message}`,
+              message: `${message}`,
               type: "success",
+            });
+            document.cookie = `TravelJapan=${token}; expires=${new Date(
+              expired
+            )}`;
+            router.push({
+              name: "L-Admin",
             });
           } else {
             $ElNotification({
               title: "錯誤",
-              message: `${res.data.message}`,
+              message: `${message}`,
               type: "error",
             });
           }

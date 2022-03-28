@@ -6,7 +6,11 @@
       </div>
       <div class="w-5/6">
         <NavBar></NavBar>
-        <LoadingOverlay v-model:active="isLoading" />
+        <LoadingOverlay v-model:active="isLoading">
+          <template v-slot:after>
+            <p class="block font-bold primary-black mt-3 text-lg">處理中...</p>
+          </template>
+        </LoadingOverlay>
         <section class="p-14">
           <router-view></router-view>
         </section>

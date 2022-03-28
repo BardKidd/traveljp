@@ -1,7 +1,7 @@
 <template>
   <section class="bg-primary-retouch2 shadow-md text-right w-full p-2.5">
     <div class="cursor-pointer inline-flex justify-end">
-      <router-link :to="{ name: 'L-Main' }">
+      <router-link :to="{ name: 'Login' }">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           enable-background="new 0 0 24 24"
