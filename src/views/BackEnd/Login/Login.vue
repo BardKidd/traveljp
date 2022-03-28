@@ -1,4 +1,9 @@
 <template>
+  <LoadingOverlay v-model:active="isLoading">
+    <template v-slot:after>
+      <p class="block font-bold primary-black mt-3 text-lg">處理中...</p>
+    </template>
+  </LoadingOverlay>
   <section class="loginBG relative container h-screen">
     <div
       class="bg-primary-white CenterVertically absolute flex flex-col justify-center items-center shadow-md p-5 rounded"
@@ -83,7 +88,8 @@
 </template>
 
 <script>
-import { ref, inject } from "vue";
+import { ref, inject, computed } from "vue";
+import { useStore } from "vuex";
 import axios from "axios";
 import Logo from "@/assets/Image/logo.png";
 export default {
@@ -92,6 +98,8 @@ export default {
     const account = ref("");
     const password = ref("");
     const $ElNotification = inject("$ELNotification");
+    const store = useStore();
+    const isLoading = computed(() => store.getters.isLoading);
 
     const login = () => {
       const api = `${process.env.VUE_APP_API}/admin/signin`;
@@ -107,22 +115,30 @@ export default {
         });
         return false;
       }
-      axios.post(api, sendItem).then((res) => {
-        console.log(res.data.success);
-        if (res.data.success) {
-          $ElNotification({
-            title: "成功",
-            message: `${res.data.message}`,
-            type: "success",
-          });
-        } else {
-          $ElNotification({
-            title: "錯誤",
-            message: `${res.data.message}`,
-            type: "error",
-          });
-        }
-      });
+      store.commit("ISLOADING", true);
+      axios
+        .post(api, sendItem)
+        .then((res) => {
+          if (res.data.success) {
+            $ElNotification({
+              title: "成功",
+              message: `${res.data.message}`,
+              type: "success",
+            });
+          } else {
+            $ElNotification({
+              title: "錯誤",
+              message: `${res.data.message}`,
+              type: "error",
+            });
+          }
+          store.commit("ISLOADING", false);
+        })
+        .catch((error) => {
+          if (error) {
+            store.commit("ISLOADING", false);
+          }
+        });
     };
 
     return {
@@ -130,6 +146,7 @@ export default {
       password,
       login,
       Logo,
+      isLoading,
     };
   },
 };

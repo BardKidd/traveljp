@@ -6,7 +6,7 @@
       </div>
       <div class="w-5/6">
         <NavBar></NavBar>
-
+        <LoadingOverlay v-model:active="isLoading" />
         <section class="p-14">
           <router-view></router-view>
         </section>
@@ -19,12 +19,19 @@
 import SideBar from "./L-Sidebar.vue";
 import NavBar from "./L-Navbar.vue";
 import zhTW from "element-plus/lib/locale/lang/zh-tw";
+import { computed } from "vue";
+import { useStore } from "vuex";
 
 export default {
   name: "BackendAdmin",
   setup() {
+    const store = useStore();
+    const isLoading = computed(() => store.getters.isLoading);
+    console.log("store", store);
+    console.log("isLoading", isLoading);
     return {
       zhTW,
+      isLoading,
     };
   },
   components: {

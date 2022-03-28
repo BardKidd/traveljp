@@ -33,6 +33,7 @@
 <script>
 import axios from "axios";
 import { onMounted } from "vue";
+import { useStore } from "vuex";
 import Pagination from "@/components/Pagination.vue";
 import {
   getNewCurrent,
@@ -76,11 +77,14 @@ export default {
         address: "N555555o. 189, Grove St, Los Angeles",
       },
     ];
+    const store = useStore();
 
     const getProducts = () => {
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/products/all`;
+      store.commit("ISLOADING", true);
       axios.get(api).then((res) => {
         console.log(res.data);
+        store.commit("ISLOADING", false);
       });
     };
 
