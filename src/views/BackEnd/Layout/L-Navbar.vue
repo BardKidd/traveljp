@@ -1,7 +1,7 @@
 <template>
   <section class="bg-primary-retouch2 shadow-md text-right w-full p-2.5">
     <div class="cursor-pointer inline-flex justify-end">
-      <router-link :to="{ name: 'Login' }">
+      <span @click="logout">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           enable-background="new 0 0 24 24"
@@ -17,13 +17,49 @@
             />
           </g>
         </svg>
-      </router-link>
+      </span>
     </div>
   </section>
 </template>
 
 <script>
+import { inject } from "vue";
+import axios from "axios";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
+
 export default {
   name: "Back_Navbar",
+  setup() {
+    const store = useStore();
+    const router = useRouter();
+
+    const $ElNotification = inject("$ELNotification");
+    const logout = () => {
+      const api = `${process.env.VUE_APP_API}/logout`;
+      store.commit("ISLOADING", true);
+      axios
+        .post(api)
+        .then((res) => {
+          $ElNotification({
+            title: "成功",
+            message: res.data.message,
+            type: "success",
+          });
+          document.cookie = `TravelJapan=`;
+          store.commit("ISLOADING", false);
+          router.push({ name: "Login" });
+        })
+        .catch((error) => {
+          if (error) {
+            store.commit("ISLOADING", false);
+          }
+        });
+    };
+
+    return {
+      logout,
+    };
+  },
 };
 </script>
