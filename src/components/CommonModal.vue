@@ -1,5 +1,5 @@
 <template>
-  <el-dialog v-model="isVisible" title="modalTitle">
+  <el-dialog v-model="isVisible.value" title="modalTitle">
     <el-form :model="form">
       <el-form-item :label="itemLabel" :label-width="formLabelWidth">
         <el-input v-model="form.name" autocomplete="off" />
@@ -7,10 +7,18 @@
     </el-form>
     <template #footer>
       <span class="dialog-footer">
-        <button type="button" class="cancelBtn" @click="isVisible = false">
+        <button
+          type="button"
+          class="cancelBtn"
+          @click="isVisible.value = false"
+        >
           取消
         </button>
-        <button type="button" class="primaryBtn" @click="isVisible = false">
+        <button
+          type="button"
+          class="primaryBtn"
+          @click="isVisible.value = false"
+        >
           新增
         </button>
       </span>
