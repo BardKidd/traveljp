@@ -1,5 +1,6 @@
 <template>
-  <el-table
+  123
+  <!-- <el-table
     :data="rows.slice((newCurrent - 1) * newSize, newCurrent * newSize)"
     stripe
     style="width: 100%"
@@ -27,12 +28,12 @@
     @handlePageSize="getNewSize"
     v-if="rows.length > 0"
     :total="rows.length"
-  ></Pagination>
+  ></Pagination> -->
 </template>
 
 <script>
 import { ref } from "vue";
-import Pagination from "@/components/Pagination.vue";
+// import Pagination from "@/components/Pagination.vue";
 export default {
   name: "BTravelNotes",
 
@@ -90,7 +91,7 @@ export default {
   },
 
   components: {
-    Pagination,
+    // Pagination,
   },
 };
 </script>

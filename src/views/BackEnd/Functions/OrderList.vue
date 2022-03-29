@@ -1,5 +1,6 @@
 <template>
-  <el-table
+  123
+  <!-- <el-table
     :data="rows.slice((newCurrent - 1) * newSize, newCurrent * newSize)"
     stripe
     style="width: 100%"
@@ -27,12 +28,18 @@
     @handlePageSize="getNewSize"
     v-if="rows.length > 0"
     :total="rows.length"
-  ></Pagination>
+  ></Pagination> -->
 </template>
 
 <script>
-import { ref } from "vue";
-import Pagination from "@/components/Pagination.vue";
+// import { ref } from "vue";
+// import Pagination from "@/components/Pagination.vue";
+import {
+  getNewCurrent,
+  getNewSize,
+  newCurrent,
+  newSize,
+} from "@/components/Methods/ChangePage.js";
 export default {
   name: "BOrderList",
 
@@ -70,16 +77,6 @@ export default {
       },
     ];
 
-    let newCurrent = ref(1);
-    function getNewCurrent(num) {
-      newCurrent.value = num;
-    }
-
-    let newSize = ref(20);
-    function getNewSize(num) {
-      newSize.value = num;
-    }
-
     return {
       rows,
       newCurrent,
@@ -89,8 +86,8 @@ export default {
     };
   },
 
-  components: {
-    Pagination,
-  },
+  // components: {
+  //   Pagination,
+  // },
 };
 </script>
