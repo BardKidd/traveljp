@@ -76,6 +76,21 @@
   }
 }
 
+// Input
+.modalTitle {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: $black;
+  margin-bottom: 5px;
+}
+.modalInput {
+  border: 1px solid $black;
+  border-radius: 5px;
+  padding: 5px 8px;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
 // Text
 .primary-red {
   color: $primary;

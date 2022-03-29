@@ -2,7 +2,10 @@
   <div>
     <button
       type="button"
-      @click="commonModalVisible = true"
+      @click="
+        commonModalVisible = true;
+        isNew = true;
+      "
       class="primaryBtn mb-3"
     >
       新增
@@ -47,12 +50,26 @@
     v-if="rows.length > 0"
     :total="rows.length"
   ></Pagination>
-  <CommonModal :commonModalVisible="commonModalVisible"></CommonModal>
+  <Form v-slot="{ errors }">
+    <CommonModal
+      @changeVisible="commonModalVisible = false"
+      :commonModalVisible="commonModalVisible"
+      :isNew="isNew"
+    >
+      <template v-slot:content>
+        <Template
+          :errors="errors"
+          @getFormData="getFormData"
+          :productData="productData"
+        ></Template>
+      </template>
+    </CommonModal>
+  </Form>
 </template>
 
 <script>
 // import axios from "axios";
-import { onMounted, ref } from "vue";
+import { onMounted, reactive, ref } from "vue";
 // import { useStore } from "vuex";
 import Pagination from "@/components/Pagination.vue";
 import {
@@ -62,29 +79,55 @@ import {
   newSize,
 } from "@/components/Methods/ChangePage.js";
 import CommonModal from "@/components/CommonModal.vue";
+import Template from "./Template/StrictPlanTemplate.vue";
 import { getProducts, rows } from "./Methods/Products/StrictPlan";
+import { Form } from "vee-validate";
+
 export default {
   name: "BStrictPlan",
-
   setup() {
     const commonModalVisible = ref(false);
+    const isNew = ref(false);
+
+    let productData = reactive({
+      title: "",
+      category: "北海道",
+      origin_price: 0,
+      price: 0,
+      unit: "當天來回",
+      description: "",
+      content: "",
+      is_enabled: 1,
+      imageUrl: "",
+      imagesUrl: [],
+    });
+
+    const getFormData = (val) => {
+      productData = val;
+    };
+
     onMounted(() => {
       getProducts(1);
     });
 
     return {
       rows,
+      isNew,
       newCurrent,
       getNewCurrent,
       newSize,
       getNewSize,
+      productData,
       commonModalVisible,
+      getFormData,
     };
   },
 
   components: {
     Pagination,
     CommonModal,
+    Template,
+    Form,
   },
 };
 </script>

@@ -16,6 +16,20 @@ import "element-plus/dist/index.css";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 
+// Vee-Validate4
+import { defineRule, configure } from "vee-validate";
+import { required } from "@vee-validate/rules";
+import { localize, setLocale } from "@vee-validate/i18n";
+import zh_TW from "@vee-validate/i18n/dist/locale/zh_TW.json";
+configure({
+  generateMessage: localize({
+    zh_TW,
+  }),
+});
+setLocale("zh_TW");
+
+defineRule("required", required);
+
 const app = createApp(App);
 app.provide("$ElNotification", ElNotification);
 app.component("LoadingOverlay", Loading);

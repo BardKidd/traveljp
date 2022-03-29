@@ -1,25 +1,26 @@
 <template>
-  <el-dialog v-model="isVisible.value" title="modalTitle">
-    <el-form :model="form">
-      <el-form-item :label="itemLabel" :label-width="formLabelWidth">
-        <el-input v-model="form.name" autocomplete="off" />
-      </el-form-item>
-    </el-form>
+  <el-dialog
+    :show-close="false"
+    :close-on-click-modal="false"
+    :title="isNew ? '新增' : '編輯'"
+    v-model="isVisible"
+  >
+    <slot name="content"></slot>
     <template #footer>
       <span class="dialog-footer">
         <button
           type="button"
-          class="cancelBtn"
-          @click="isVisible.value = false"
+          class="cancelBtn mr-2"
+          @click="$emit('changeVisible')"
         >
           取消
         </button>
         <button
           type="button"
           class="primaryBtn"
-          @click="isVisible.value = false"
+          @click="$emit('changeVisible')"
         >
-          新增
+          送出
         </button>
       </span>
     </template>
@@ -27,7 +28,7 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { toRef } from "vue";
 export default {
   name: "CommonModal",
   props: {
@@ -35,10 +36,16 @@ export default {
       type: Boolean,
       required: true,
     },
+    isNew: {
+      type: Boolean,
+      required: true,
+    },
   },
+  emits: ["changeVisible"],
+
   setup(props) {
-    const isVisible = ref(props.commonModalVisible);
-    console.log("isVisible", isVisible);
+    const isVisible = toRef(props, "commonModalVisible");
+
     return {
       isVisible,
     };
