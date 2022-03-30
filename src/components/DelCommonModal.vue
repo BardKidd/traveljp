@@ -3,10 +3,13 @@
     :close-on-press-escape="false"
     :show-close="false"
     :close-on-click-modal="false"
-    :title="isNew ? '新增' : '編輯'"
-    v-model="props.isOpenModal"
+    title="刪除項目"
+    v-model="props.isOpenDelModal"
   >
-    <slot name="content"></slot>
+    <p>
+      是否刪除<span class="primary-red font-bold">{{ props.itemTitle }}</span
+      >?
+    </p>
     <template #footer>
       <span class="dialog-footer">
         <button
@@ -16,17 +19,8 @@
         >
           取消
         </button>
-        <button
-          type="button"
-          class="primaryBtn"
-          @click="
-            handleSubmit(() => {
-              $emit('sendModalData');
-              $emit('changeVisible');
-            })
-          "
-        >
-          送出
+        <button type="button" class="dangerBtn" @click="$emit('sendModalData')">
+          刪除
         </button>
       </span>
     </template>
@@ -35,22 +29,19 @@
 
 <script>
 export default {
-  name: "CommonModal",
+  name: "DelCommonModal",
   props: {
-    isOpenModal: {
+    isOpenDelModal: {
       type: Boolean,
       required: true,
     },
-    isNew: {
-      type: Boolean,
+    itemTitle: {
+      type: String,
       required: true,
-    },
-    handleSubmit: {
-      type: Function,
+      default: "",
     },
   },
   emits: ["changeVisible", "sendModalData"],
-
   setup(props) {
     return {
       props,

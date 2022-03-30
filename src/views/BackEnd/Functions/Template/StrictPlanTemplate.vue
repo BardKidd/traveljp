@@ -51,6 +51,15 @@
           @change="getFile1($event)"
         />
       </div>
+      <div class="flex flex-col mt-3 p-2">
+        <span class="modalTitle border-t">圖片預覽</span>
+        <img
+          v-for="(img, key) of product.imagesUrl"
+          :key="img"
+          :src="img"
+          :alt="`圖片預覽${key + 1}`"
+        />
+      </div>
     </section>
     <section class="flex-1">
       <div class="flex flex-col">

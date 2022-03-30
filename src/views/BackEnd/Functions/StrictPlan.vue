@@ -35,11 +35,24 @@
           <button
             type="button"
             class="primaryBtn mr-2"
-            @click="getModalData(scope.row)"
+            @click="
+              isNew = false;
+              isOpenModal = true;
+              getModalData(scope.row);
+            "
           >
             編輯
           </button>
-          <button class="dangerBtn" type="button">刪除</button>
+          <button
+            class="dangerBtn"
+            type="button"
+            @click="
+              getDelModalData(scope.row, scope.$index);
+              isOpenDelModal = true;
+            "
+          >
+            刪除
+          </button>
         </div>
       </template>
     </el-table-column>
@@ -51,10 +64,11 @@
     v-if="rows.length > 0"
     :total="rows.length"
   ></Pagination>
+
   <Form v-slot="{ errors, handleSubmit }">
     <CommonModal
       @changeVisible="isOpenModal = false"
-      @sendModalData="addProducts(productData)"
+      @sendModalData="sendModalData(productData)"
       :isOpenModal="isOpenModal"
       :isNew="isNew"
       :handleSubmit="handleSubmit"
@@ -70,6 +84,13 @@
       </template>
     </CommonModal>
   </Form>
+
+  <DelCommonModal
+    :itemTitle="productData.title"
+    @changeVisible="isOpenDelModal = false"
+    :isOpenDelModal="isOpenDelModal"
+    @sendModalData="delProduct(productData)"
+  ></DelCommonModal>
 </template>
 
 <script>
@@ -84,6 +105,7 @@ import {
   newSize,
 } from "@/components/Methods/ChangePage.js";
 import CommonModal from "@/components/CommonModal.vue";
+import DelCommonModal from "@/components/DelCommonModal.vue";
 import Template from "./Template/StrictPlanTemplate.vue";
 import { Form } from "vee-validate";
 
@@ -91,6 +113,7 @@ export default {
   name: "BStrictPlan",
   setup() {
     const isOpenModal = ref(false);
+    const isOpenDelModal = ref(false);
     const isNew = ref(false);
     const $ElNotification = inject("$ElNotification");
     const store = useStore();
@@ -114,9 +137,12 @@ export default {
           imagesUrl: [],
         };
       } else {
-        console.log("傳入的資料", val);
         productData.value = val;
       }
+    };
+    // 取得 DelModal 資料
+    const getDelModalData = (val, index) => {
+      productData.value = { ...val, index };
     };
     // 取得 Modal 輸入的資料，從元件內傳出
     const getFormData = (val) => {
@@ -146,12 +172,20 @@ export default {
         });
     };
 
-    // 新增商品
-    const addProducts = (temp) => {
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/product`;
+    // 送出表單(新增、編輯商品)
+    const sendModalData = (temp) => {
+      let api = "";
+      let httpMethods = "";
+      if (isNew.value) {
+        api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/product`;
+        httpMethods = "post";
+      } else {
+        api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/product/${temp.id}`;
+        httpMethods = "put";
+      }
+
       store.commit("ISLOADING", true);
-      axios
-        .post(api, { data: temp })
+      axios[httpMethods](api, { data: temp })
         .then((res) => {
           if (res.data.success) {
             $ElNotification({
@@ -176,6 +210,39 @@ export default {
         });
     };
 
+    // 刪除商品
+    const delProduct = (temp) => {
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/product/${temp.id}`;
+      store.commit("ISLOADING", true);
+      axios
+        .delete(api)
+        .then((res) => {
+          if (res.data.success) {
+            $ElNotification({
+              title: "成功",
+              message: `${res.data.message}`,
+              type: "success",
+            });
+
+            // 直接清除陣列資料，減少呼叫 API 的次數
+            rows.value.splice(temp.index, 1);
+            isOpenDelModal.value = false;
+          } else {
+            $ElNotification({
+              title: "錯誤",
+              message: `${res.data.message}`,
+              type: "error",
+            });
+          }
+          store.commit("ISLOADING", false);
+        })
+        .catch((error) => {
+          if (error) {
+            store.commit("ISLOADING", false);
+          }
+        });
+    };
+
     onMounted(() => {
       getProducts(1);
     });
@@ -189,16 +256,20 @@ export default {
       getNewSize,
       productData,
       isOpenModal,
+      isOpenDelModal,
       getFormData,
-      addProducts,
+      sendModalData,
       getFile,
       getModalData,
+      getDelModalData,
+      delProduct,
     };
   },
 
   components: {
     Pagination,
     CommonModal,
+    DelCommonModal,
     Template,
     Form,
   },
