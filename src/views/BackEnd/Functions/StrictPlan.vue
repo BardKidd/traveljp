@@ -47,8 +47,9 @@
             class="dangerBtn"
             type="button"
             @click="
-              getDelModalData(scope.row, scope.$index);
+              isNew = false;
               isOpenDelModal = true;
+              getModalData(scope.row);
             "
           >
             刪除
@@ -140,10 +141,7 @@ export default {
         productData.value = val;
       }
     };
-    // 取得 DelModal 資料
-    const getDelModalData = (val, index) => {
-      productData.value = { ...val, index };
-    };
+
     // 取得 Modal 輸入的資料，從元件內傳出
     const getFormData = (val) => {
       productData.value = val;
@@ -224,8 +222,7 @@ export default {
               type: "success",
             });
 
-            // 直接清除陣列資料，減少呼叫 API 的次數
-            rows.value.splice(temp.index, 1);
+            getProducts(1);
             isOpenDelModal.value = false;
           } else {
             $ElNotification({
@@ -261,7 +258,6 @@ export default {
       sendModalData,
       getFile,
       getModalData,
-      getDelModalData,
       delProduct,
     };
   },
