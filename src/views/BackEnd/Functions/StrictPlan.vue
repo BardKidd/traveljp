@@ -50,11 +50,13 @@
     v-if="rows.length > 0"
     :total="rows.length"
   ></Pagination>
-  <Form v-slot="{ errors }">
+  <Form v-slot="{ errors, handleSubmit }">
     <CommonModal
       @changeVisible="commonModalVisible = false"
+      @sendModalData="addProducts(productData)"
       :commonModalVisible="commonModalVisible"
       :isNew="isNew"
+      :handleSubmit="handleSubmit"
     >
       <template v-slot:content>
         <Template
@@ -80,7 +82,7 @@ import {
 } from "@/components/Methods/ChangePage.js";
 import CommonModal from "@/components/CommonModal.vue";
 import Template from "./Template/StrictPlanTemplate.vue";
-import { getProducts, rows } from "./Methods/Products/StrictPlan";
+import { getProducts, rows, addProducts } from "./Methods/Products/StrictPlan";
 import { Form } from "vee-validate";
 
 export default {
@@ -92,8 +94,8 @@ export default {
     let productData = reactive({
       title: "",
       category: "北海道",
-      origin_price: 0,
-      price: 0,
+      origin_price: Number(0),
+      price: Number(0),
       unit: "當天來回",
       description: "",
       content: "",
@@ -120,6 +122,7 @@ export default {
       productData,
       commonModalVisible,
       getFormData,
+      addProducts,
     };
   },
 

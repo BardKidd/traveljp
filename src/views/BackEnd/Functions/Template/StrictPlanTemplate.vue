@@ -67,29 +67,35 @@
           v-model="product.content.value"
           class="modalInput"
           placeholder="請輸入產品說明"
-          type="text"
+          type="number"
         />
       </div>
 
       <div class="flex flex-col">
         <span class="modalTitle">原價</span>
-        <input
+        <Field
+          name="原價"
+          rules="required"
           @input="handleForm"
-          v-model="product.origin_price.value"
+          v-model.number="product.origin_price.value"
           class="modalInput"
           placeholder="請輸入產品原價"
-          type="text"
+          type="number"
         />
+        <span class="primary-red font-bold">{{ errors.原價 }}</span>
       </div>
       <div class="flex flex-col">
         <span class="modalTitle">價格</span>
-        <input
+        <Field
+          name="價格"
+          rules="required"
           @input="handleForm"
-          v-model="product.price.value"
+          v-model.number="product.price.value"
           class="modalInput"
           placeholder="請輸入產品價格"
           type="text"
         />
+        <span class="primary-red font-bold">{{ errors.價格 }}</span>
       </div>
       <div class="flex flex-col">
         <span class="modalTitle">是否啟用</span>

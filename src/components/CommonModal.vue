@@ -18,7 +18,7 @@
         <button
           type="button"
           class="primaryBtn"
-          @click="$emit('changeVisible')"
+          @click="handleSubmit(() => $emit('sendModalData'))"
         >
           送出
         </button>
@@ -40,8 +40,11 @@ export default {
       type: Boolean,
       required: true,
     },
+    handleSubmit: {
+      type: Function,
+    },
   },
-  emits: ["changeVisible"],
+  emits: ["changeVisible", "sendModalData"],
 
   setup(props) {
     const isVisible = toRef(props, "commonModalVisible");

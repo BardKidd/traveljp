@@ -23,19 +23,19 @@ api.interceptors.request.use(
 );
 api.interceptors.response.use(
   (config) => {
-    // 有兩個 message 判斷是因為防止多開了新分頁並在新分頁登出後，原始頁面文字出現異常。
-    if (
-      !config.data.success &&
-      config.data.message !== "驗證錯誤, 請重新登入" &&
-      config.data.message !== "請重新登出"
-    ) {
-      ElNotification({
-        title: "錯誤",
-        message: config.data.message,
-        type: "error",
-        duration: 5000,
-      });
-    }
+    // // 有兩個 message 判斷是因為防止多開了新分頁並在新分頁登出後，原始頁面文字出現異常。
+    // if (
+    //   !config.data.success &&
+    //   config.data.message !== "驗證錯誤, 請重新登入" &&
+    //   config.data.message !== "請重新登出"
+    // ) {
+    //   ElNotification({
+    //     title: "錯誤",
+    //     message: config.data.message,
+    //     type: "error",
+    //     duration: 5000,
+    //   });
+    // }
     return config;
   },
   // 跑 catch
