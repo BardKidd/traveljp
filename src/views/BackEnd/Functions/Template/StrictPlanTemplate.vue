@@ -8,24 +8,48 @@
           type="file"
           ref="file1"
           accept="image/*"
-          @change="uploadFile($event)"
+          @change="getFile1($event)"
         />
       </div>
       <div class="flex flex-col">
         <span class="modalTitle">產品圖片2</span>
-        <input type="file" accept="image/*" />
+        <input
+          name="file-to-upload"
+          type="file"
+          ref="file2"
+          accept="image/*"
+          @change="getFile2($event)"
+        />
       </div>
       <div class="flex flex-col">
         <span class="modalTitle">產品圖片3</span>
-        <input type="file" accept="image/*" />
+        <input
+          name="file-to-upload"
+          type="file"
+          ref="file3"
+          accept="image/*"
+          @change="getFile1($event)"
+        />
       </div>
       <div class="flex flex-col">
         <span class="modalTitle">產品圖片4</span>
-        <input type="file" accept="image/*" />
+        <input
+          name="file-to-upload"
+          type="file"
+          ref="file4"
+          accept="image/*"
+          @change="getFile1($event)"
+        />
       </div>
       <div class="flex flex-col">
         <span class="modalTitle">產品圖片5</span>
-        <input type="file" accept="image/*" />
+        <input
+          name="file-to-upload"
+          type="file"
+          ref="file5"
+          accept="image/*"
+          @change="getFile1($event)"
+        />
       </div>
     </section>
     <section class="flex-1">
@@ -33,7 +57,7 @@
         <span class="modalTitle">類別</span>
         <select
           @change="handleForm"
-          v-model="product.category.value"
+          v-model="product.category"
           class="modalInput"
         >
           <option v-for="place of allPlace" :key="place" :value="place">
@@ -47,7 +71,7 @@
           name="名稱"
           rules="required"
           @input="handleForm"
-          v-model="product.title.value"
+          v-model="product.title"
           class="modalInput"
           placeholder="請輸入產品名稱"
           type="text"
@@ -56,11 +80,7 @@
       </div>
       <div class="flex flex-col">
         <span class="modalTitle">單位</span>
-        <select
-          @change="handleForm"
-          v-model="product.unit.value"
-          class="modalInput"
-        >
+        <select @change="handleForm" v-model="product.unit" class="modalInput">
           <option v-for="unit of allUnit" :key="unit" :value="unit">
             {{ unit }}
           </option>
@@ -70,10 +90,10 @@
         <span class="modalTitle">說明</span>
         <input
           @input="handleForm"
-          v-model="product.content.value"
+          v-model="product.content"
           class="modalInput"
           placeholder="請輸入產品說明"
-          type="number"
+          type="text"
         />
       </div>
 
@@ -83,7 +103,7 @@
           name="原價"
           rules="required"
           @input="handleForm"
-          v-model.number="product.origin_price.value"
+          v-model.number="product.origin_price"
           class="modalInput"
           placeholder="請輸入產品原價"
           type="number"
@@ -96,10 +116,10 @@
           name="價格"
           rules="required"
           @input="handleForm"
-          v-model.number="product.price.value"
+          v-model.number="product.price"
           class="modalInput"
           placeholder="請輸入產品價格"
-          type="text"
+          type="number"
         />
         <span class="primary-red font-bold">{{ errors.價格 }}</span>
       </div>
@@ -107,7 +127,7 @@
         <span class="modalTitle">是否啟用</span>
         <select
           @change="handleForm"
-          v-model="product.is_enabled.value"
+          v-model="product.is_enabled"
           class="modalInput"
         >
           <option :value="1">是</option>
@@ -118,7 +138,7 @@
         <span class="modalTitle">詳細</span>
         <textarea
           @input="handleForm"
-          v-model="product.description.value"
+          v-model="product.description"
           class="modalInput"
           placeholder="請輸入產品詳細描述"
         />
@@ -129,7 +149,7 @@
 
 <script>
 import axios from "axios";
-import { toRefs, ref, inject } from "vue";
+import { toRef, ref, inject /*watch*/ } from "vue";
 import { useStore } from "vuex";
 import { Field } from "vee-validate";
 
@@ -142,6 +162,10 @@ export default {
     },
     errors: {
       type: Object,
+    },
+    isOpenModal: {
+      type: Boolean,
+      required: true,
     },
   },
   emits: ["getFormData", "getFIle"],
@@ -172,18 +196,48 @@ export default {
     ];
     const store = useStore();
     const $ElNotification = inject("$ElNotification");
+    const product = toRef(props, "productData");
     const file1 = ref(null);
-    const product = toRefs(props.productData);
+    const file2 = ref(null);
+    const file3 = ref(null);
+    const file4 = ref(null);
+    const file5 = ref(null);
 
     // 將 Modal 資料傳出去
     const handleForm = () => {
-      emit("getFormData", product);
+      emit("getFormData", product.value);
     };
-    // 上傳照片功能
-    const uploadFile = ($event) => {
+    // 取得照片1功能
+    const getFile1 = ($event) => {
+      console.log($event);
       file1.value = $event.target.files[0];
+      uploadFile(file1.value);
+    };
+    // 取得照片2功能
+    const getFile2 = ($event) => {
+      file2.value = $event.target.files[0];
+      uploadFile(file2.value);
+    };
+    // 取得照片3功能
+    const getFile3 = ($event) => {
+      file3.value = $event.target.files[0];
+      uploadFile(file3.value);
+    };
+    // 取得照片4功能
+    const getFile4 = ($event) => {
+      file4.value = $event.target.files[0];
+      uploadFile(file4.value);
+    };
+    // 取得照片5功能
+    const getFile5 = ($event) => {
+      file5.value = $event.target.files[0];
+      uploadFile(file5.value);
+    };
+
+    // 上傳照片功能
+    const uploadFile = (file) => {
       const formDate = new FormData();
-      formDate.append("file-to-upload", file1.value);
+      formDate.append("file-to-upload", file);
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/upload`;
       store.commit("ISLOADING", true);
       axios
@@ -208,9 +262,16 @@ export default {
         });
     };
 
-    // onMounted(() => {
-    //   console.dir(file1.value);
-    // });
+    // watch(
+    //   () => props.isOpenModal,
+    //   () => {
+    //     file1.value = "";
+    //     file2.value = "";
+    //     file3.value = "";
+    //     file4.value = "";
+    //     file5.value = "";
+    //   }
+    // );
 
     return {
       props,
@@ -218,7 +279,11 @@ export default {
       allUnit,
       product,
       handleForm,
-      uploadFile,
+      getFile1,
+      getFile2,
+      getFile3,
+      getFile4,
+      getFile5,
     };
   },
   components: {
