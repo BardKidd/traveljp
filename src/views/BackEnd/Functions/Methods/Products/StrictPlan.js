@@ -7,6 +7,7 @@ import store from "@/store";
 // const store = useStore();
 export let rows = ref([]);
 export let paginationInfo = ref({});
+
 // 取得特定頁面商品
 export const getProducts = (page) => {
   const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/products?page=${page}`;

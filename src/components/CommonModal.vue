@@ -18,7 +18,12 @@
         <button
           type="button"
           class="primaryBtn"
-          @click="handleSubmit(() => $emit('sendModalData'))"
+          @click="
+            handleSubmit(() => {
+              $emit('sendModalData');
+              $emit('changeVisible');
+            })
+          "
         >
           送出
         </button>
@@ -32,7 +37,7 @@ import { toRef } from "vue";
 export default {
   name: "CommonModal",
   props: {
-    commonModalVisible: {
+    isOpenModal: {
       type: Boolean,
       required: true,
     },
@@ -47,7 +52,7 @@ export default {
   emits: ["changeVisible", "sendModalData"],
 
   setup(props) {
-    const isVisible = toRef(props, "commonModalVisible");
+    const isVisible = toRef(props, "isOpenModal");
 
     return {
       isVisible,

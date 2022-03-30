@@ -3,23 +3,29 @@
     <section class="flex-1">
       <div class="flex flex-col">
         <span class="modalTitle">產品圖片1</span>
-        <input type="file" />
+        <input
+          name="file-to-upload"
+          type="file"
+          ref="file1"
+          accept="image/*"
+          @change="uploadFile($event)"
+        />
       </div>
       <div class="flex flex-col">
         <span class="modalTitle">產品圖片2</span>
-        <input type="file" />
+        <input type="file" accept="image/*" />
       </div>
       <div class="flex flex-col">
         <span class="modalTitle">產品圖片3</span>
-        <input type="file" />
+        <input type="file" accept="image/*" />
       </div>
       <div class="flex flex-col">
         <span class="modalTitle">產品圖片4</span>
-        <input type="file" />
+        <input type="file" accept="image/*" />
       </div>
       <div class="flex flex-col">
         <span class="modalTitle">產品圖片5</span>
-        <input type="file" />
+        <input type="file" accept="image/*" />
       </div>
     </section>
     <section class="flex-1">
@@ -122,7 +128,9 @@
 </template>
 
 <script>
-import { toRefs } from "vue";
+import axios from "axios";
+import { toRefs, ref, inject } from "vue";
+import { useStore } from "vuex";
 import { Field } from "vee-validate";
 
 export default {
@@ -136,7 +144,7 @@ export default {
       type: Object,
     },
   },
-  emits: ["getFormData"],
+  emits: ["getFormData", "getFIle"],
   setup(props, { emit }) {
     const allPlace = [
       "北海道",
@@ -162,12 +170,47 @@ export default {
       "9天8夜",
       "10天9夜",
     ];
-
+    const store = useStore();
+    const $ElNotification = inject("$ElNotification");
+    const file1 = ref(null);
     const product = toRefs(props.productData);
 
+    // 將 Modal 資料傳出去
     const handleForm = () => {
       emit("getFormData", product);
     };
+    // 上傳照片功能
+    const uploadFile = ($event) => {
+      file1.value = $event.target.files[0];
+      const formDate = new FormData();
+      formDate.append("file-to-upload", file1.value);
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/upload`;
+      store.commit("ISLOADING", true);
+      axios
+        .post(api, formDate)
+        .then((res) => {
+          if (res.data.success) {
+            // 將照片網址傳出去
+            emit("getFile", res.data.imageUrl);
+          } else {
+            $ElNotification({
+              title: "錯誤",
+              message: `${res.data.message}`,
+              type: "error",
+            });
+          }
+          store.commit("ISLOADING", false);
+        })
+        .catch((error) => {
+          if (error) {
+            store.commit("ISLOADING", false);
+          }
+        });
+    };
+
+    // onMounted(() => {
+    //   console.dir(file1.value);
+    // });
 
     return {
       props,
@@ -175,6 +218,7 @@ export default {
       allUnit,
       product,
       handleForm,
+      uploadFile,
     };
   },
   components: {

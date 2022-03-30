@@ -3,7 +3,8 @@
     <button
       type="button"
       @click="
-        commonModalVisible = true;
+        getModalData();
+        isOpenModal = true;
         isNew = true;
       "
       class="primaryBtn mb-3"
@@ -52,9 +53,9 @@
   ></Pagination>
   <Form v-slot="{ errors, handleSubmit }">
     <CommonModal
-      @changeVisible="commonModalVisible = false"
+      @changeVisible="isOpenModal = false"
       @sendModalData="addProducts(productData)"
-      :commonModalVisible="commonModalVisible"
+      :isOpenModal="isOpenModal"
       :isNew="isNew"
       :handleSubmit="handleSubmit"
     >
@@ -62,6 +63,7 @@
         <Template
           :errors="errors"
           @getFormData="getFormData"
+          @getFile="getFile"
           :productData="productData"
         ></Template>
       </template>
@@ -88,9 +90,8 @@ import { Form } from "vee-validate";
 export default {
   name: "BStrictPlan",
   setup() {
-    const commonModalVisible = ref(false);
+    const isOpenModal = ref(false);
     const isNew = ref(false);
-
     let productData = reactive({
       title: "",
       category: "北海道",
@@ -104,8 +105,31 @@ export default {
       imagesUrl: [],
     });
 
+    // 取得 Modal 資料
+    const getModalData = (val) => {
+      if (isNew.value) {
+        productData = reactive({
+          title: "",
+          category: "北海道",
+          origin_price: Number(0),
+          price: Number(0),
+          unit: "當天來回",
+          description: "",
+          content: "",
+          is_enabled: 1,
+          imageUrl: "",
+          imagesUrl: [],
+        });
+      } else {
+        productData = reactive(val);
+      }
+    };
+    // 取得 Modal 輸入的資料，從元件內傳出
     const getFormData = (val) => {
       productData = val;
+    };
+    const getFile = (val) => {
+      productData.imagesUrl.push(val);
     };
 
     onMounted(() => {
@@ -120,9 +144,11 @@ export default {
       newSize,
       getNewSize,
       productData,
-      commonModalVisible,
+      isOpenModal,
       getFormData,
       addProducts,
+      getFile,
+      getModalData,
     };
   },
 
