@@ -1,5 +1,5 @@
 <template>
-  <section class="min-h-screen flex flex-col">
+  <section class="h-full flex flex-col">
     <div class="shadow-md rounded">
       <img :src="Logo" alt="日旅購！的 Logo" />
     </div>

@@ -80,7 +80,7 @@
           name="名稱"
           rules="required"
           @input="handleForm"
-          v-model="product.title"
+          v-model.trim="product.title"
           class="modalInput"
           placeholder="請輸入產品名稱"
           type="text"
@@ -88,7 +88,7 @@
         <span class="primary-red font-bold">{{ errors.名稱 }}</span>
       </div>
       <div class="flex flex-col">
-        <span class="modalTitle">單位</span>
+        <span class="modalTitle">旅程(天數)</span>
         <select @change="handleForm" v-model="product.unit" class="modalInput">
           <option v-for="unit of allUnit" :key="unit" :value="unit">
             {{ unit }}
@@ -147,7 +147,7 @@
         <span class="modalTitle">詳細</span>
         <textarea
           @input="handleForm"
-          v-model="product.description"
+          v-model.trim="product.description"
           class="modalInput"
           placeholder="請輸入產品詳細描述"
         />
@@ -218,7 +218,6 @@ export default {
     };
     // 取得照片1功能
     const getFile1 = ($event) => {
-      console.log($event);
       file1.value = $event.target.files[0];
       uploadFile(file1.value);
     };
@@ -245,6 +244,7 @@ export default {
 
     // 上傳照片功能
     const uploadFile = (file) => {
+      if (!file) return;
       const formDate = new FormData();
       formDate.append("file-to-upload", file);
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/upload`;

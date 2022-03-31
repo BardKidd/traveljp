@@ -1,7 +1,7 @@
 <template>
   <el-config-provider :locale="zhTW">
     <section class="flex flex-row container">
-      <div class="w-1/6 h-full min-h-screen bg-primary-retouch2 shadow-xl">
+      <div class="w-1/6 min-h-screen bg-primary-retouch2 shadow-xl">
         <SideBar></SideBar>
       </div>
       <div class="w-5/6">
