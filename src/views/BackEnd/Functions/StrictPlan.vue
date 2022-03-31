@@ -12,12 +12,7 @@
       新增
     </button>
   </div>
-  <el-table
-    :data="rows.slice((newCurrent - 1) * newSize, newCurrent * newSize)"
-    stripe
-    style="width: 100%"
-    border
-  >
+  <el-table :data="rows" stripe style="width: 100%" border>
     <el-table-column align="center" sortable prop="category" label="類別" />
     <el-table-column align="center" sortable prop="title" label="名稱" />
     <el-table-column align="center" sortable prop="content" label="說明" />
@@ -60,10 +55,9 @@
   </el-table>
 
   <Pagination
-    @handleCurrentPage="getNewCurrent"
-    @handlePageSize="getNewSize"
+    @handleCurrentPage="changePage"
     v-if="rows.length > 0"
-    :total="rows.length"
+    :total="paginationInfo.total_pages"
   ></Pagination>
 
   <Form v-slot="{ errors, handleSubmit }">
@@ -99,12 +93,6 @@ import axios from "axios";
 import { onMounted, ref, inject } from "vue";
 import { useStore } from "vuex";
 import Pagination from "@/components/Pagination.vue";
-import {
-  getNewCurrent,
-  getNewSize,
-  newCurrent,
-  newSize,
-} from "@/components/Methods/ChangePage.js";
 import CommonModal from "@/components/CommonModal.vue";
 import DelCommonModal from "@/components/DelCommonModal.vue";
 import Template from "./Template/StrictPlanTemplate.vue";
@@ -122,6 +110,10 @@ export default {
     const paginationInfo = ref({});
     const productData = ref({});
 
+    // 換頁
+    const changePage = (current) => {
+      getProducts(current);
+    };
     // 取得 Modal 資料
     const getModalData = (val) => {
       if (isNew.value) {
@@ -249,14 +241,12 @@ export default {
 
     return {
       rows,
+      paginationInfo,
       isNew,
-      newCurrent,
-      getNewCurrent,
-      newSize,
-      getNewSize,
       productData,
       isOpenModal,
       isOpenDelModal,
+      changePage,
       getFormData,
       sendModalData,
       getFile,

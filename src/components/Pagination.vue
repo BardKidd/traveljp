@@ -1,10 +1,8 @@
 <template>
   <el-pagination
-    :page-sizes="[5, 10, 20, 50]"
     background
-    layout="prev, pager, next, sizes"
-    :total="total"
-    v-model:page-size="pageSize"
+    layout="prev, pager, next"
+    :page-count="total"
     v-model:current-page="currentPage"
   />
 </template>
@@ -20,19 +18,13 @@ export default {
     },
   },
   setup(props, { emit }) {
-    let currentPage = ref(1);
-    let pageSize = ref(20);
-
-    watch(pageSize, (n) => {
-      emit("handlePageSize", n);
-    });
+    const currentPage = ref(1);
     watch(currentPage, (n) => {
       emit("handleCurrentPage", n);
     });
 
     return {
       currentPage,
-      pageSize,
     };
   },
 };
