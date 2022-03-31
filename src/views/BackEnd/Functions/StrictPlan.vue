@@ -220,13 +220,13 @@ export default {
             getProducts(1);
             isOpenDelModal.value = false;
           } else {
+            store.commit("ISLOADING", false);
             $ElNotification({
               title: "錯誤",
               message: `${res.data.message}`,
               type: "error",
             });
           }
-          store.commit("ISLOADING", false);
         })
         .catch((error) => {
           if (error) {

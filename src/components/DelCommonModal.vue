@@ -6,7 +6,7 @@
     title="刪除項目"
     v-model="props.isOpenDelModal"
   >
-    <p>
+    <p class="text-lg text-justify">
       是否刪除<span class="primary-red font-bold">{{ props.itemTitle }}</span
       >?
     </p>
