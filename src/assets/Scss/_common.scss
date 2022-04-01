@@ -75,6 +75,20 @@
     border: 1px solid darken($retouch2, 10%);
   }
 }
+// 深色按鈕
+.otherBtn {
+  background-color: transparent;
+  color: $black;
+  padding: 5px 10px;
+  border: 1px solid $black;
+  border-radius: 5px;
+  font-weight: bold;
+  &:hover {
+    color: $white;
+    background-color: lighten($black, 5%);
+    border: 1px solid lighten($black, 5%);
+  }
+}
 
 // Input
 .modalTitle {

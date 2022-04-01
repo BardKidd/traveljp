@@ -58,3 +58,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+.el-overlay {
+  z-index: 999 !important;
+}
+</style>

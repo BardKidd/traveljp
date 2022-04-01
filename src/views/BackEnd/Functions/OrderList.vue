@@ -6,7 +6,7 @@
     <el-table-column
       align="center"
       sortable
-      prop="ch_is_paid"
+      prop="cn_is_paid"
       label="是否結帳"
     />
     <el-table-column
@@ -140,7 +140,7 @@ export default {
         .then((res) => {
           rows.value = res.data.orders;
           rows.value.forEach((item) => {
-            item.ch_is_paid = item.is_paid ? "是" : "否";
+            item.cn_is_paid = item.is_paid ? "是" : "否";
           });
           paginationInfo.value = res.data.pagination;
           store.commit("ISLOADING", false);

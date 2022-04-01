@@ -72,7 +72,7 @@
       </router-link>
       <router-link
         class="flex flex-wrap opacity-60 hover:opacity-100 items-center"
-        :to="{ name: 'BTravelNotes' }"
+        :to="{ name: 'BArticles' }"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

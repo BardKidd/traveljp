@@ -67,9 +67,7 @@
 </template>
 
 <script>
-// import axios from "axios";
-import { toRef /*, ref*/ /*, inject*/ } from "vue";
-// import { useStore } from "vuex";
+import { toRef } from "vue";
 import { Field } from "vee-validate";
 
 export default {
@@ -89,8 +87,6 @@ export default {
   },
   emits: ["getFormData", "getFIle"],
   setup(props, { emit }) {
-    // const store = useStore();
-    // const $ElNotification = inject("$ElNotification");
     const coupon = toRef(props, "couponData");
 
     // 將 Modal 資料傳出去

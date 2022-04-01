@@ -21,7 +21,7 @@
     <el-table-column
       align="center"
       sortable
-      prop="ch_is_enable"
+      prop="cn_is_enable"
       label="是否啟用"
     />
     <el-table-column>
@@ -153,7 +153,7 @@ export default {
         .then((res) => {
           rows.value = res.data.products;
           rows.value.forEach((item) => {
-            item.ch_is_enable = item.is_enabled ? "是" : "否";
+            item.cn_is_enable = item.is_enabled ? "是" : "否";
           });
           paginationInfo.value = res.data.pagination;
           store.commit("ISLOADING", false);

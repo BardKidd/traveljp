@@ -47,11 +47,11 @@ const routes = [
         meta: { requiresAuth: true },
       },
       {
-        path: "btravelnotes",
-        name: "BTravelNotes",
+        path: "barticle",
+        name: "BArticles",
         component: () =>
           import(
-            /* webpackChunkName: "BTravelNotes" */ "@/views/BackEnd/Functions/TravelNotes.vue"
+            /* webpackChunkName: "BArticles" */ "@/views/BackEnd/Functions/Article.vue"
           ),
         meta: { requiresAuth: true },
       },

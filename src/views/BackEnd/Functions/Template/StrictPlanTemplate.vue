@@ -177,7 +177,7 @@ export default {
       required: true,
     },
   },
-  emits: ["getFormData", "getFIle"],
+  emits: ["getFormData", "getFile"],
   setup(props, { emit }) {
     const allPlace = [
       "北海道",

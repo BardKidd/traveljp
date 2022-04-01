@@ -1,0 +1,17 @@
+@import "./variable";
+.el-tag {
+  color: $white !important;
+  background-color: lighten($black, 10%) !important;
+  > .el-tag__content {
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+  }
+  > .el-tag__close {
+    color: $white !important;
+    &:hover,
+    &:active {
+      background-color: $white !important;
+      color: $black !important;
+    }
+  }
+}

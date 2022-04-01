@@ -13,19 +13,15 @@
     </button>
   </div>
   <el-table :data="rows" stripe style="width: 100%" border>
-    <el-table-column align="center" sortable prop="title" label="優惠券" />
-    <el-table-column align="center" sortable prop="percent" label="折扣優惠" />
+    <el-table-column align="center" sortable prop="title" label="標題" />
+    <el-table-column align="center" sortable prop="description" label="摘要" />
+    <el-table-column align="center" sortable prop="author" label="作者" />
+    <el-table-column align="center" sortable prop="tag" label="Tag" />
     <el-table-column
       align="center"
       sortable
-      prop="due_date"
-      label="優惠結束日期"
-    />
-    <el-table-column
-      align="center"
-      sortable
-      prop="cn_is_enable"
-      label="是否啟用"
+      prop="cn_isPublic"
+      label="是否公開"
     />
     <el-table-column>
       <template #default="scope">
@@ -47,7 +43,7 @@
             @click="
               isNew = false;
               isOpenDelModal = true;
-              getModalData(scope.row);
+              getModalData(scope.row, 'del');
             "
           >
             刪除
@@ -66,7 +62,7 @@
   <Form v-slot="{ errors, handleSubmit }">
     <CommonModal
       @changeVisible="isOpenModal = false"
-      @sendModalData="sendModalData(couponData)"
+      @sendModalData="sendModalData(articleData)"
       :isOpenModal="isOpenModal"
       :isNew="isNew"
       :handleSubmit="handleSubmit"
@@ -76,17 +72,17 @@
           :isOpenModal="isOpenModal"
           :errors="errors"
           @getFormData="getFormData"
-          :couponData="couponData"
+          :articleData="articleData"
         ></Template>
       </template>
     </CommonModal>
   </Form>
 
   <DelCommonModal
-    :itemTitle="couponData.title"
+    :itemTitle="articleData.title"
     @changeVisible="isOpenDelModal = false"
     :isOpenDelModal="isOpenDelModal"
-    @sendModalData="delCoupon(couponData)"
+    @sendModalData="delArticle(articleData)"
   ></DelCommonModal>
 </template>
 
@@ -97,11 +93,11 @@ import { useStore } from "vuex";
 import Pagination from "@/components/Pagination.vue";
 import CommonModal from "@/components/CommonModal.vue";
 import DelCommonModal from "@/components/DelCommonModal.vue";
-import Template from "./Template/CouponTemplate.vue";
+import Template from "./Template/ArticleTemplate.vue";
 import { Form } from "vee-validate";
 
 export default {
-  name: "BCoupon",
+  name: "BArticle",
   setup() {
     const isOpenModal = ref(false);
     const isOpenDelModal = ref(false);
@@ -110,48 +106,46 @@ export default {
     const store = useStore();
     const rows = ref([]);
     const paginationInfo = ref({});
-    const couponData = ref({});
+    const articleData = ref({});
 
     // 換頁
     const changePage = (current) => {
-      getCoupons(current);
+      getArticles(current);
     };
     // 取得 Modal 資料
-    const getModalData = (val) => {
+    const getModalData = (val, type) => {
       if (isNew.value) {
-        couponData.value = {
+        articleData.value = {
           title: "",
-          is_enabled: 1,
-          percent: 100,
-          due_date: "",
-          code: "",
+          description: "",
+          image: "",
+          tag: [],
+          author: "",
+          isPublic: false,
+          content: "",
         };
       } else {
-        couponData.value = val;
+        articleData.value = val;
+        if (type !== "del") getArticleDetail(val.id);
       }
     };
 
     // 取得 Modal 輸入的資料，從元件內傳出
     const getFormData = (val) => {
-      couponData.value = val;
+      articleData.value = val;
     };
 
-    // 取得特定頁面優惠券
-    const getCoupons = (page) => {
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/coupons?page=${page}`;
+    // 取得特定頁面文章
+    const getArticles = (page) => {
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/articles?page=${page}`;
 
       store.commit("ISLOADING", true);
       axios
         .get(api)
         .then((res) => {
-          rows.value = res.data.coupons;
+          rows.value = res.data.articles;
           rows.value.forEach((item) => {
-            item.cn_is_enable = item.is_enabled ? "是" : "否";
-            const time = new Date(item.due_date);
-            const year = time.getFullYear();
-            const month = addZero(time.getMonth() + 1);
-            const date = addZero(time.getDate());
-            item.due_date = `${year}-${month}-${date}`;
+            item.cn_isPublic = item.isPublic ? "是" : "否";
           });
           paginationInfo.value = res.data.pagination;
           store.commit("ISLOADING", false);
@@ -163,25 +157,45 @@ export default {
         });
     };
 
-    // 日期月份補上 0
-    const addZero = (time) => {
-      return time < 10 ? `0${time}` : time;
+    // 取得單筆文章內容
+    const getArticleDetail = (id) => {
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/article/${id}`;
+      store.commit("ISLOADING", true);
+      axios
+        .get(api)
+        .then((res) => {
+          if (res.data.success) {
+            articleData.value.content = res.data.article.content;
+          } else {
+            $ElNotification({
+              title: "錯誤",
+              message: res.data.message,
+              type: "error",
+            });
+          }
+          store.commit("ISLOADING", false);
+        })
+        .catch((error) => {
+          if (error) {
+            store.commit("ISLOADING", false);
+          }
+        });
     };
 
-    // 送出表單(新增、編輯優惠券)
+    // 送出表單(新增、編輯文章)
     const sendModalData = (temp) => {
       let api = "";
       let httpMethods = "";
       if (isNew.value) {
-        api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/coupon`;
+        api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/article`;
         httpMethods = "post";
       } else {
-        api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/coupon/${temp.id}`;
+        api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/article/${temp.id}`;
         httpMethods = "put";
       }
       temp = {
         ...temp,
-        due_date: Math.floor(new Date(temp.due_date).getTime()),
+        create_at: new Date().getTime(),
       };
 
       store.commit("ISLOADING", true);
@@ -193,7 +207,7 @@ export default {
               message: `${res.data.message}`,
               type: "success",
             });
-            getCoupons(1);
+            getArticles(1);
           } else {
             $ElNotification({
               title: "錯誤",
@@ -210,9 +224,9 @@ export default {
         });
     };
 
-    // 刪除優惠券
-    const delCoupon = (temp) => {
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/coupon/${temp.id}`;
+    // 刪除文章
+    const delArticle = (temp) => {
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/article/${temp.id}`;
       store.commit("ISLOADING", true);
       axios
         .delete(api)
@@ -224,7 +238,7 @@ export default {
               type: "success",
             });
 
-            getCoupons(1);
+            getArticles(1);
             isOpenDelModal.value = false;
           } else {
             store.commit("ISLOADING", false);
@@ -243,21 +257,22 @@ export default {
     };
 
     onMounted(() => {
-      getCoupons(1);
+      getArticles(1);
     });
 
     return {
       rows,
       paginationInfo,
       isNew,
-      couponData,
+      articleData,
       isOpenModal,
       isOpenDelModal,
       changePage,
       getFormData,
       sendModalData,
       getModalData,
-      delCoupon,
+      delArticle,
+      getArticleDetail,
     };
   },
 
