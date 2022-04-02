@@ -19,7 +19,7 @@
       </ul>
     </div>
     <div
-      class="shadow orderBar_Content bg-primary-white p-5 flex flex-wrap justify-around"
+      class="shadow-xl orderBar_Content bg-primary-white p-4 flex flex-wrap justify-around"
     >
       <input type="date" />
       <input type="date" />
@@ -48,6 +48,6 @@
 
 <script>
 export default {
-  name: "L-OrderBar",
+  name: "OrderBar",
 };
 </script>

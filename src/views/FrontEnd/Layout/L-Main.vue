@@ -22,11 +22,13 @@
   </section>
 
   <Orderbar></Orderbar>
+  <SplitPage></SplitPage>
 </template>
 
 <script>
 import Topbar from "./L-Topbar.vue";
-import Orderbar from "./L-Orderbar.vue";
+import Orderbar from "@/views/FrontEnd/Main/Orderbar.vue";
+import SplitPage from "@/views/FrontEnd/Main/SplitPage.vue";
 import MainBG from "@/assets/Image/mainBg.jpg";
 export default {
   name: "L-Main",
@@ -38,6 +40,7 @@ export default {
   components: {
     Topbar,
     Orderbar,
+    SplitPage,
   },
 };
 </script>
