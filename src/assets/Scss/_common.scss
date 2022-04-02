@@ -1,42 +1,25 @@
 @import "./variable";
+// 標題文字
+.mainTitle {
+  text-shadow: 3px 3px 25px #000, -3px 3px 25px #000, 3px -3px 25px #000,
+    -3px -3px 25px #000;
+}
 // btn
 .mainBtn {
-  display: inline-block;
-  overflow: hidden;
-  position: relative;
-  > span {
-    transition: 0.2s linear;
-  }
-  &::after {
-    content: "";
-    position: absolute;
-    width: 120%;
-    height: 120%;
-    background-color: $primary;
-    transform: rotate(45deg);
-    left: -110%;
-    top: 90%;
-  }
+  border-radius: 5px;
+  border: 1px solid $white;
+  background-color: $white;
+  color: $primary;
+  padding: 5px 10px;
+  font-weight: bold;
+  font-size: 1.25rem;
+  text-align: center;
+  line-height: 2rem;
+  letter-spacing: 0.5rem;
   &:hover {
-    &::after {
-      animation: mainBtn 0.7s 1;
-      top: -10%;
-      left: -10%;
-    }
-  }
-}
-@keyframes mainBtn {
-  0% {
-    top: 90%;
-    left: -110%;
-  }
-  50% {
-    top: -30%;
-    left: 10%;
-  }
-  100% {
-    top: -10%;
-    left: -10%;
+    background-color: $primary;
+    border: 1px solid $primary;
+    color: $white;
   }
 }
 .primaryBtn {

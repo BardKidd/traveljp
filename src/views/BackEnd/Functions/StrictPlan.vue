@@ -73,7 +73,6 @@
           :isOpenModal="isOpenModal"
           :errors="errors"
           @getFormData="getFormData"
-          @getFile="getFile"
           :productData="productData"
         ></Template>
       </template>
@@ -137,10 +136,6 @@ export default {
     // 取得 Modal 輸入的資料，從元件內傳出
     const getFormData = (val) => {
       productData.value = val;
-    };
-    // 取得照片 URL
-    const getFile = (val) => {
-      productData.value.imagesUrl.push(val);
     };
 
     // 取得特定頁面商品
@@ -249,7 +244,6 @@ export default {
       changePage,
       getFormData,
       sendModalData,
-      getFile,
       getModalData,
       delProduct,
     };

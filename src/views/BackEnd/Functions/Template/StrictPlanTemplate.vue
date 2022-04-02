@@ -177,7 +177,7 @@ export default {
       required: true,
     },
   },
-  emits: ["getFormData", "getFile"],
+  emits: ["getFormData"],
   setup(props, { emit }) {
     const allPlace = [
       "北海道",
@@ -253,8 +253,8 @@ export default {
         .post(api, formDate)
         .then((res) => {
           if (res.data.success) {
-            // 將照片網址傳出去
-            emit("getFile", res.data.imageUrl);
+            product.value.imagesUrl.push(res.data.imageUrl);
+            handleForm();
           } else {
             $ElNotification({
               title: "錯誤",

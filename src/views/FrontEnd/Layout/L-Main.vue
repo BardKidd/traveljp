@@ -8,13 +8,13 @@
     />
     <section class="absolute bottom-28 pl-12 z-20">
       <div class="z-30 pb-14 pl-6 w-full">
-        <h1 class="leading-normal text-5xl primary-white tracking-widest">
+        <h1
+          class="leading-normal text-4xl primary-white tracking-widest after:content-[''] after:h-0.5 after:block after:bg-white mainTitle"
+        >
           絢爛東方的海上國度
         </h1>
-        <div
-          class="rounded-md cursor-pointer primary-white shadow-lg border-2 mt-9 p-3 text-2xl hover:text-3xl mainBtn"
-        >
-          <span class="primary-white">開始探索！</span>
+        <div class="mt-3 text-center">
+          <button type="button" class="mainBtn">開始探索！</button>
         </div>
       </div>
     </section>
