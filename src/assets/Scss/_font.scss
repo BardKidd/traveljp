@@ -1,10 +1,9 @@
 @import "./variable";
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Sawarabi+Mincho&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+JP&display=swap");
 
 * {
-  font-family: 游明朝体, "Yu Mincho", "Noto Sans TC", ui-sans-serif, system-ui,
-    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
-    Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-    "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: "Noto Serif JP", "Yu Mincho", "Noto Sans TC",
+    "Microsoft JhengHei", PingFang, sans-serif, serif;
   font-feature-settings: "palt";
 }
