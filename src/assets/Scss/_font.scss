@@ -1,8 +1,10 @@
 @import "./variable";
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+TC&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Noto+Serif+JP&display=swap");
 
-* {
-  font-family: "Noto Serif JP", "Yu Mincho", "Noto Sans TC",
+body,
+html {
+  font-family: "Noto Serif JP", "Noto Serif TC", "Yu Mincho", "Noto Sans TC",
     "Microsoft JhengHei", PingFang, sans-serif, serif;
   font-feature-settings: "palt";
 }
