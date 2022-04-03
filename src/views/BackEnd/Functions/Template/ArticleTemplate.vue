@@ -39,19 +39,6 @@
       </div>
     </section>
     <section class="flex-1 p-2">
-      <!-- <div class="flex flex-col h-full">
-        <span class="modalTitle">文章內容</span>
-        <Field
-          rules="required"
-          name="文章內容"
-          as="textarea"
-          @input="handleForm"
-          v-model="article.content"
-          class="modalInput h-full"
-          placeholder="請輸入文章內容"
-        />
-        <span class="primary-red font-bold">{{ errors.文章內容 }}</span>
-      </div> -->
       <div class="flex flex-col">
         <p class="modalTitle">Tag</p>
         <div class="flex flex-wrap items-center">

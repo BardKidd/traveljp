@@ -1,3 +1,11 @@
+:root {
+  --primary: #da3c3e;
+  --primary-hover: #b73234;
+  --white: #fff;
+  --black: #181210;
+  --retouch: #beb0a7;
+  --retouch2: #f4eee3;
+}
 @tailwind base;
 
 @tailwind components;
@@ -5,6 +13,35 @@
   .CenterVertically {
     @apply top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
   }
+  .splitTitle {
+    @apply text-6xl absolute left-2/4 top-1/4 -translate-x-1/2 whitespace-nowrap text-white;
+  }
+  .splitContent {
+    @apply text-sm mt-5 absolute left-2/4 top-1/3 -translate-x-1/2 text-gray-50;
+  }
+  .splitBtn {
+    @apply block w-60 absolute left-2/4 top-3/4 text-center font-bold p-5 -translate-x-2/4 text-lg border-4 border-solid border-white tracking-widest text-white;
+  }
+  .splitBtnPrimary {
+    @apply hover:border-[#b73234] hover:bg-[#da3c3e];
+  }
+  .splitBtnBlack {
+    @apply hover:border-[#181210] hover:bg-[#302927];
+  }
+  .splitBtnWhite {
+    @apply hover:border-[#fff] hover:bg-[#a1a1a1];
+  }
+  .transitionMixin {
+    @apply transition-all duration-1000 ease-in-out;
+  }
 }
 
 @tailwind utilities;
+@layer utilities {
+  .pb-full {
+    padding-bottom: 100%;
+  }
+  .flex-2 {
+    flex: 2 1 0%;
+  }
+}
