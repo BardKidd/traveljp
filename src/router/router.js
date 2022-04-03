@@ -4,10 +4,10 @@ import axios from "axios";
 const routes = [
   {
     path: "/",
-    name: "L-Main",
+    name: "HomePage",
     component: () =>
       import(
-        /* webpackChunkName: "L-Main" */ "@/views/FrontEnd/Layout/L-Main.vue"
+        /* webpackChunkName: "HomePage" */ "@/views/FrontEnd/Main/HomePage.vue"
       ),
   },
   {
