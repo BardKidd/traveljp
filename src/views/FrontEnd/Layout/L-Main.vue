@@ -22,6 +22,7 @@
   </section>
 
   <Orderbar></Orderbar>
+  <CompanyProfile></CompanyProfile>
   <SplitPage></SplitPage>
 </template>
 
@@ -29,7 +30,9 @@
 import Topbar from "./L-Topbar.vue";
 import Orderbar from "@/views/FrontEnd/Main/Orderbar.vue";
 import SplitPage from "@/views/FrontEnd/Main/SplitPage.vue";
+import CompanyProfile from "@/views/FrontEnd/Main/CompanyProfile.vue";
 import MainBG from "@/assets/Image/mainBg.jpg";
+
 export default {
   name: "L-Main",
   setup() {
@@ -41,6 +44,7 @@ export default {
     Topbar,
     Orderbar,
     SplitPage,
+    CompanyProfile,
   },
 };
 </script>
