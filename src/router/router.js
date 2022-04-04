@@ -4,11 +4,22 @@ import axios from "axios";
 const routes = [
   {
     path: "/",
-    name: "HomePage",
+    name: "L-Index",
     component: () =>
       import(
-        /* webpackChunkName: "HomePage" */ "@/views/FrontEnd/Main/HomePage.vue"
+        /* webpackChunkName: "L-Index" */ "@/views/FrontEnd/Layout/L-Index.vue"
       ),
+    children: [
+      {
+        path: "homepage",
+        name: "HomePage",
+        component: () =>
+          import(
+            /* webpackChunkName: "HomePage" */ "@/views/FrontEnd/Main/HomePage.vue"
+          ),
+      },
+    ],
+    redirect: "/homepage",
   },
   {
     path: "/admin",
@@ -65,7 +76,7 @@ const routes = [
   },
   {
     path: "/:pathMatch(.*)*", // vue-router4 將 * 號改為此寫法
-    redirect: "/",
+    redirect: "/homepage",
   },
 ];
 

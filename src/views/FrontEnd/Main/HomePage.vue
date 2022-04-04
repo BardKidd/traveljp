@@ -1,5 +1,4 @@
 <template>
-  <Topbar></Topbar>
   <section class="mainBG">
     <img
       class="absolute top-0 left-0 right-0 bottom-0"
@@ -25,14 +24,12 @@
     </section>
     <div class="image_overlay"></div>
   </section>
-
   <Orderbar></Orderbar>
   <CompanyProfile></CompanyProfile>
   <SplitPage></SplitPage>
 </template>
 
 <script>
-import Topbar from "@/views/FrontEnd/Layout/L-Topbar.vue";
 import Orderbar from "@/views/FrontEnd/Main/Orderbar.vue";
 import SplitPage from "@/views/FrontEnd/Main/SplitPage.vue";
 import CompanyProfile from "@/views/FrontEnd/Main/CompanyProfile.vue";
@@ -46,7 +43,6 @@ export default {
     };
   },
   components: {
-    Topbar,
     Orderbar,
     SplitPage,
     CompanyProfile,
