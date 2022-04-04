@@ -2,7 +2,7 @@
   --primary: #da3c3e;
   --primary-hover: #b73234;
   --white: #fff;
-  --black: #181210;
+  --black: #2a211f;
   --retouch: #beb0a7;
   --retouch2: #f4eee3;
 }
@@ -26,7 +26,7 @@
     @apply hover:border-[#b73234] hover:bg-[#da3c3e];
   }
   .splitBtnBlack {
-    @apply hover:border-[#181210] hover:bg-[#302927];
+    @apply hover:border-[#212121] hover:bg-[#302927];
   }
   .splitBtnWhite {
     @apply hover:border-[#fff] hover:bg-[#a1a1a1];

@@ -31,10 +31,15 @@ defineRule("required", required);
 
 // font awesome 5
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faFacebookF } from "@fortawesome/free-brands-svg-icons";
-// import { faFacebookF } from "@fortawesome/free-solid-svg-icons";
+import {
+  faFacebookF,
+  faTwitter,
+  faInstagram,
+  faGithub,
+} from "@fortawesome/free-brands-svg-icons";
+import { faPhoneAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-library.add(faFacebookF);
+library.add(faFacebookF, faTwitter, faInstagram, faGithub, faPhoneAlt);
 
 const app = createApp(App);
 app.provide("$ElNotification", ElNotification);
