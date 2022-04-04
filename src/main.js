@@ -27,10 +27,17 @@ configure({
   }),
 });
 setLocale("zh_TW");
-
 defineRule("required", required);
+
+// font awesome 5
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faFacebookF } from "@fortawesome/free-brands-svg-icons";
+// import { faFacebookF } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+library.add(faFacebookF);
 
 const app = createApp(App);
 app.provide("$ElNotification", ElNotification);
 app.component("LoadingOverlay", Loading);
+app.component("font-awesome-icon", FontAwesomeIcon);
 app.use(store).use(router).use(VueAxios, api).mount("#app");
