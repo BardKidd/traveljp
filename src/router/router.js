@@ -18,6 +18,14 @@ const routes = [
             /* webpackChunkName: "HomePage" */ "@/views/FrontEnd/Main/HomePage.vue"
           ),
       },
+      {
+        path: "shoplist",
+        name: "ShopList",
+        component: () =>
+          import(
+            /* webpackChunkName: "ShopList" */ "@/views/FrontEnd/Products/ShopList.vue"
+          ),
+      },
     ],
     redirect: "/homepage",
   },

@@ -37,9 +37,9 @@ import {
   faInstagram,
   faGithub,
 } from "@fortawesome/free-brands-svg-icons";
-import { faPhoneAlt } from "@fortawesome/free-solid-svg-icons";
+import { faPhoneAlt, faMinus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-library.add(faFacebookF, faTwitter, faInstagram, faGithub, faPhoneAlt);
+library.add(faFacebookF, faTwitter, faInstagram, faGithub, faPhoneAlt, faMinus);
 
 const app = createApp(App);
 app.provide("$ElNotification", ElNotification);
