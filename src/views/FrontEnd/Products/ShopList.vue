@@ -70,8 +70,8 @@
     <Pagination
       @handleCurrentPage="changePage"
       v-if="!hasCalledAll && rows.length > 0"
-      class="justify-end"
       :total="paginationInfo.total_pages"
+      class="justify-end"
     ></Pagination>
   </div>
 </template>
@@ -119,6 +119,11 @@ export default {
     const openArea = ref(true);
     const openDays = ref(true);
     const paginationInfo = ref({});
+
+    // 換頁
+    const changePage = (current) => {
+      getOnePageData(current);
+    };
 
     const getOnePageData = (page = 1) => {
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products?page=${page}`;
@@ -178,10 +183,6 @@ export default {
             store.commit("ISLOADING", false);
           }
         });
-    };
-    // 換頁
-    const changePage = (current) => {
-      getOnePageData(current);
     };
 
     watch(

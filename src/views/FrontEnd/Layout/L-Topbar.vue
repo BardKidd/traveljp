@@ -3,7 +3,12 @@
     class="container fixed z-50 flex flex-wrap items-center justify-between"
   >
     <div class="flex-auto">
-      <img :src="Logo" alt="日旅購！的 Logo" />
+      <img
+        :src="Logo"
+        alt="日旅購！的 Logo"
+        class="cursor-pointer"
+        @click="router.push({ name: 'HomePage' })"
+      />
     </div>
     <div
       class="flex flex-wrap flex-auto justify-around primary-white font-bold"
@@ -19,10 +24,15 @@
 
 <script>
 import Logo from "@/assets/Image/logo_red.png";
+import { useRouter } from "vue-router";
+
 export default {
   name: "L-TopBar",
   setup() {
+    const router = useRouter();
+
     return {
+      router,
       Logo,
     };
   },
