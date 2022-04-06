@@ -19,6 +19,7 @@ export default {
   setup() {
     const store = useStore();
     const isLoading = computed(() => store.getters.isLoading);
+
     return {
       isLoading,
     };
