@@ -1,17 +1,47 @@
 <template>
-  <div class="flex-1 ml-5 font-bold">
-    <img src="../assets/Image/sakura.jpg" alt="" class="" />
-    <h2 class="font-bold text-lg mt-5">標題</h2>
-    <p class="otherFont primary-black mt-3">內文</p>
-    <div class="flex flex-wrap mt-3 mb-6">
-      <button type="button" class="commonBtn--reverse">我要這個</button>
-      <button type="button" class="ml-5">詳細</button>
+  <div class="w-1/3 font-bold">
+    <div class="ml-5">
+      <img
+        :src="props.productData?.imagesUrl[0]"
+        alt="地點首圖"
+        class="cursor-pointer object-center object-cover h-52"
+      />
+      <h2 class="font-bold text-lg mt-5 cursor-pointer">
+        {{ props.productData.title }}
+      </h2>
+      <p class="otherFont primary-black mt-3 cursor-pointe line-clamp-3">
+        {{ props.productData.description }}
+      </p>
+      <div class="flex flex-wrap mt-3 mb-6">
+        <button type="button" class="otherFont font-bold commonBtn--reverse">
+          我要這個
+        </button>
+        <button
+          type="button"
+          class="otherFont font-bold ml-5 hover:primary-red"
+        >
+          詳細
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+// import { reactive, toRefs } from "vue";
+
 export default {
   name: "CommonCard",
+  props: {
+    productData: {
+      type: Object,
+      required: true,
+    },
+  },
+  setup(props) {
+    return {
+      props,
+    };
+  },
 };
 </script>

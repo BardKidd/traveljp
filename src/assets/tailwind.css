@@ -44,4 +44,35 @@
   .flex-2 {
     flex: 2 1 0%;
   }
+  /* color */
+  .primary-red {
+    color: var(--primary);
+  }
+  .bg-primary-red {
+    background-color: var(--primary);
+  }
+  .primary-white {
+    color: var(--white);
+  }
+  .bg-primary-white {
+    background-color: var(--white);
+  }
+  .primary-black {
+    color: var(--black);
+  }
+  .bg-primary-black {
+    background-color: var(--black);
+  }
+  .primary-retouch {
+    color: var(--retouch);
+  }
+  .bg-primary-retouch {
+    background-color: var(--retouch);
+  }
+  .primary-retouch2 {
+    color: var(--retouch2);
+  }
+  .bg-primary-retouch2 {
+    background-color: var(--retouch2);
+  }
 }
