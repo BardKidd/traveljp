@@ -64,7 +64,13 @@
         </div>
       </aside>
       <div class="flex-1 ml-10 flex flex-wrap">
-        <Card :productData="item" v-for="item of rows" :key="item.id"></Card>
+        <Card
+          @click="getProductDetail(item)"
+          @joinTheShoppingCar="joinTheShoppingCar"
+          :productData="item"
+          v-for="item of rows"
+          :key="item.id"
+        ></Card>
       </div>
     </section>
     <Pagination
@@ -82,6 +88,7 @@ import Card from "@/components/CommonCard.vue";
 import Pagination from "@/components/Pagination.vue";
 import { inject, onMounted, ref, watch } from "vue";
 import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 
 export default {
   name: "ShopList",
@@ -115,6 +122,7 @@ export default {
     const selectCriteria = ref([]);
     const $ElNotification = inject("$ElNotification");
     const store = useStore();
+    const router = useRouter();
     const hasCalledAll = ref(false);
     const openArea = ref(true);
     const openDays = ref(true);
@@ -125,6 +133,7 @@ export default {
       getOnePageData(current);
     };
 
+    // 取得特定頁面資料
     const getOnePageData = (page = 1) => {
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products?page=${page}`;
       store.commit("ISLOADING", true);
@@ -149,6 +158,7 @@ export default {
           }
         });
     };
+    // 取得所有資料
     const getAllData = () => {
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products/all`;
       store.commit("ISLOADING", true);
@@ -184,7 +194,14 @@ export default {
           }
         });
     };
-
+    // 取得產品詳細資料
+    const getProductDetail = (item) => {
+      router.push({ name: "ShopDetail", params: { id: item.id } });
+    };
+    // 加入購物車
+    const joinTheShoppingCar = () => {
+      console.log("有點到");
+    };
     watch(
       () => selectCriteria.value,
       (n) => {
@@ -229,6 +246,8 @@ export default {
       selectCriteria,
       getOnePageData,
       changePage,
+      getProductDetail,
+      joinTheShoppingCar,
     };
   },
   components: {

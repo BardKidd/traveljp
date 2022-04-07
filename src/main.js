@@ -37,7 +37,15 @@ import {
   faInstagram,
   faGithub,
 } from "@fortawesome/free-brands-svg-icons";
-import { faPhoneAlt, faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPhoneAlt,
+  faMinus,
+  faPlus,
+  faDollarSign,
+  faMapMarkedAlt,
+  faInfoCircle,
+  faMapMarkerAlt,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 library.add(
   faFacebookF,
@@ -46,7 +54,11 @@ library.add(
   faGithub,
   faPhoneAlt,
   faMinus,
-  faPlus
+  faPlus,
+  faDollarSign,
+  faMapMarkedAlt,
+  faInfoCircle,
+  faMapMarkerAlt
 );
 
 const app = createApp(App);

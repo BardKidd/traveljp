@@ -42,22 +42,34 @@
 
 <script>
 import Logo from "@/assets/Image/logo_red.png";
-import { ref } from "vue";
-import { useRouter } from "vue-router";
+import { ref, watchEffect } from "vue";
+import { useRouter, useRoute } from "vue-router";
 
 export default {
   name: "L-TopBar",
   setup() {
     const router = useRouter();
+    const route = useRoute();
     const isChangeStyle = ref(false);
-    const handleScroll = (e) => {
-      isChangeStyle.value =
-        e.srcElement.scrollingElement.scrollTop > 0 ? true : false;
-    };
-    window.addEventListener("scroll", handleScroll);
+
+    watchEffect(() => {
+      console.log(route.name);
+      if (route.name === "ShopDetail") {
+        console.log("近來?");
+        isChangeStyle.value = true;
+      } else {
+        const handleScroll = (e) => {
+          isChangeStyle.value =
+            e.srcElement.scrollingElement.scrollTop > 0 ? true : false;
+        };
+        window.addEventListener("scroll", handleScroll);
+      }
+    });
+
     return {
       isChangeStyle,
       router,
+      route,
       Logo,
     };
   },

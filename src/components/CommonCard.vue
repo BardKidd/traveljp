@@ -9,11 +9,15 @@
       <h2 class="font-bold text-lg mt-5 cursor-pointer">
         {{ props.productData.title }}
       </h2>
-      <p class="otherFont primary-black mt-3 cursor-pointe line-clamp-3">
+      <p class="otherFont primary-black mt-3 cursor-pointer line-clamp-3">
         {{ props.productData.description }}
       </p>
       <div class="flex flex-wrap mt-3 mb-6">
-        <button type="button" class="otherFont font-bold commonBtn--reverse">
+        <button
+          type="button"
+          class="otherFont font-bold commonBtn--reverse"
+          @click.stop="iWantThis"
+        >
           我要這個
         </button>
         <button
@@ -32,15 +36,20 @@
 
 export default {
   name: "CommonCard",
+  emits: ["joinTheShoppingCar"],
   props: {
     productData: {
       type: Object,
       required: true,
     },
   },
-  setup(props) {
+  setup(props, { emit }) {
+    const iWantThis = () => {
+      emit("joinTheShoppingCar", "ts");
+    };
     return {
       props,
+      iWantThis,
     };
   },
 };
