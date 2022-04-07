@@ -13,36 +13,46 @@
     <section class="flex mb-32">
       <div class="flex-2">
         <!-- 幻燈片輪播 開始 -->
-        <div class="slider overflow-hidden rounded-xl max-w-[800px]">
-          <div class="slides slide w-[600%] flex">
-            <input
-              class="hidden"
-              v-for="(radio, index) of detail?.imagesUrl.length"
-              :key="radio"
-              :id="`radio${index}`"
-              type="radio"
-            />
-            <!-- 只有第一個需要加上 imgML 的 class -->
+        <div class="overflow-hidden rounded-xl">
+          <input
+            class="hidden"
+            v-for="(radio, index) of detail?.imagesUrl.length"
+            :key="radio"
+            :id="`radio${index}`"
+            type="radio"
+          />
+          <transition-group
+            :name="transitionName"
+            tag="div"
+            class="relative bg-primary-red bg-primary-red h-[500px] w-[800px]"
+          >
             <div
-              :class="index === 0 ? `imgML${show}` : ''"
-              class="overflow-hidden duration-1000"
+              v-show="index === show"
+              class="absolute overflow-hidden"
               v-for="(img, index) of detail?.imagesUrl"
               :key="img"
             >
-              <img :src="img" :alt="`產品圖片${index}`" />
+              <img
+                class="object-cover object-center w-[800px] h-[500px]"
+                :src="img"
+                :alt="`產品圖片${index}`"
+              />
             </div>
+
             <div
-              class="navigation-manual w-[800px] absolute top-full flex justify-center"
+              key="label"
+              class="w-[800px] absolute top-[90%] flex justify-center"
             >
               <label
                 @click="setShow(index)"
                 :for="`radio${index}`"
-                class="manual-btn border-2 border- p-1 rounded-xl border-[#2a211f] cursor-pointer duration-500 mr-10 hover:bg-primary-black"
+                class="manual-btn border-2 border- p-1 rounded-xl border-[#2a211f] cursor-pointer mr-10 hover:bg-primary-black"
+                :class="show === index ? 'bg-primary-black' : ''"
                 v-for="(manual, index) of detail?.imagesUrl.length"
                 :key="manual"
               ></label>
             </div>
-          </div>
+          </transition-group>
         </div>
         <!-- 幻燈片輪播 結束 -->
         <!-- 地點文字 開始 -->
@@ -103,7 +113,7 @@
 </template>
 
 <script>
-import { onMounted, inject, ref } from "vue";
+import { onMounted, inject, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
 import axios from "axios";
@@ -113,6 +123,7 @@ export default {
     const route = useRoute();
     const store = useStore();
     const show = ref(0); // 當前要顯示的照片
+    const transitionName = ref("left");
     const $ElNotification = inject("$ElNotification");
     const detail = ref({
       category: "",
@@ -159,6 +170,13 @@ export default {
       show.value = index;
     };
 
+    watch(
+      () => show.value,
+      (n, o) => {
+        transitionName.value = n > o ? "right" : "left";
+      }
+    );
+
     onMounted(() => {
       getDetail(route.params.id);
     });
@@ -166,6 +184,7 @@ export default {
     return {
       detail,
       show,
+      transitionName,
       setShow,
     };
   },
@@ -173,19 +192,36 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.imgML0 {
-  margin-left: 0;
+.right-enter-from {
+  left: 100%;
 }
-.imgML1 {
-  margin-left: -20%;
+.right-enter-active,
+.right-leave-active {
+  left: 100%;
+  transition: left 1s;
 }
-.imgML2 {
-  margin-left: -40%;
+.right-enter-to,
+.right-leave-from {
+  left: 0%;
 }
-.imgML3 {
-  margin-left: -60%;
+.right-leave-to {
+  //   left: 100%;
+  left: -100%;
 }
-.imgML4 {
-  margin-left: -80%;
+.left-enter-from {
+  left: -100%;
+}
+.left-enter-active,
+.left-leave-active {
+  left: -100%;
+  transition: left 1s;
+}
+.left-enter-to,
+.left-leave-from {
+  left: 0%;
+}
+.left-leave-to {
+  //   left: -100%;
+  left: 100%;
 }
 </style>
