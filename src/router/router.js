@@ -42,6 +42,14 @@ const routes = [
             /* webpackChunkName: "ShoppingCart" */ "@/views/FrontEnd/Products/ShoppingCart.vue"
           ),
       },
+      {
+        path: "orderinfo",
+        name: "OrderInfo",
+        component: () =>
+          import(
+            /* webpackChunkName: "OrderInfo" */ "@/views/FrontEnd/Products/OrderInfo.vue"
+          ),
+      },
     ],
     redirect: "/homepage",
   },

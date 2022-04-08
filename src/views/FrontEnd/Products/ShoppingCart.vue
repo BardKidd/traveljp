@@ -64,7 +64,9 @@
         <span class="mr-5 font-bold otherFont text-lg"
           >總金額: {{ computedTotal }}</span
         >
-        <button type="button" class="commonBtn">結帳</button>
+        <router-link :to="{ name: 'OrderInfo' }" type="button" class="commonBtn"
+          >結帳</router-link
+        >
       </div>
     </div>
   </section>
