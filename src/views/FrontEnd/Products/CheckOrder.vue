@@ -6,7 +6,7 @@
     </div>
     <table>
       <thead>
-        <tr class="leading-loose">
+        <tr>
           <th></th>
           <th>商品</th>
           <th>人數</th>
@@ -51,9 +51,6 @@
         </tr>
       </tbody>
     </table>
-    <button type="button" @click="delAllProduct" class="hover:primary-red mt-5">
-      整批刪除
-    </button>
     <div
       class="mt-5 mb-10 bg-primary-retouch rounded p-5 flex justify-between items-center"
     >
@@ -96,9 +93,6 @@ export default {
               router.push({ name: "ShopList" });
             }
             productsData.value = res.data.data.carts;
-            productsData.value.forEach((item) => {
-              item.isSelected = false;
-            });
           } else {
             $ElNotification({
               title: "錯誤",
@@ -136,31 +130,6 @@ export default {
               type: "error",
             });
           }
-          store.commit("ISLOADING", false);
-        })
-        .catch((error) => {
-          if (error) {
-            store.commit("ISLOADING", false);
-          }
-        });
-    };
-
-    // 刪除購物車所有資料
-    const delAllProduct = () => {
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/carts`;
-      store.commit("ISLOADING", true);
-
-      axios
-        .delete(api)
-        .then((res) => {
-          if (!res.data.success) {
-            $ElNotification({
-              title: "錯誤",
-              message: res.data.message,
-              type: "error",
-            });
-          }
-          getShoppingCart();
           store.commit("ISLOADING", false);
         })
         .catch((error) => {
@@ -212,7 +181,6 @@ export default {
       getShoppingCart();
     });
 
-    // 離開頁面前更新購物車
     onBeforeUnmount(() => {
       productsData.value.forEach((item) => {
         changeQty(item);
@@ -232,7 +200,6 @@ export default {
       productsData,
       delShoppingCart,
       minQty,
-      delAllProduct,
       computedTotal,
     };
   },

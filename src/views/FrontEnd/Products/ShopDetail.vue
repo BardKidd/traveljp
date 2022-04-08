@@ -59,6 +59,7 @@
         <p class="otherFont mt-5 font-bold">{{ detail.content }}</p>
         <!-- 地點文字 結束 -->
       </div>
+      <!-- 右側區塊 開始 -->
       <div
         class="flex-1 flex flex-col ml-10 h-fit p-5 shadow-[0_0_20px_rgba(0,0,0,0.2)]"
       >
@@ -82,7 +83,7 @@
           </div>
         </div>
         <div class="flex justify-between mb-3">
-          <select class="border flex-1 mr-1 py-2 px-3 rounded">
+          <select v-model="qty" class="border flex-1 mr-1 py-2 px-3 rounded">
             <option
               :value="key + 1"
               v-for="(adult, key) of 10"
@@ -91,23 +92,20 @@
               {{ adult }} 位
             </option>
           </select>
-          <!-- <select class="border flex-1 ml-1 py-2 px-3 rounded">
-            <option
-              :value="key + 1"
-              v-for="(children, key) of 10"
-              :key="`children${key}`"
-            >
-              {{ children }} 位孩童
-            </option>
-          </select> -->
         </div>
-        <button type="button" class="commonBtn mb-2">我要這個</button>
-        <button type="button" class="text-sm">加入購物車</button>
+        <button
+          type="button"
+          class="commonBtn mb-2"
+          @click="joinTheShoppingCar(detail.id)"
+        >
+          我要這個
+        </button>
         <span class="text-center mt-2 text-sm otherFont font-bold"
           >聯繫我們
           <span class="hover:primary-red cursor-pointer">0800-123456</span>
         </span>
       </div>
+      <!-- 右側區塊 結束 -->
     </section>
   </div>
 </template>
@@ -125,6 +123,7 @@ export default {
     const show = ref(0); // 當前要顯示的照片
     const transitionName = ref("left");
     const $ElNotification = inject("$ElNotification");
+    const qty = ref(1); // 人數
     const detail = ref({
       category: "",
       content: "",
@@ -170,6 +169,40 @@ export default {
       show.value = index;
     };
 
+    // 加入購物車
+    const joinTheShoppingCar = (id) => {
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`;
+      const cart = {
+        product_id: id,
+        qty: qty.value,
+      };
+      store.commit("ISLOADING", true);
+      axios
+        .post(api, { data: cart })
+        .then((res) => {
+          if (res.data.success) {
+            $ElNotification({
+              title: "成功",
+              message: res.data.message,
+              type: "success",
+            });
+          } else {
+            $ElNotification({
+              title: "錯誤",
+              message: res.data.message,
+              type: "error",
+            });
+          }
+          store.commit("ISLOADING", false);
+        })
+        .catch((error) => {
+          if (error) {
+            store.commit("ISLOADING", false);
+          }
+        });
+    };
+
+    // 監聽 slider 是否要朝左還朝右滑動
     watch(
       () => show.value,
       (n, o) => {
@@ -184,8 +217,10 @@ export default {
     return {
       detail,
       show,
+      qty,
       transitionName,
       setShow,
+      joinTheShoppingCar,
     };
   },
 };
