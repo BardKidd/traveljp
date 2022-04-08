@@ -88,10 +88,10 @@
               v-for="(adult, key) of 10"
               :key="`adult${key}`"
             >
-              {{ adult }} 位成人
+              {{ adult }} 位
             </option>
           </select>
-          <select class="border flex-1 ml-1 py-2 px-3 rounded">
+          <!-- <select class="border flex-1 ml-1 py-2 px-3 rounded">
             <option
               :value="key + 1"
               v-for="(children, key) of 10"
@@ -99,7 +99,7 @@
             >
               {{ children }} 位孩童
             </option>
-          </select>
+          </select> -->
         </div>
         <button type="button" class="commonBtn mb-2">我要這個</button>
         <button type="button" class="text-sm">加入購物車</button>
@@ -113,10 +113,10 @@
 </template>
 
 <script>
+import axios from "axios";
 import { onMounted, inject, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
-import axios from "axios";
 export default {
   name: "ShopDetail",
   setup() {

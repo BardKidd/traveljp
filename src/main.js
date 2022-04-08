@@ -45,6 +45,9 @@ import {
   faMapMarkedAlt,
   faInfoCircle,
   faMapMarkerAlt,
+  faShoppingCart,
+  faTrashAlt,
+  faArrowLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 library.add(
@@ -58,7 +61,10 @@ library.add(
   faDollarSign,
   faMapMarkedAlt,
   faInfoCircle,
-  faMapMarkerAlt
+  faMapMarkerAlt,
+  faShoppingCart,
+  faTrashAlt,
+  faArrowLeft
 );
 
 const app = createApp(App);

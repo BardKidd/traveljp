@@ -29,10 +29,10 @@
           v-for="(adult, key) of 10"
           :key="`adult${key}`"
         >
-          {{ adult }} 位成人
+          {{ adult }} 位
         </option>
       </select>
-      <select>
+      <!-- <select>
         <option
           :value="key + 1"
           v-for="(children, key) of 10"
@@ -40,7 +40,7 @@
         >
           {{ children }} 位孩童
         </option>
-      </select>
+      </select> -->
       <button type="button">搜索計畫</button>
     </div>
   </section>

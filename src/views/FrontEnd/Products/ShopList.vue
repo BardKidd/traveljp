@@ -66,7 +66,7 @@
       <div class="flex-1 ml-10 flex flex-wrap">
         <Card
           @click="getProductDetail(item)"
-          @joinTheShoppingCar="joinTheShoppingCar"
+          @joinTheShoppingCar="joinTheShoppingCar(item)"
           :productData="item"
           v-for="item of rows"
           :key="item.id"
@@ -84,11 +84,11 @@
 
 <script>
 import axios from "axios";
-import Card from "@/components/CommonCard.vue";
-import Pagination from "@/components/Pagination.vue";
 import { inject, onMounted, ref, watch } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
+import Pagination from "@/components/Pagination.vue";
+import Card from "@/components/CommonCard.vue";
 
 export default {
   name: "ShopList",
@@ -199,8 +199,36 @@ export default {
       router.push({ name: "ShopDetail", params: { id: item.id } });
     };
     // 加入購物車
-    const joinTheShoppingCar = () => {
-      console.log("有點到");
+    const joinTheShoppingCar = (product) => {
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`;
+      const cart = {
+        product_id: product.id,
+        qty: 1,
+      };
+      store.commit("ISLOADING", true);
+      axios
+        .post(api, { data: cart })
+        .then((res) => {
+          if (res.data.success) {
+            $ElNotification({
+              title: "成功",
+              message: res.data.message,
+              type: "success",
+            });
+          } else {
+            $ElNotification({
+              title: "錯誤",
+              message: res.data.message,
+              type: "error",
+            });
+          }
+          store.commit("ISLOADING", false);
+        })
+        .catch((error) => {
+          if (error) {
+            store.commit("ISLOADING", false);
+          }
+        });
     };
     watch(
       () => selectCriteria.value,
@@ -235,24 +263,24 @@ export default {
     });
 
     return {
-      allPlace,
-      allUnit,
       rows,
       paginationInfo,
+      allPlace,
+      allUnit,
       allData,
       hasCalledAll,
       openArea,
       openDays,
       selectCriteria,
-      getOnePageData,
       changePage,
+      getOnePageData,
       getProductDetail,
       joinTheShoppingCar,
     };
   },
   components: {
-    Card,
     Pagination,
+    Card,
   },
 };
 </script>

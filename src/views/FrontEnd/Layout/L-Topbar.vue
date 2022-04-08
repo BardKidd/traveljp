@@ -12,7 +12,7 @@
       />
     </div>
     <div
-      class="flex flex-wrap flex-auto justify-around font-bold"
+      class="flex flex-wrap flex-auto justify-around font-bold items-center"
       :class="isChangeStyle ? 'primary-black' : 'primary-white'"
     >
       <router-link
@@ -33,9 +33,14 @@
       <router-link
         class="hover:primary-red p-5 hover:bg-primary-white transition-all ease-in-out duration-150 rounded-t"
         to="#"
-        >常見問題</router-link
+        >取得優惠</router-link
       >
-      <button>X</button>
+      <router-link
+        :to="{ name: 'ShoppingCart' }"
+        class="hover:primary-red p-5 hover:bg-primary-white text-xl transition-all ease-in-out duration-150 rounded-t"
+      >
+        <font-awesome-icon :icon="['fas', 'shopping-cart']" />
+      </router-link>
     </div>
   </section>
 </template>
