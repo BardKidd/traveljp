@@ -27,7 +27,7 @@ const routes = [
           ),
       },
       {
-        path: "shoplist/:id",
+        path: "shopdetail/:id",
         name: "ShopDetail",
         component: () =>
           import(

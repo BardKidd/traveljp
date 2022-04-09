@@ -9,7 +9,7 @@
         :icon="['fas', 'map-marker-alt']"
       />{{ detail.category }}
     </p>
-
+    <!-- 產品區塊 開始 -->
     <section class="flex mb-32">
       <div class="flex-2">
         <!-- 幻燈片輪播 開始 -->
@@ -107,23 +107,51 @@
       </div>
       <!-- 右側區塊 結束 -->
     </section>
+    <!-- 產品區塊 結束 -->
+
+    <!-- 相關產品 開始 -->
+    <div class="lLine w-1/3 mb-10"></div>
+    <section class="flex mb-32">
+      <div
+        class="pr-2 w-1/3 cursor-pointer"
+        v-for="same of sameCategory.slice(0, 3)"
+        :key="same.id"
+        @click="goSameCategory(same.id)"
+      >
+        <div
+          class="before:content-[''] relative before:absolute before:w-full before:h-full before:bg-primary-black before:opacity-0 hover:before:opacity-30 max-h-60 overflow-hidden"
+        >
+          <img
+            class="h-64 w-full object-cover object-center"
+            :src="same?.imagesUrl[0]"
+            alt="相關產品圖片"
+          />
+        </div>
+        <p class="">{{ same.title }}</p>
+      </div>
+    </section>
+    <!-- 相關產品 結束 -->
   </div>
 </template>
 
 <script>
 import axios from "axios";
 import { onMounted, inject, ref, watch } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
 export default {
   name: "ShopDetail",
   setup() {
     const route = useRoute();
+    const router = useRouter();
     const store = useStore();
     const show = ref(0); // 當前要顯示的照片
     const transitionName = ref("left");
     const $ElNotification = inject("$ElNotification");
     const qty = ref(1); // 人數
+    const allData = ref([]); // 全部產品
+    const sameCategory = ref([]); // 相同的地區
+
     const detail = ref({
       category: "",
       content: "",
@@ -152,6 +180,41 @@ export default {
             $ElNotification({
               title: "錯誤",
               message: res.data.message,
+              type: "error",
+            });
+          }
+          store.commit("ISLOADING", false);
+        })
+        .catch((error) => {
+          if (error) {
+            store.commit("ISLOADING", false);
+          }
+        });
+    };
+
+    // 取得所有資料
+    const getAllData = () => {
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products/all`;
+      sameCategory.value = [];
+      store.commit("ISLOADING", true);
+      axios
+        .get(api)
+        .then((res) => {
+          if (res.data.success) {
+            allData.value = res.data.products;
+
+            allData.value.forEach((item) => {
+              if (
+                item.category === detail.value.category &&
+                item.id !== detail.value.id
+              ) {
+                sameCategory.value.push(item);
+              }
+            });
+          } else {
+            $ElNotification({
+              title: "錯誤",
+              message: `${res.data.message}`,
               type: "error",
             });
           }
@@ -202,6 +265,14 @@ export default {
         });
     };
 
+    // 前往相似產品頁面
+    const goSameCategory = async (id) => {
+      router.push({ params: { id: id } });
+
+      await getDetail(id);
+      await getAllData();
+    };
+
     // 監聽 slider 是否要朝左還朝右滑動
     watch(
       () => show.value,
@@ -211,6 +282,7 @@ export default {
     );
 
     onMounted(() => {
+      getAllData();
       getDetail(route.params.id);
     });
 
@@ -219,8 +291,10 @@ export default {
       show,
       qty,
       transitionName,
+      sameCategory,
       setShow,
       joinTheShoppingCar,
+      goSameCategory,
     };
   },
 };
@@ -240,7 +314,6 @@ export default {
   left: 0%;
 }
 .right-leave-to {
-  //   left: 100%;
   left: -100%;
 }
 .left-enter-from {
@@ -256,7 +329,6 @@ export default {
   left: 0%;
 }
 .left-leave-to {
-  //   left: -100%;
   left: 100%;
 }
 </style>

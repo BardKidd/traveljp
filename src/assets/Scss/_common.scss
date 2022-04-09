@@ -9,7 +9,10 @@
   width: 100%;
   border-top: 8px solid $primary;
 }
-
+// 左線條
+.lLine {
+  border-top: 8px solid $primary;
+}
 // btn
 .mainBtn {
   border-radius: 5px;

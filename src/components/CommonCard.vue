@@ -32,8 +32,6 @@
 </template>
 
 <script>
-// import { reactive, toRefs } from "vue";
-
 export default {
   name: "CommonCard",
   emits: ["joinTheShoppingCar"],
