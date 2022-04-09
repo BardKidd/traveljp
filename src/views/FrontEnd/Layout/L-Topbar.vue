@@ -47,7 +47,7 @@
 
 <script>
 import Logo from "@/assets/Image/logo_red.png";
-import { ref, watchEffect } from "vue";
+import { ref, watch, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 
 export default {
@@ -56,18 +56,27 @@ export default {
     const router = useRouter();
     const route = useRoute();
     const isChangeStyle = ref(false);
+    const handleScroll = (e) => {
+      isChangeStyle.value =
+        e.srcElement.scrollingElement.scrollTop > 0 ? true : false;
+    };
+    watch(
+      () => route.name,
+      (n) => {
+        if (n === "ShopList" || n === "HomePage") {
+          window.addEventListener("scroll", handleScroll);
+        } else {
+          window.removeEventListener("scroll", handleScroll);
+          isChangeStyle.value = true;
+        }
+      }
+    );
 
-    watchEffect(() => {
-      console.log(route.name);
-      if (route.name === "ShopDetail") {
-        console.log("近來?");
-        isChangeStyle.value = true;
-      } else {
-        const handleScroll = (e) => {
-          isChangeStyle.value =
-            e.srcElement.scrollingElement.scrollTop > 0 ? true : false;
-        };
+    onMounted(() => {
+      if (route.name === "ShopList" || route.name === "HomePage") {
         window.addEventListener("scroll", handleScroll);
+      } else {
+        isChangeStyle.value = true;
       }
     });
 

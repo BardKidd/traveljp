@@ -4,13 +4,11 @@
       <img
         src="~@/assets/Image/pexels-kyle-kroeger-1673978.jpg"
         class="max-w-3xl overflow-hidden border-8 border-white shadow-xl"
-        loading="lazy"
         alt=""
       />
       <img
         src="~@/assets/Image/airplane.jpg"
         class="max-w-sm absolute -right-10 -bottom-10 shadow-md border-8 border-white"
-        loading="lazy"
         alt="飛行窗外圖"
       />
     </picture>
