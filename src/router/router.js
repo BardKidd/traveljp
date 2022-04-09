@@ -50,6 +50,14 @@ const routes = [
             /* webpackChunkName: "CheckOrder" */ "@/views/FrontEnd/Products/CheckOrder.vue"
           ),
       },
+      {
+        path: "ordercomplete",
+        name: "OrderComplete",
+        component: () =>
+          import(
+            /* webpackChunkName: "OrderComplete" */ "@/views/FrontEnd/Products/OrderComplete.vue"
+          ),
+      },
     ],
     redirect: "/homepage",
   },
