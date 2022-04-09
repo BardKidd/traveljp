@@ -43,15 +43,7 @@ const routes = [
           ),
       },
       {
-        path: "orderinfo",
-        name: "OrderInfo",
-        component: () =>
-          import(
-            /* webpackChunkName: "OrderInfo" */ "@/views/FrontEnd/Products/OrderInfo.vue"
-          ),
-      },
-      {
-        path: "checkorder",
+        path: "checkorder/:orderId",
         name: "CheckOrder",
         component: () =>
           import(
