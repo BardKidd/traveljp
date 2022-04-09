@@ -29,7 +29,7 @@
           <th></th>
           <th>商品</th>
           <th>人數</th>
-          <th>價格</th>
+          <th>單價</th>
           <th>小計</th>
           <th></th>
         </tr>
@@ -53,13 +53,22 @@
               min="1"
               type="number"
               v-model="item.qty"
-              @change="minQty(item)"
+              @change="changeQty(item)"
             />
           </td>
-          <td class="text-center">
+          <td class="text-center font-bold">
             {{ item.product?.price }}
           </td>
-          <td class="text-center">{{ item.product?.price * item.qty }}</td>
+          <td class="text-center font-bold">
+            <span
+              :class="item.total !== item.final_total ? 'line-through' : ''"
+              class="primary-black block"
+              >{{ item.total }}</span
+            >
+            <span v-if="item.total !== item.final_total" class="primary-red">{{
+              item.final_total
+            }}</span>
+          </td>
           <td>
             <font-awesome-icon
               class="text-gray-500 hover:primary-black cursor-pointer"
@@ -74,8 +83,37 @@
       整批刪除
     </button>
     <!-- 購物車列表 結束 -->
+
+    <!-- 優惠券 開始 -->
+    <section class="mb-4 border-t-4 pt-4">
+      <button
+        v-if="!isOpenCouponBox"
+        class="commonBtn"
+        @click="isOpenCouponBox = true"
+      >
+        使用優惠券
+      </button>
+      <div v-if="isOpenCouponBox" class="flex flex-col">
+        <label class="modalTitle"
+          >優惠券
+          <span
+            @click="isOpenCouponBox = false"
+            class="cursor-pointer text-sm text-slate-400 hover:primary-black"
+            >取消</span
+          >
+          <span
+            @click="sendCoupon"
+            class="ml-2 cursor-pointer text-sm text-slate-400 hover:primary-red"
+            >送出</span
+          >
+        </label>
+        <input class="modalInput" type="text" v-model="code" />
+      </div>
+    </section>
+    <!-- 優惠券 結束 -->
+
     <!-- 訂購表單 開始 -->
-    <Form as="div" v-slot="{ errors, handleSubmit }">
+    <Form class="border-t-4 pt-4" as="div" v-slot="{ errors, handleSubmit }">
       <form @submit.stop.prevent="handleSubmit(sendOrderInfo)">
         <div class="flex flex-col">
           <label class="modalTitle">訂購人名稱</label>
@@ -133,19 +171,6 @@
             v-model="userData.message"
           ></textarea>
         </div>
-        <!-- <div
-        class="mt-5 mb-10 bg-primary-retouch rounded p-5 flex justify-between items-center"
-      >
-        <router-link :to="{ name: 'ShoppingCart' }">
-          <font-awesome-icon
-            class="pr-2"
-            :icon="['fas', 'arrow-left']"
-          />返回上頁
-        </router-link>
-        <div>
-          <button type="submit" class="commonBtn">確認訂單</button>
-        </div>
-      </div> -->
         <div
           class="mt-5 mb-10 bg-primary-retouch rounded p-5 flex justify-between items-center"
         >
@@ -170,14 +195,7 @@
 
 <script>
 import axios from "axios";
-import {
-  onMounted,
-  reactive,
-  inject,
-  ref,
-  computed,
-  onBeforeUnmount,
-} from "vue";
+import { onMounted, reactive, inject, ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import { Field, Form } from "vee-validate";
@@ -196,6 +214,8 @@ export default {
       address: "",
       message: "",
     });
+    const code = ref("");
+    const isOpenCouponBox = ref(false); // 是否顯示優惠券區塊
 
     // 取得購物車資料
     const getShoppingCart = () => {
@@ -211,7 +231,7 @@ export default {
             }
             productsData.value = res.data.data.carts;
             productsData.value.forEach((item) => {
-              item.isSelected = false;
+              item.final_total = Math.floor(item.final_total);
             });
           } else {
             $ElNotification({
@@ -296,24 +316,29 @@ export default {
       }
     };
 
-    // 更新購物車，離開此頁面才會呼叫
-    const changeQty = (item) => {
+    // 更新購物車
+    const changeQty = async (item) => {
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart/${item.id}`;
+      // 先檢查是否為負數
+      store.commit("ISLOADING", true);
+      await minQty(item);
       const cart = {
         product_id: item.product_id,
         qty: item.qty,
       };
-      axios
+      await axios
         .put(api, { data: cart })
         .then((res) => {
-          if (!res.data.success) {
+          if (res.data.success) {
+            getShoppingCart();
+          } else {
             $ElNotification({
               title: "錯誤",
               message: res.data.message,
               type: "error",
             });
+            store.commit("ISLOADING", false);
           }
-          store.commit("ISLOADING", false);
         })
         .catch((error) => {
           if (error) {
@@ -355,22 +380,49 @@ export default {
         });
     };
 
+    // 送出優惠券
+    const sendCoupon = () => {
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/coupon`;
+      const coupon = {
+        code: code.value,
+      };
+      store.commit("ISLOADING", true);
+
+      axios
+        .post(api, { data: coupon })
+        .then((res) => {
+          if (res.data.success) {
+            $ElNotification({
+              title: "成功",
+              message: res.data.message,
+              type: "success",
+            });
+            getShoppingCart();
+          } else {
+            $ElNotification({
+              title: "錯誤",
+              message: res.data.message,
+              type: "error",
+            });
+          }
+          store.commit("ISLOADING", false);
+        })
+        .catch((error) => {
+          if (error) {
+            store.commit("ISLOADING", false);
+          }
+        });
+    };
+
     onMounted(() => {
       getShoppingCart();
-    });
-
-    // 離開頁面前更新購物車
-    onBeforeUnmount(() => {
-      productsData.value.forEach((item) => {
-        changeQty(item);
-      });
     });
 
     // 計算總金額
     const computedTotal = computed(() => {
       let total = 0;
       productsData.value.forEach((product) => {
-        total += product.qty * product.product.price;
+        total += product.final_total;
       });
       return total;
     });
@@ -378,11 +430,14 @@ export default {
     return {
       productsData,
       delShoppingCart,
-      minQty,
+      changeQty,
       delAllProduct,
       sendOrderInfo,
+      sendCoupon,
+      code,
       computedTotal,
       userData,
+      isOpenCouponBox,
     };
   },
   components: {
