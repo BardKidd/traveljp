@@ -15,6 +15,7 @@ export default {
     total: {
       type: Number,
       required: true,
+      default: 1,
     },
   },
   setup(props, { emit }) {

@@ -18,6 +18,7 @@ const routes = [
             /* webpackChunkName: "HomePage" */ "@/views/FrontEnd/Main/HomePage.vue"
           ),
       },
+      // 商品及商品訂購流程 開始
       {
         path: "shoplist",
         name: "ShopList",
@@ -58,6 +59,25 @@ const routes = [
             /* webpackChunkName: "OrderComplete" */ "@/views/FrontEnd/Products/OrderComplete.vue"
           ),
       },
+      // 商品及商品訂購流程 結束
+      // 文章 開始
+      {
+        path: "articleslist",
+        name: "ArticlesList",
+        component: () =>
+          import(
+            /* webpackChunkName: "ArticlesList" */ "@/views/FrontEnd/Articles/ArticlesList.vue"
+          ),
+      },
+      {
+        path: "articledetail/:id",
+        name: "ArticleDetail",
+        component: () =>
+          import(
+            /* webpackChunkName: "ArticleDetail" */ "@/views/FrontEnd/Articles/ArticleDetail.vue"
+          ),
+      },
+      // 文章 結束
     ],
     redirect: "/homepage",
   },

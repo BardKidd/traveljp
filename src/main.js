@@ -52,6 +52,7 @@ import {
   faCheckSquare,
   faChevronLeft,
   faChevronRight,
+  faTag,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 library.add(
@@ -71,7 +72,8 @@ library.add(
   faArrowLeft,
   faCheckSquare,
   faChevronLeft,
-  faChevronRight
+  faChevronRight,
+  faTag
 );
 
 const app = createApp(App);

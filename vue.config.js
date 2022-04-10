@@ -17,7 +17,7 @@ let cssFileName =
     : `css/[name].${Timestamp}.css`;
 module.exports = defineConfig({
   transpileDependencies: true,
-  productionSourceMap: false,
+  // productionSourceMap: false,
   runtimeCompiler: false,
   filenameHashing: false,
   devServer: {
@@ -63,7 +63,9 @@ module.exports = defineConfig({
     extract: {
       filename: cssFileName,
       chunkFilename: cssFileName,
+      ignoreOrder: true,
     },
   },
+
   publicPath: "./",
 });

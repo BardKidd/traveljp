@@ -22,7 +22,7 @@
       >
       <router-link
         class="hover:primary-red p-5 hover:bg-primary-white transition-all ease-in-out duration-150 rounded-t"
-        to="#"
+        :to="{ name: 'ArticlesList' }"
         >旅遊札記</router-link
       >
       <router-link
@@ -63,7 +63,7 @@ export default {
     watch(
       () => route.name,
       (n) => {
-        if (n === "ShopList" || n === "HomePage") {
+        if (n === "ShopList" || n === "HomePage" || n === "ArticlesList") {
           window.addEventListener("scroll", handleScroll);
         } else {
           window.removeEventListener("scroll", handleScroll);
@@ -73,7 +73,11 @@ export default {
     );
 
     onMounted(() => {
-      if (route.name === "ShopList" || route.name === "HomePage") {
+      if (
+        route.name === "ShopList" ||
+        route.name === "HomePage" ||
+        route.name === "ArticlesList"
+      ) {
         window.addEventListener("scroll", handleScroll);
       } else {
         isChangeStyle.value = true;
