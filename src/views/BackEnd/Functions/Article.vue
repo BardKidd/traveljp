@@ -152,11 +152,6 @@ export default {
           rows.value = res.data.articles;
           rows.value.forEach((item) => {
             item.cn_isPublic = item.isPublic ? "是" : "否";
-            const time = new Date(item.create_at);
-            const year = time.getFullYear();
-            const month = addZero(time.getMonth() + 1);
-            const day = addZero(time.getDate());
-            item.create_at_form = `${year}-${month}-${day}`;
           });
           paginationInfo.value = res.data.pagination;
           store.commit("ISLOADING", false);
@@ -209,9 +204,14 @@ export default {
         api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/article/${temp.id}`;
         httpMethods = "put";
       }
+      const time = new Date();
+      const year = time.getFullYear();
+      const month = addZero(time.getMonth() + 1);
+      const day = addZero(time.getDate());
       temp = {
         ...temp,
         create_at: new Date().getTime(),
+        create_at_form: `${year}-${month}-${day}`,
       };
 
       store.commit("ISLOADING", true);
