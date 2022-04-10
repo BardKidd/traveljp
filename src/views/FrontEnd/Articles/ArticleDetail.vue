@@ -17,7 +17,7 @@
     <div v-html="detail.content"></div>
     <div class="my-20">
       <p class="text-sm">責任編輯：{{ detail.author }}</p>
-      <p class="text-sm">更新日期：{{ detail.create_at }}</p>
+      <p class="text-sm">更新日期：{{ detail.create_at_form }}</p>
     </div>
   </section>
 </template>
@@ -43,11 +43,6 @@ export default {
         .then((res) => {
           if (res.data.success) {
             detail.value = res.data.article;
-            const time = new Date(detail.value.create_at);
-            const year = time.getFullYear();
-            const month = addZero(time.getMonth() + 1);
-            const day = addZero(time.getDate());
-            detail.value.create_at = `${year}-${month}-${day}`;
           } else {
             $ElNotification({
               title: "錯誤",
@@ -60,11 +55,6 @@ export default {
         .catch(() => {
           store.commit("ISLOADING", false);
         });
-    };
-
-    // 日期月份補上 0
-    const addZero = (time) => {
-      return time < 10 ? `0${time}` : time;
     };
 
     onMounted(() => {

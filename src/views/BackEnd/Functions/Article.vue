@@ -20,6 +20,12 @@
     <el-table-column
       align="center"
       sortable
+      prop="create_at_form"
+      label="更新日期"
+    />
+    <el-table-column
+      align="center"
+      sortable
       prop="cn_isPublic"
       label="是否公開"
     />
@@ -146,6 +152,11 @@ export default {
           rows.value = res.data.articles;
           rows.value.forEach((item) => {
             item.cn_isPublic = item.isPublic ? "是" : "否";
+            const time = new Date(item.create_at);
+            const year = time.getFullYear();
+            const month = addZero(time.getMonth() + 1);
+            const day = addZero(time.getDate());
+            item.create_at_form = `${year}-${month}-${day}`;
           });
           paginationInfo.value = res.data.pagination;
           store.commit("ISLOADING", false);
@@ -180,6 +191,11 @@ export default {
             store.commit("ISLOADING", false);
           }
         });
+    };
+
+    // 日期月份補上 0
+    const addZero = (time) => {
+      return time < 10 ? `0${time}` : time;
     };
 
     // 送出表單(新增、編輯文章)

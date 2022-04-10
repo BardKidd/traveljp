@@ -12,7 +12,11 @@
       <span class="splitContent">
         喧囂繁華的城市，複雜的鐵路系統，體驗那新奇的都市，在忙碌穿梭的人群中，以悠閒的腳步來觀察日本現代化的根源。
       </span>
-      <button class="splitBtn splitBtnPrimary" type="button">閱讀更多</button>
+      <router-link
+        :to="{ name: 'ArticlesList' }"
+        class="splitBtn splitBtnPrimary"
+        >閱讀更多</router-link
+      >
     </div>
     <div
       @mouseover="intoHokkaido = true"
@@ -24,7 +28,9 @@
       <span class="splitContent">
         穿過海峽長長的隧道，便是北國。夜空下一片白茫茫，電車在月台前停了下來。景色迷人、物產豐富，有著「日本三大夜景」之一，是這片土地的驕傲。
       </span>
-      <button class="splitBtn splitBtnWhite" type="button">閱讀更多</button>
+      <router-link :to="{ name: 'ArticlesList' }" class="splitBtn splitBtnWhite"
+        >閱讀更多</router-link
+      >
     </div>
     <div
       @mouseover="intoKyoto = true"
@@ -36,7 +42,9 @@
       <span class="splitContent">
         古都。日本文化重地，以拘謹的意識，表現出傳統的風雅、幽玄獨特美感的城市。在令人迷惘的現代，不如一起上洛，尋找那早已遺忘的溫柔吧!
       </span>
-      <button class="splitBtn splitBtnBlack" type="button">閱讀更多</button>
+      <router-link :to="{ name: 'ArticlesList' }" class="splitBtn splitBtnBlack"
+        >閱讀更多</router-link
+      >
     </div>
   </div>
 </template>
