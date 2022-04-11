@@ -53,6 +53,14 @@ import {
   faChevronLeft,
   faChevronRight,
   faTag,
+  faSignOutAlt,
+  faGlobeAsia,
+  faListAlt,
+  faStar,
+  faNewspaper,
+  faUser,
+  faKey,
+  faSignInAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 library.add(
@@ -73,7 +81,15 @@ library.add(
   faCheckSquare,
   faChevronLeft,
   faChevronRight,
-  faTag
+  faTag,
+  faSignOutAlt,
+  faGlobeAsia,
+  faListAlt,
+  faStar,
+  faNewspaper,
+  faUser,
+  faKey,
+  faSignInAlt
 );
 
 const app = createApp(App);
