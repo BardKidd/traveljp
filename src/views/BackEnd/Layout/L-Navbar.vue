@@ -1,6 +1,9 @@
 <template>
   <section class="bg-primary-retouch2 shadow-md text-right w-full p-2.5">
     <div class="cursor-pointer text-2xl inline-flex justify-end">
+      <span class="mr-3" @click="goHome" title="回首頁">
+        <font-awesome-icon :icon="['fas', 'home']" />
+      </span>
       <span @click="logout" title="登出">
         <font-awesome-icon :icon="['fas', 'sign-out-alt']" />
       </span>
@@ -47,8 +50,14 @@ export default {
         });
     };
 
+    // 回首頁
+    const goHome = () => {
+      router.push({ name: "HomePage" });
+    };
+
     return {
       logout,
+      goHome,
     };
   },
 };
