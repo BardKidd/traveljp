@@ -13,12 +13,12 @@
           絢爛東方的海上國度
         </h1>
         <div class="mt-3 text-center">
-          <button
-            type="button"
+          <router-link
+            :to="{ name: 'ShopList' }"
             class="mainBtn transition-all duration-200 ease-in-out"
           >
             開始探索！
-          </button>
+          </router-link>
         </div>
       </div>
     </section>

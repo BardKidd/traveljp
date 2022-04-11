@@ -21,8 +21,8 @@
     <div
       class="shadow-xl orderBar_Content bg-primary-white p-4 flex flex-wrap justify-around"
     >
-      <input type="date" />
-      <input type="date" />
+      <input type="text" />
+      <input type="text" />
       <select>
         <option
           :value="key + 1"
@@ -32,15 +32,6 @@
           {{ adult }} 位
         </option>
       </select>
-      <!-- <select>
-        <option
-          :value="key + 1"
-          v-for="(children, key) of 10"
-          :key="`children${key}`"
-        >
-          {{ children }} 位孩童
-        </option>
-      </select> -->
       <button type="button">搜索計畫</button>
     </div>
   </section>

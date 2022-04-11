@@ -11,6 +11,19 @@
             <p class="block font-bold primary-black mt-3 text-lg">處理中...</p>
           </template>
         </LoadingOverlay>
+        <div
+          v-if="path === '/admin'"
+          class="opacity-30 relative w-full h-screen"
+        >
+          <div
+            class="CenterVertically absolute rounded-full bg-primary-red w-[300px] h-[300px]"
+          ></div>
+          <img
+            class="CenterVertically absolute"
+            src="~@/assets/Image/logo.png"
+            alt="LOGO"
+          />
+        </div>
         <section class="p-14">
           <router-view></router-view>
         </section>
@@ -23,18 +36,31 @@
 import SideBar from "./L-Sidebar.vue";
 import NavBar from "./L-Navbar.vue";
 import zhTW from "element-plus/lib/locale/lang/zh-tw";
-import { computed } from "vue";
+import { computed, ref, watch } from "vue";
 import { useStore } from "vuex";
+import { useRoute } from "vue-router";
 
 export default {
   name: "BackendAdmin",
   setup() {
     const store = useStore();
+    const route = useRoute();
+    const path = ref(route.path);
     const isLoading = computed(() => store.getters.isLoading);
+
+    watch(
+      () => route.path,
+      (n) => {
+        if (n) {
+          path.value = n;
+        }
+      }
+    );
 
     return {
       zhTW,
       isLoading,
+      path,
     };
   },
   components: {
