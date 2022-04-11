@@ -14,6 +14,7 @@
   </div>
   <el-table :data="rows" stripe style="width: 100%" border>
     <el-table-column align="center" sortable prop="title" label="優惠券" />
+    <el-table-column align="center" sortable prop="code" label="優惠碼" />
     <el-table-column align="center" sortable prop="percent" label="折扣優惠" />
     <el-table-column
       align="center"

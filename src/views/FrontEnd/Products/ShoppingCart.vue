@@ -87,13 +87,16 @@
     <!-- 優惠券 開始 -->
     <section class="mb-4 border-t-4 pt-4">
       <button
-        v-if="!isOpenCouponBox"
+        v-if="!isOpenCouponBox && !productsData[0]?.coupon"
         class="commonBtn"
         @click="isOpenCouponBox = true"
       >
         使用優惠券
       </button>
-      <div v-if="isOpenCouponBox" class="flex flex-col">
+      <div
+        v-if="isOpenCouponBox && !productsData[0]?.coupon"
+        class="flex flex-col"
+      >
         <label class="modalTitle"
           >優惠券
           <span
@@ -108,6 +111,10 @@
           >
         </label>
         <input class="modalInput" type="text" v-model="code" />
+      </div>
+      <div class="primary-red font-bold" v-if="productsData[0]?.coupon">
+        <span class="block">已套用：{{ productsData[0]?.coupon.title }}</span>
+        <span>折扣：{{ productsData[0]?.coupon.percent }}%</span>
       </div>
     </section>
     <!-- 優惠券 結束 -->
@@ -356,6 +363,7 @@ export default {
         tel: userData.tel,
         address: userData.address,
       };
+
       const message = userData.message;
       store.commit("ISLOADING", true);
       axios

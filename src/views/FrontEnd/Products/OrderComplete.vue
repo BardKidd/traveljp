@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto relative w-4/5 h-[80vh]">
+  <div class="container mx-auto relative w-4/5 h-[90vh]">
     <div
       class="CenterVertically absolute rounded-full bg-primary-red w-[300px] h-[300px]"
     ></div>
@@ -9,7 +9,7 @@
       alt="訂購完成"
     />
   </div>
-  <div class="container w-1/2 h-[20vh] mx-auto flex justify-between">
+  <div class="container w-1/2 h-[10vh] mx-auto flex justify-between">
     <router-link
       class="text-xl otherFont font-bold hover:underline"
       :to="{ name: 'ShopList' }"

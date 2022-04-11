@@ -8,8 +8,8 @@
           <th>商品</th>
           <th>人數</th>
           <th>單價</th>
+          <th>優惠</th>
           <th>小計</th>
-          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -35,6 +35,10 @@
           <td class="text-center font-bold">
             {{ productInfo.product?.price }}
           </td>
+          <td class="font-bold">
+            <span class="block">{{ productInfo?.coupon.title }}</span>
+            <span>{{ productInfo?.coupon.percent }}%</span>
+          </td>
           <td class="text-center font-bold">
             <span
               class="primary-black block"
@@ -54,6 +58,7 @@
         </tr>
       </tbody>
     </table>
+
     <p class="text-right font-bold text-lg">總金額：{{ itemData.total }}</p>
     <!-- 購物車列表 結束 -->
 
