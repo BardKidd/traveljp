@@ -21,24 +21,37 @@
     <div
       class="shadow-xl orderBar_Content bg-primary-white p-4 flex flex-wrap justify-around"
     >
-      <input type="text" />
-      <input type="text" />
-      <select>
-        <option
-          :value="key + 1"
-          v-for="(adult, key) of 10"
-          :key="`adult${key}`"
-        >
-          {{ adult }} 位
-        </option>
-      </select>
-      <button type="button">搜索計畫</button>
+      <input type="text" v-model="user.name" placeholder="稱呼" />
+      <input type="text" v-model="user.tel" placeholder="聯絡電話" />
+      <input type="text" v-model="user.email" placeholder="聯絡信箱" />
+      <button type="button" @click="goShopList">搜索計畫</button>
     </div>
   </section>
 </template>
 
 <script>
+import { reactive } from "vue";
+import { useRouter } from "vue-router";
 export default {
   name: "OrderBar",
+
+  setup() {
+    const router = useRouter();
+    const user = reactive({
+      name: "",
+      email: "",
+      tel: "",
+    });
+
+    const goShopList = () => {
+      sessionStorage.setItem("user", JSON.stringify(user));
+      router.push({ name: "ShopList" });
+    };
+
+    return {
+      user,
+      goShopList,
+    };
+  },
 };
 </script>

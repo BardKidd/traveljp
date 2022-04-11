@@ -424,6 +424,13 @@ export default {
 
     onMounted(() => {
       getShoppingCart();
+
+      if (sessionStorage.getItem("user")) {
+        let sessionUser = JSON.parse(sessionStorage.getItem("user"));
+        userData.name = sessionUser.name;
+        userData.tel = sessionUser.tel;
+        userData.email = sessionUser.email;
+      }
     });
 
     // 計算總金額
