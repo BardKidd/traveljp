@@ -2,7 +2,7 @@
   <section class="flex flex-wrap">
     <section class="flex-1">
       <div class="flex flex-col">
-        <span class="modalTitle">產品圖片1</span>
+        <span class="modalTitle">產品圖片</span>
         <input
           name="file-to-upload"
           type="file"
@@ -11,49 +11,20 @@
           @change="getFile1($event)"
         />
       </div>
-      <div class="flex flex-col">
-        <span class="modalTitle">產品圖片2</span>
-        <input
-          name="file-to-upload"
-          type="file"
-          ref="file2"
-          accept="image/*"
-          @change="getFile2($event)"
-        />
-      </div>
-      <div class="flex flex-col">
-        <span class="modalTitle">產品圖片3</span>
-        <input
-          name="file-to-upload"
-          type="file"
-          ref="file3"
-          accept="image/*"
-          @change="getFile1($event)"
-        />
-      </div>
-      <div class="flex flex-col">
-        <span class="modalTitle">產品圖片4</span>
-        <input
-          name="file-to-upload"
-          type="file"
-          ref="file4"
-          accept="image/*"
-          @change="getFile1($event)"
-        />
-      </div>
-      <div class="flex flex-col">
-        <span class="modalTitle">產品圖片5</span>
-        <input
-          name="file-to-upload"
-          type="file"
-          ref="file5"
-          accept="image/*"
-          @change="getFile1($event)"
-        />
-      </div>
       <div class="flex flex-col mt-3 p-2">
-        <span class="modalTitle border-t">圖片預覽</span>
+        <span class="modalTitle border-t">
+          圖片預覽
+          <el-tooltip
+            class="box-item"
+            effect="dark"
+            content="雙擊以刪除圖片"
+            placement="top-start"
+          >
+            <font-awesome-icon :icon="['fas', 'info-circle']" />
+          </el-tooltip>
+        </span>
         <img
+          @dblclick="removeImage(key)"
           v-for="(img, key) of product.imagesUrl"
           :key="img"
           :src="img"
@@ -96,7 +67,10 @@
         </select>
       </div>
       <div class="flex flex-col">
-        <span class="modalTitle">說明</span>
+        <span class="modalTitle"
+          >說明
+          <span class="primary-retouch align-top pl-1 text-sm">(*非必填)</span>
+        </span>
         <input
           @input="handleForm"
           v-model="product.content"
@@ -202,40 +176,16 @@ export default {
     const store = useStore();
     const $ElNotification = inject("$ElNotification");
     const product = toRef(props, "productData");
-    const file1 = ref(null);
-    const file2 = ref(null);
-    const file3 = ref(null);
-    const file4 = ref(null);
-    const file5 = ref(null);
+    const file = ref(null);
 
     // 將 Modal 資料傳出去
     const handleForm = () => {
       emit("getFormData", product.value);
     };
     // 取得照片1功能
-    const getFile1 = ($event) => {
-      file1.value = $event.target.files[0];
-      uploadFile(file1.value);
-    };
-    // 取得照片2功能
-    const getFile2 = ($event) => {
-      file2.value = $event.target.files[0];
-      uploadFile(file2.value);
-    };
-    // 取得照片3功能
-    const getFile3 = ($event) => {
-      file3.value = $event.target.files[0];
-      uploadFile(file3.value);
-    };
-    // 取得照片4功能
-    const getFile4 = ($event) => {
-      file4.value = $event.target.files[0];
-      uploadFile(file4.value);
-    };
-    // 取得照片5功能
-    const getFile5 = ($event) => {
-      file5.value = $event.target.files[0];
-      uploadFile(file5.value);
+    const getFile = ($event) => {
+      file.value = $event.target.files[0];
+      uploadFile(file.value);
     };
 
     // 上傳照片功能
@@ -267,16 +217,10 @@ export default {
         });
     };
 
-    // watch(
-    //   () => props.isOpenModal,
-    //   () => {
-    //     file1.value = "";
-    //     file2.value = "";
-    //     file3.value = "";
-    //     file4.value = "";
-    //     file5.value = "";
-    //   }
-    // );
+    // 刪除照片功能
+    const removeImage = (index) => {
+      product.value.imagesUrl.splice(index, 1);
+    };
 
     return {
       props,
@@ -284,11 +228,9 @@ export default {
       allUnit,
       product,
       handleForm,
-      getFile1,
-      getFile2,
-      getFile3,
-      getFile4,
-      getFile5,
+      getFile,
+
+      removeImage,
     };
   },
   components: {

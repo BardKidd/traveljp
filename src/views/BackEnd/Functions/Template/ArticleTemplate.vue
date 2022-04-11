@@ -28,7 +28,10 @@
         <span class="primary-red font-bold">{{ errors.作者 }}</span>
       </div>
       <div class="flex flex-col">
-        <span class="modalTitle">文章摘要</span>
+        <span class="modalTitle"
+          >文章摘要
+          <span class="primary-retouch align-top pl-1 text-sm">(*非必填)</span>
+        </span>
         <input
           @input="handleForm"
           v-model="article.description"
@@ -40,7 +43,11 @@
     </section>
     <section class="flex-1 p-2">
       <div class="flex flex-col">
-        <p class="modalTitle">Tag</p>
+        <p class="modalTitle">
+          Tag<span class="primary-retouch align-top pl-1 text-sm"
+            >(*非必填)</span
+          >
+        </p>
         <div class="flex flex-wrap items-center">
           <el-tag
             v-for="tag in article.tag"
@@ -88,7 +95,12 @@
   </section>
   <section>
     <div class="flex flex-col">
-      <span class="modalTitle">文章圖片</span>
+      <span class="modalTitle"
+        >文章圖片
+        <span class="primary-retouch align-top pl-1 text-sm"
+          >(*非必需)</span
+        ></span
+      >
       <input
         name="file-to-upload"
         type="file"
@@ -107,6 +119,9 @@
         <span class="primary-retouch">(*建議開啟全螢幕編輯)</span>
       </span>
       <Editor v-model="article.content"></Editor>
+      <span v-if="!article.content" class="primary-red font-bold"
+        >文章內容 為必填</span
+      >
     </div>
   </section>
 </template>

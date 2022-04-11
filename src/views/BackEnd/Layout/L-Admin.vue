@@ -11,6 +11,7 @@
             <p class="block font-bold primary-black mt-3 text-lg">處理中...</p>
           </template>
         </LoadingOverlay>
+        <!-- admin 頁圖示 開始 -->
         <div
           v-if="path === '/admin'"
           class="opacity-30 relative w-full h-screen"
@@ -24,6 +25,8 @@
             alt="LOGO"
           />
         </div>
+        <!-- admin 頁圖示 結束 -->
+
         <section class="p-14">
           <router-view></router-view>
         </section>
