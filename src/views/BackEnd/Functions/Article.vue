@@ -75,7 +75,6 @@
     >
       <template v-slot:content>
         <Template
-          :isOpenModal="isOpenModal"
           :errors="errors"
           @getFormData="getFormData"
           :articleData="articleData"

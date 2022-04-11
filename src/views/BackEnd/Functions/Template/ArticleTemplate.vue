@@ -128,10 +128,6 @@ export default {
     errors: {
       type: Object,
     },
-    isOpenModal: {
-      type: Boolean,
-      required: true,
-    },
   },
   emits: ["getFormData"],
   setup(props, { emit }) {

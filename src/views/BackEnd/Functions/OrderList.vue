@@ -1,5 +1,6 @@
 <template>
   <el-table :data="rows" stripe style="width: 100%" border>
+    <el-table-column align="center" sortable prop="id" label="訂單編號" />
     <el-table-column align="center" sortable prop="user.name" label="顧客" />
     <el-table-column align="center" sortable prop="user.tel" label="連絡電話" />
     <el-table-column align="center" sortable prop="total" label="總金額" />
@@ -12,7 +13,7 @@
     <el-table-column
       align="center"
       sortable
-      prop="paid_date"
+      prop="paid_date_form"
       label="結帳日期"
     />
     <el-table-column
@@ -29,7 +30,6 @@
             type="button"
             class="primaryBtn mr-2"
             @click="
-              isNew = false;
               isOpenModal = true;
               getModalData(scope.row);
             "
@@ -40,7 +40,6 @@
             class="dangerBtn"
             type="button"
             @click="
-              isNew = false;
               isOpenDelModal = true;
               getModalData(scope.row);
             "
@@ -61,28 +60,26 @@
   <Form v-slot="{ errors, handleSubmit }">
     <CommonModal
       @changeVisible="isOpenModal = false"
-      @sendModalData="sendModalData(productData)"
+      @sendModalData="sendModalData(orderData)"
       :isOpenModal="isOpenModal"
-      :isNew="isNew"
+      :isNew="false"
       :handleSubmit="handleSubmit"
     >
       <template v-slot:content>
         <Template
-          :isOpenModal="isOpenModal"
           :errors="errors"
           @getFormData="getFormData"
-          @getFile="getFile"
-          :productData="productData"
+          :orderData="orderData"
         ></Template>
       </template>
     </CommonModal>
   </Form>
 
   <DelCommonModal
-    :itemTitle="productData.title"
+    :itemTitle="`${orderData?.user?.name}(${orderData.id})`"
     @changeVisible="isOpenDelModal = false"
     :isOpenDelModal="isOpenDelModal"
-    @sendModalData="delProduct(productData)"
+    @sendModalData="delProduct(orderData)"
   ></DelCommonModal>
 </template>
 
@@ -93,7 +90,7 @@ import { useStore } from "vuex";
 import Pagination from "@/components/Pagination.vue";
 import CommonModal from "@/components/CommonModal.vue";
 import DelCommonModal from "@/components/DelCommonModal.vue";
-import Template from "./Template/StrictPlanTemplate.vue";
+import Template from "./Template/OrderListTemplate.vue";
 import { Form } from "vee-validate";
 
 export default {
@@ -101,12 +98,11 @@ export default {
   setup() {
     const isOpenModal = ref(false);
     const isOpenDelModal = ref(false);
-    const isNew = ref(false);
     const $ElNotification = inject("$ElNotification");
     const store = useStore();
     const rows = ref([]);
     const paginationInfo = ref({});
-    const productData = ref({});
+    const orderData = ref({});
 
     // 換頁
     const changePage = (current) => {
@@ -114,20 +110,12 @@ export default {
     };
     // 取得 Modal 資料
     const getModalData = (val) => {
-      if (isNew.value) {
-        productData.value = {};
-      } else {
-        productData.value = val;
-      }
+      orderData.value = val;
     };
 
     // 取得 Modal 輸入的資料，從元件內傳出
     const getFormData = (val) => {
-      productData.value = val;
-    };
-    // 取得照片 URL
-    const getFile = (val) => {
-      productData.value.imagesUrl.push(val);
+      orderData.value = val;
     };
 
     // 取得特定頁面訂單
@@ -139,8 +127,14 @@ export default {
         .get(api)
         .then((res) => {
           rows.value = res.data.orders;
+
           rows.value.forEach((item) => {
             item.cn_is_paid = item.is_paid ? "是" : "否";
+            const time = new Date(item.paid_date * 1000);
+            const year = time.getFullYear();
+            const month = addZero(time.getMonth() + 1);
+            const day = addZero(time.getDate());
+            item.paid_date_form = `${year}-${month}-${day}`;
           });
           paginationInfo.value = res.data.pagination;
           store.commit("ISLOADING", false);
@@ -152,9 +146,15 @@ export default {
         });
     };
 
-    // 送出表單(新增、編輯商品)
+    // 日期月份補上 0
+    const addZero = (time) => {
+      return time < 10 ? `0${time}` : time;
+    };
+
+    // 送出表單(編輯訂單)
     const sendModalData = (temp) => {
       let api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/order/${temp.id}`;
+
       store.commit("ISLOADING", true);
       axios
         .put(api, { data: temp })
@@ -221,14 +221,12 @@ export default {
     return {
       rows,
       paginationInfo,
-      isNew,
-      productData,
+      orderData,
       isOpenModal,
       isOpenDelModal,
       changePage,
       getFormData,
       sendModalData,
-      getFile,
       getModalData,
       delProduct,
     };
