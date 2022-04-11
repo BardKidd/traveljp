@@ -16,12 +16,6 @@
       prop="paid_date_form"
       label="結帳日期"
     />
-    <el-table-column
-      align="center"
-      sortable
-      prop="payment_method"
-      label="付款方式"
-    />
     <el-table-column align="center" sortable prop="message" label="留言" />
     <el-table-column>
       <template #default="scope">
@@ -111,6 +105,7 @@ export default {
     // 取得 Modal 資料
     const getModalData = (val) => {
       orderData.value = val;
+      console.log(JSON.parse(JSON.stringify(orderData.value)));
     };
 
     // 取得 Modal 輸入的資料，從元件內傳出
@@ -130,11 +125,13 @@ export default {
 
           rows.value.forEach((item) => {
             item.cn_is_paid = item.is_paid ? "是" : "否";
-            const time = new Date(item.paid_date * 1000);
-            const year = time.getFullYear();
-            const month = addZero(time.getMonth() + 1);
-            const day = addZero(time.getDate());
-            item.paid_date_form = `${year}-${month}-${day}`;
+            if (item.is_paid) {
+              const time = new Date(item.paid_date * 1000);
+              const year = time.getFullYear();
+              const month = addZero(time.getMonth() + 1);
+              const day = addZero(time.getDate());
+              item.paid_date_form = `${year}-${month}-${day}`;
+            }
           });
           paginationInfo.value = res.data.pagination;
           store.commit("ISLOADING", false);

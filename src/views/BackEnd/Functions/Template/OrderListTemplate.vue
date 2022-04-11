@@ -36,8 +36,10 @@
             {{ productInfo.product?.price }}
           </td>
           <td class="font-bold">
-            <span class="block">{{ productInfo?.coupon.title }}</span>
-            <span>{{ productInfo?.coupon.percent }}%</span>
+            <div v-if="productInfo?.coupon">
+              <span class="block">{{ productInfo?.coupon.title }}</span>
+              <span>{{ productInfo?.coupon.percent }}%</span>
+            </div>
           </td>
           <td class="text-center font-bold">
             <span
