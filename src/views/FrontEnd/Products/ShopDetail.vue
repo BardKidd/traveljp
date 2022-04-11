@@ -46,8 +46,8 @@
               <label
                 @click="setShow(index)"
                 :for="`radio${index}`"
-                class="manual-btn border-2 border- p-1 rounded-xl border-[#2a211f] cursor-pointer mr-10 hover:bg-primary-black"
-                :class="show === index ? 'bg-primary-black' : ''"
+                class="manual-btn border-2 p-1 rounded-xl border-[#fff] cursor-pointer mr-10 hover:bg-primary-red"
+                :class="show === index ? 'bg-slate-100' : ''"
                 v-for="(manual, index) of detail?.imagesUrl.length"
                 :key="manual"
               ></label>

@@ -78,6 +78,16 @@ const routes = [
           ),
       },
       // 文章 結束
+      // 關於我們 開始
+      {
+        path: "aboutus",
+        name: "AboutUs",
+        component: () =>
+          import(
+            /* webpackChunkName: "AboutUs" */ "@/views/FrontEnd/AboutUs/AboutUs.vue"
+          ),
+      },
+      // 關於我們 結束
     ],
     redirect: "/homepage",
   },

@@ -27,7 +27,7 @@
       >
       <router-link
         class="hover:primary-red p-5 hover:bg-primary-white transition-all ease-in-out duration-150 rounded-t"
-        to="#"
+        :to="{ name: 'AboutUs' }"
         >關於我們</router-link
       >
       <router-link
@@ -63,7 +63,12 @@ export default {
     watch(
       () => route.name,
       (n) => {
-        if (n === "ShopList" || n === "HomePage" || n === "ArticlesList") {
+        if (
+          n === "ShopList" ||
+          n === "HomePage" ||
+          n === "ArticlesList" ||
+          n === "AboutUs"
+        ) {
           window.addEventListener("scroll", handleScroll);
         } else {
           window.removeEventListener("scroll", handleScroll);
@@ -76,7 +81,8 @@ export default {
       if (
         route.name === "ShopList" ||
         route.name === "HomePage" ||
-        route.name === "ArticlesList"
+        route.name === "ArticlesList" ||
+        route.name === "AboutUs"
       ) {
         window.addEventListener("scroll", handleScroll);
       } else {
