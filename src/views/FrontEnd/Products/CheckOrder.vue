@@ -156,7 +156,10 @@ export default {
         .post(api)
         .then((res) => {
           if (res.data.success) {
-            router.push({ name: "OrderComplete" });
+            router.push({
+              name: "OrderComplete",
+              params: { order_id: route.params.orderId },
+            });
           } else {
             $ElNotification({
               title: "錯誤",

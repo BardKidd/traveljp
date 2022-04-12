@@ -88,6 +88,16 @@ const routes = [
           ),
       },
       // 關於我們 結束
+      // 訂單搜尋 開始
+      {
+        path: "ordersearch",
+        name: "OrderSearch",
+        component: () =>
+          import(
+            /* webpackChunkName: "OrderSearch" */ "@/views/FrontEnd/OrderSearch/OrderSearch.vue"
+          ),
+      },
+      // 訂單搜尋 結束
     ],
     redirect: "/homepage",
   },

@@ -32,8 +32,8 @@
       >
       <router-link
         class="hover:primary-red p-5 hover:bg-primary-white transition-all ease-in-out duration-150 rounded-t"
-        to="#"
-        >取得優惠</router-link
+        :to="{ name: 'OrderSearch' }"
+        >訂單查詢</router-link
       >
       <router-link
         :to="{ name: 'ShoppingCart' }"
@@ -67,7 +67,8 @@ export default {
           n === "ShopList" ||
           n === "HomePage" ||
           n === "ArticlesList" ||
-          n === "AboutUs"
+          n === "AboutUs" ||
+          n === "OrderSearch"
         ) {
           window.addEventListener("scroll", handleScroll);
         } else {
@@ -82,7 +83,8 @@ export default {
         route.name === "ShopList" ||
         route.name === "HomePage" ||
         route.name === "ArticlesList" ||
-        route.name === "AboutUs"
+        route.name === "AboutUs" ||
+        route.name === "OrderSearch"
       ) {
         window.addEventListener("scroll", handleScroll);
       } else {
