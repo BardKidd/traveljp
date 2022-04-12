@@ -1,43 +1,68 @@
 <template>
   <section
-    :class="isChangeStyle ? 'bg-primary-white' : ''"
-    class="w-screen fixed z-50 flex flex-wrap items-center justify-between transition-all ease-in-out duration-150"
+    :class="isChangeStyle ? 'lg:bg-transparent' : 'lg:bg-primary-white'"
+    class="bg-primary-white w-screen fixed z-50 flex flex-wrap items-center justify-between transition-all ease-in-out duration-150"
   >
     <div class="flex-auto">
       <img
         :src="Logo"
         alt="日旅購！的 Logo"
-        class="cursor-pointer"
-        @click="router.push({ name: 'HomePage' })"
+        class="w-[200px] h-[100px] mx-auto lg:m-0 cursor-pointer"
+        @click="
+          router.push({ name: 'HomePage' });
+          isOpenAccordion = false;
+        "
       />
     </div>
+    <font-awesome-icon
+      v-if="!isOpenAccordion"
+      @click="isOpenAccordion = true"
+      class="lg:hidden fixed cursor-pointer primary-red text-2xl top-10 right-10"
+      :icon="['fas', 'bars']"
+    />
+    <font-awesome-icon
+      v-else
+      @click="isOpenAccordion = false"
+      class="lg:hidden fixed cursor-pointer primary-red text-2xl top-10 right-10"
+      :icon="['fas', 'times']"
+    />
     <div
-      class="flex flex-wrap flex-auto justify-around font-bold items-center"
-      :class="isChangeStyle ? 'primary-black' : 'primary-white'"
+      class="lg:flex w-full lg:w-auto flex-wrap flex-auto justify-around font-bold items-center lg:h-full"
+      :class="{
+        'primary-black': !isChangeStyle,
+        'lg:primary-white': isChangeStyle,
+        hidden: !isOpenAccordion,
+        'h-screen': isOpenAccordion,
+      }"
     >
       <router-link
-        class="hover:primary-red p-5 hover:bg-primary-white transition-all ease-in-out duration-150 rounded-t"
+        class="block text-center hover:primary-red p-5 hover:bg-primary-white border-b lg:border-0 transition-all ease-in-out duration-150 rounded-t"
         :to="{ name: 'ShopList' }"
+        @click="isOpenAccordion = false"
         >精選計畫</router-link
       >
       <router-link
-        class="hover:primary-red p-5 hover:bg-primary-white transition-all ease-in-out duration-150 rounded-t"
+        class="block text-center hover:primary-red p-5 hover:bg-primary-white border-b lg:border-0 transition-all ease-in-out duration-150 rounded-t"
         :to="{ name: 'ArticlesList' }"
+        @click="isOpenAccordion = false"
         >旅遊札記</router-link
       >
       <router-link
-        class="hover:primary-red p-5 hover:bg-primary-white transition-all ease-in-out duration-150 rounded-t"
+        class="block text-center hover:primary-red p-5 hover:bg-primary-white border-b lg:border-0 transition-all ease-in-out duration-150 rounded-t"
         :to="{ name: 'AboutUs' }"
+        @click="isOpenAccordion = false"
         >關於我們</router-link
       >
       <router-link
-        class="hover:primary-red p-5 hover:bg-primary-white transition-all ease-in-out duration-150 rounded-t"
+        class="block text-center hover:primary-red p-5 hover:bg-primary-white border-b lg:border-0 transition-all ease-in-out duration-150 rounded-t"
         :to="{ name: 'OrderSearch' }"
+        @click="isOpenAccordion = false"
         >訂單查詢</router-link
       >
       <router-link
         :to="{ name: 'ShoppingCart' }"
-        class="hover:primary-red p-5 hover:bg-primary-white text-xl transition-all ease-in-out duration-150 rounded-t"
+        class="block text-center hover:primary-red p-5 hover:bg-primary-white border-b lg:border-0 text-xl transition-all ease-in-out duration-150 rounded-t"
+        @click="isOpenAccordion = false"
       >
         <font-awesome-icon :icon="['fas', 'shopping-cart']" />
       </router-link>
@@ -56,9 +81,10 @@ export default {
     const router = useRouter();
     const route = useRoute();
     const isChangeStyle = ref(false);
+    const isOpenAccordion = ref(false);
     const handleScroll = (e) => {
       isChangeStyle.value =
-        e.srcElement.scrollingElement.scrollTop > 0 ? true : false;
+        e.srcElement.scrollingElement.scrollTop > 0 ? false : true;
     };
     watch(
       () => route.name,
@@ -97,6 +123,7 @@ export default {
       router,
       route,
       Logo,
+      isOpenAccordion,
     };
   },
 };

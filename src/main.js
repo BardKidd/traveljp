@@ -63,6 +63,8 @@ import {
   faSignInAlt,
   faHome,
   faCopy,
+  faBars,
+  faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 library.add(
@@ -93,7 +95,9 @@ library.add(
   faKey,
   faSignInAlt,
   faHome,
-  faCopy
+  faCopy,
+  faBars,
+  faTimes
 );
 
 const app = createApp(App);
