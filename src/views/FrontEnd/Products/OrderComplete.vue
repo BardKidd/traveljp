@@ -13,7 +13,7 @@
     >
       訂單編號：{{ orderId
       }}<font-awesome-icon
-        @click="copyOrderId"
+        @click="copyText(orderId, '訂單編號複製成功')"
         class="pl-2 cursor-pointer"
         :icon="['fas', 'copy']"
       />
@@ -47,37 +47,39 @@
 
 <script>
 import { useRoute } from "vue-router";
-import { onMounted, ref, inject } from "vue";
+import { onMounted, ref } from "vue";
+import { copyText } from "@/commonFunction/common";
+
 export default {
   name: "OrderComplete",
   setup() {
     const route = useRoute();
     const orderId = ref("");
-    const $ElNotification = inject("$ElNotification");
+    // const $ElNotification = inject("$ElNotification");
 
-    const copyOrderId = () => {
-      const cb = navigator.clipboard.writeText(orderId.value);
-      cb.then(() => {
-        $ElNotification({
-          title: "成功",
-          message: "訂單編號複製成功",
-          type: "success",
-        });
-      }).catch(() => {
-        $ElNotification({
-          title: "錯誤",
-          message: "該瀏覽器不支援複製功能",
-          type: "error",
-        });
-      });
-    };
+    // const copyOrderId = () => {
+    //   const cb = navigator.clipboard.writeText(orderId.value);
+    //   cb.then(() => {
+    //     $ElNotification({
+    //       title: "成功",
+    //       message: "訂單編號複製成功",
+    //       type: "success",
+    //     });
+    //   }).catch(() => {
+    //     $ElNotification({
+    //       title: "錯誤",
+    //       message: "該瀏覽器不支援複製功能",
+    //       type: "error",
+    //     });
+    //   });
+    // };
 
     onMounted(() => {
       orderId.value = route.params.order_id;
     });
     return {
       orderId,
-      copyOrderId,
+      copyText,
     };
   },
 };

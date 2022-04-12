@@ -35,6 +35,7 @@ module.exports = defineConfig({
         components: "@/components",
         views: "@/views",
         store: "@/store",
+        commonFunction: "@/commonFunction",
       },
     },
     plugins: [
