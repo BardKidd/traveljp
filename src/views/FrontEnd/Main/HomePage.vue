@@ -1,10 +1,5 @@
 <template>
   <section class="mainBG">
-    <img
-      class="absolute top-0 left-0 right-0 bottom-0"
-      :src="MainBG"
-      alt="主視覺圖片"
-    />
     <section class="absolute bottom-28 pl-12 z-20">
       <div class="z-30 pb-14 pl-6 w-full">
         <h1
@@ -22,7 +17,6 @@
         </div>
       </div>
     </section>
-    <div class="image_overlay"></div>
   </section>
   <Orderbar></Orderbar>
   <CompanyProfile></CompanyProfile>
@@ -33,14 +27,11 @@
 import Orderbar from "@/views/FrontEnd/Main/Orderbar.vue";
 import SplitPage from "@/views/FrontEnd/Main/SplitPage.vue";
 import CompanyProfile from "@/views/FrontEnd/Main/CompanyProfile.vue";
-import MainBG from "@/assets/Image/mainBg.jpg";
 
 export default {
   name: "HomePage",
   setup() {
-    return {
-      MainBG,
-    };
+    return {};
   },
   components: {
     Orderbar,

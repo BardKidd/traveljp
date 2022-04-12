@@ -1,12 +1,12 @@
 <template>
   <div
-    class="container flex flex-wrap max-h-screen h-screen w-full overflow-hidden"
+    class="md:flex flex-wrap md:max-h-screen md:h-screen w-full overflow-hidden"
   >
     <div
       @mouseover="intoTokyo = true"
       @mouseleave="intoTokyo = false"
       :class="intoTokyo ? 'flex-2' : 'flex-1'"
-      class="relative h-full overflow-hidden leftPage transitionMixin"
+      class="relative h-screen md:h-full overflow-hidden leftPage transitionMixin"
     >
       <h3 class="splitTitle">東京</h3>
       <span class="splitContent">
@@ -22,7 +22,7 @@
       @mouseover="intoHokkaido = true"
       @mouseleave="intoHokkaido = false"
       :class="intoHokkaido ? 'flex-2' : 'flex-1'"
-      class="relative flex-1 h-full overflow-hidden centerPage transitionMixin"
+      class="relative flex-1 h-screen md:h-full overflow-hidden centerPage transitionMixin"
     >
       <h3 class="splitTitle">北海道</h3>
       <span class="splitContent">
@@ -36,7 +36,7 @@
       @mouseover="intoKyoto = true"
       @mouseleave="intoKyoto = false"
       :class="intoKyoto ? 'flex-2' : 'flex-1'"
-      class="relative flex-1 h-full overflow-hidden rightPage transitionMixin"
+      class="relative flex-1 h-screen md:h-full overflow-hidden rightPage transitionMixin"
     >
       <h3 class="splitTitle">京都</h3>
       <span class="splitContent">

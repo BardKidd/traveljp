@@ -1,6 +1,8 @@
 <template>
-  <section class="flex bg-primary-black primary-white py-10 px-28">
-    <div class="flex-1 font-bold pr-12">
+  <section
+    class="md:flex bg-primary-black primary-white py-10 md:px-20 lg:px-28"
+  >
+    <div class="flex-1 font-bold pr-8 md:pr-12">
       <h3 class="text-lg">
         <font-awesome-icon class="primary-red" :icon="['fas', 'phone-alt']" />
         免費專線 0800-123456
@@ -20,7 +22,9 @@
       >
         送出
       </button>
-      <ul class="flex otherFont text-justify mt-10">
+      <ul
+        class="flex otherFont justify-center md:justify-start text-justify mt-10"
+      >
         <li class="pr-5">
           <font-awesome-icon :icon="['fab', 'facebook-f']" />
         </li>
@@ -28,9 +32,11 @@
         <li class="pr-5"><font-awesome-icon :icon="['fab', 'instagram']" /></li>
         <li class="pr-5"><font-awesome-icon :icon="['fab', 'github']" /></li>
       </ul>
-      <p class="otherFont mt-5 text-gray-600">&copy;2022 Lin Pei Wen</p>
+      <p class="otherFont text-center md:text-left mt-5 text-gray-600">
+        &copy;2022 Lin Pei Wen
+      </p>
     </div>
-    <div class="flex-1 font-bold">
+    <div class="inline-block w-1/2 sm:w-1/3 flex-1 font-bold">
       <h3 class="primary-red">探索</h3>
       <ul class="mt-3 otherFont leading-loose">
         <li>冬季</li>
@@ -41,7 +47,7 @@
         <li>關於我們</li>
       </ul>
     </div>
-    <div class="flex-1 font-bold">
+    <div class="inline-block w-1/2 sm:w-1/3 flex-1 font-bold">
       <h3 class="primary-red">豐富你的計劃</h3>
       <ul class="mt-3 otherFont leading-loose">
         <li>海外網路(Wifi、網路卡)</li>
@@ -52,7 +58,7 @@
         <li>聯繫我們</li>
       </ul>
     </div>
-    <div class="flex-1 font-bold">
+    <div class="inline-block sm:w-1/3 flex-1 font-bold">
       <h3 class="primary-red">超棒的連結</h3>
       <ul class="mt-3 otherFont leading-loose">
         <li>Designspiration</li>

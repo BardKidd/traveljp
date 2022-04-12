@@ -1,7 +1,7 @@
 <template>
   <section
     :class="isChangeStyle ? 'bg-primary-white' : ''"
-    class="container fixed z-50 flex flex-wrap items-center justify-between transition-all ease-in-out duration-150"
+    class="w-screen fixed z-50 flex flex-wrap items-center justify-between transition-all ease-in-out duration-150"
   >
     <div class="flex-auto">
       <img

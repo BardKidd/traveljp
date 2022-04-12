@@ -1,18 +1,20 @@
 <template>
-  <section class="flex flex-wrap mb-32">
-    <picture class="relative flex-1">
+  <section class="lg:flex flex-wrap mb-32">
+    <picture class="relative lg:flex-1">
       <img
         src="~@/assets/Image/pexels-kyle-kroeger-1673978.jpg"
-        class="max-w-3xl overflow-hidden border-8 border-white shadow-xl"
+        class="w-screen lg:w-full overflow-hidden shadow-xl lg:border-8 lg:border-white"
         alt=""
       />
       <img
         src="~@/assets/Image/airplane.jpg"
-        class="max-w-sm absolute -right-10 -bottom-10 shadow-md border-8 border-white"
+        class="hidden xl:block max-w-sm absolute -right-24 -bottom-20 shadow-md border-8 border-white"
         alt="飛行窗外圖"
       />
     </picture>
-    <div class="pt-40 pl-40 pr-20 flex-1 otherFont text-justify primary-black">
+    <div
+      class="pt-10 pl-10 pr-10 lg:pt-20 lg:pl-20 lg:flex-1 xl:pt-40 xl:pl-40 otherFont text-justify primary-black"
+    >
       <h3 class="text-4xl font-bold whitespace-nowrap">
         全台最優質的旅行安排公司
       </h3>
