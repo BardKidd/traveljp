@@ -100,6 +100,7 @@ import CommonModal from "@/components/CommonModal.vue";
 import DelCommonModal from "@/components/DelCommonModal.vue";
 import Template from "./Template/ArticleTemplate.vue";
 import { Form } from "vee-validate";
+import { addZero } from "@/commonFunction/common";
 
 export default {
   name: "BArticle",
@@ -185,11 +186,6 @@ export default {
             store.commit("ISLOADING", false);
           }
         });
-    };
-
-    // 日期月份補上 0
-    const addZero = (time) => {
-      return time < 10 ? `0${time}` : time;
     };
 
     // 送出表單(新增、編輯文章)

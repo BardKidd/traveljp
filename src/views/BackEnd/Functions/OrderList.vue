@@ -86,6 +86,7 @@ import CommonModal from "@/components/CommonModal.vue";
 import DelCommonModal from "@/components/DelCommonModal.vue";
 import Template from "./Template/OrderListTemplate.vue";
 import { Form } from "vee-validate";
+import { addZero } from "@/commonFunction/common";
 
 export default {
   name: "BOrderList",
@@ -141,11 +142,6 @@ export default {
             store.commit("ISLOADING", false);
           }
         });
-    };
-
-    // 日期月份補上 0
-    const addZero = (time) => {
-      return time < 10 ? `0${time}` : time;
     };
 
     // 送出表單(編輯訂單)
