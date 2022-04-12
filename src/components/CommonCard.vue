@@ -1,10 +1,10 @@
 <template>
-  <div class="w-1/3 font-bold">
-    <div class="ml-5">
+  <div class="w-full sm:w-1/2 lg:w-1/3 font-bold">
+    <div class="sm:ml-3 md:ml-5">
       <img
         :src="props.productData?.imagesUrl[0]"
         alt="地點首圖"
-        class="cursor-pointer object-center object-cover h-52"
+        class="cursor-pointer w-full object-center object-cover h-52"
       />
       <h2 class="font-bold text-lg mt-5 cursor-pointer">
         {{ props.productData.title }}

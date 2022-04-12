@@ -1,6 +1,8 @@
 <template>
-  <div class="mx-auto w-4/5">
-    <h1 class="pt-44 pb-5 text-4xl font-bold text-justify">
+  <div class="mx-auto w-5/6 lg:w-4/5">
+    <h1
+      class="pt-44 pb-5 text-2xl md:text-3xl lg:text-4xl font-bold text-justify"
+    >
       {{ detail.title }}
     </h1>
     <p class="primary-black mb-5 otherFont font-bold">
@@ -10,7 +12,7 @@
       />{{ detail.category }}
     </p>
     <!-- 產品區塊 開始 -->
-    <section class="flex mb-32">
+    <section class="lg:flex mb-32">
       <div class="flex-2">
         <!-- 幻燈片輪播 開始 -->
         <div class="overflow-hidden rounded-xl">
@@ -24,7 +26,7 @@
           <transition-group
             :name="transitionName"
             tag="div"
-            class="relative bg-primary-red bg-primary-red h-[500px] w-[800px]"
+            class="relative bg-primary-red bg-primary-red h-[350px] md:h-[500px] xl:w-[800px]"
           >
             <div
               v-show="index === show"
@@ -33,7 +35,7 @@
               :key="img"
             >
               <img
-                class="object-cover object-center w-[800px] h-[500px]"
+                class="md:object-cover object-center w-full xl:w-[800px] h-[350px] md:h-[500px]"
                 :src="img"
                 :alt="`產品圖片${index}`"
               />
@@ -41,12 +43,12 @@
 
             <div
               key="label"
-              class="w-[800px] absolute top-[90%] flex justify-center"
+              class="w-full xl:w-[800px] text-center absolute top-[90%] lg:flex justify-center"
             >
               <label
                 @click="setShow(index)"
                 :for="`radio${index}`"
-                class="manual-btn border-2 p-1 rounded-xl border-[#fff] cursor-pointer mr-10 hover:bg-primary-red"
+                class="inline-block manual-btn border-2 p-1 rounded-xl border-[#fff] cursor-pointer mr-10 hover:bg-primary-red"
                 :class="show === index ? 'bg-slate-100' : ''"
                 v-for="(manual, index) of detail?.imagesUrl.length"
                 :key="manual"
@@ -56,12 +58,14 @@
         </div>
         <!-- 幻燈片輪播 結束 -->
         <!-- 地點文字 開始 -->
-        <p class="otherFont mt-5 font-bold">{{ detail.content }}</p>
+        <p class="otherFont mt-5 mb-20 lg:mb-0 font-bold">
+          {{ detail.content }}
+        </p>
         <!-- 地點文字 結束 -->
       </div>
       <!-- 右側區塊 開始 -->
       <div
-        class="flex-1 flex flex-col ml-10 h-fit p-5 shadow-[0_0_20px_rgba(0,0,0,0.2)]"
+        class="flex-1 flex flex-col ml-0 lg:ml-10 h-fit p-5 shadow-[0_0_20px_rgba(0,0,0,0.2)]"
       >
         <p class="otherFont">旅行天數:{{ detail.unit }}</p>
         <div class="otherFont">
@@ -72,12 +76,12 @@
                 :class="
                   detail.price !== detail.origin_price ? 'line-through' : ''
                 "
-                >{{ detail.price }}</span
+                >{{ detail.origin_price }}</span
               >
               <span
                 class="primary-red text-3xl font-bold"
                 v-if="detail.price !== detail.origin_price"
-                >{{ detail.origin_price }}</span
+                >{{ detail.price }}</span
               >
             </p>
           </div>
@@ -110,10 +114,10 @@
     <!-- 產品區塊 結束 -->
 
     <!-- 相關產品 開始 -->
-    <div class="lLine w-1/3 mb-10"></div>
-    <section class="flex mb-32">
+    <div class="lLine w-full lg:w-1/3 mb-10"></div>
+    <section class="lg:flex mb-32">
       <div
-        class="pr-2 w-1/3 cursor-pointer"
+        class="pr-2 mb-5 lg:mb-0 w-full lg:w-1/3 cursor-pointer"
         v-for="same of sameCategory.slice(0, 3)"
         :key="same.id"
         @click="goSameCategory(same.id)"

@@ -85,6 +85,7 @@ export default {
     const handleScroll = (e) => {
       isChangeStyle.value =
         e.srcElement.scrollingElement.scrollTop > 0 ? false : true;
+      // 大於 0 就不換 CSS。
     };
     watch(
       () => route.name,
@@ -99,7 +100,7 @@ export default {
           window.addEventListener("scroll", handleScroll);
         } else {
           window.removeEventListener("scroll", handleScroll);
-          isChangeStyle.value = true;
+          isChangeStyle.value = false;
         }
       }
     );
@@ -114,7 +115,7 @@ export default {
       ) {
         window.addEventListener("scroll", handleScroll);
       } else {
-        isChangeStyle.value = true;
+        isChangeStyle.value = false;
       }
     });
 

@@ -1,17 +1,29 @@
 <template>
-  <div class="container shopListBG mb-32"></div>
+  <div class="shopListBG mb-32"></div>
   <div class="container w-4/5 mx-auto mb-16">
+    <!-- 本頁標題 開始 -->
     <div class="flex items-center mb-32">
-      <div class="lrLine flex-1"></div>
-      <h1 class="text-center flex-1 font-bold text-6xl otherFont">精選計畫</h1>
-      <div class="lrLine flex-1"></div>
+      <div class="hidden lg:block lrLine flex-1"></div>
+      <h1
+        class="text-center flex-1 font-bold text-4xl md:text-5xl lg:text-6xl otherFont"
+      >
+        精選計畫
+      </h1>
+      <div class="hidden lg:block lrLine flex-1"></div>
     </div>
+    <!-- 本頁標題 結束 -->
 
-    <p v-if="hasCalledAll" class="text-right font-bold mb-5 otherFont">
+    <p
+      v-if="hasCalledAll"
+      class="text-left md:text-right font-bold mb-5 otherFont"
+    >
       篩選結果為 {{ rows.length }}，全部共 {{ allData.length }} 筆
     </p>
-    <section class="flex flex-wrap">
-      <aside class="w-1/5 shadow-[0_0_20px_rgba(0,0,0,0.2)] p-5">
+    <section class="md:flex flex-wrap">
+      <!-- 篩選器 開始 -->
+      <aside
+        class="w-full h-max md:w-1/5 mb-40 md:mb-0 shadow-[0_0_20px_rgba(0,0,0,0.2)] p-5"
+      >
         <p class="font-bold text-lg otherFont">篩選器</p>
         <div
           class="flex justify-between mb-3 border-b-2 cursor-pointer hover:primary-red"
@@ -63,7 +75,8 @@
           </ul>
         </div>
       </aside>
-      <div class="flex-1 ml-10 flex flex-wrap">
+      <!-- 篩選器 結束 -->
+      <div class="flex-1 md:ml-10 sm:flex flex-wrap">
         <Card
           @click="getProductDetail(item)"
           @joinTheShoppingCar="joinTheShoppingCar(item)"
@@ -73,6 +86,7 @@
         ></Card>
       </div>
     </section>
+
     <Pagination
       @handleCurrentPage="changePage"
       v-if="!hasCalledAll && rows.length > 0"
