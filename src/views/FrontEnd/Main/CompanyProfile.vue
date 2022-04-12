@@ -19,13 +19,26 @@
       <p class="mt-4 text-lg">
         別猶豫了，來一趟說走就走了旅行！日旅購是一家專注日本旅遊的規劃團隊！
       </p>
-      <button type="button" class="mt-4 commonBtn">了解更多</button>
+      <button
+        type="button"
+        @click="router.push({ name: 'AboutUs' })"
+        class="mt-4 commonBtn"
+      >
+        了解更多
+      </button>
     </div>
   </section>
 </template>
 
 <script>
+import { useRouter } from "vue-router";
 export default {
   name: "CompanyProfile",
+  setup() {
+    const router = useRouter();
+    return {
+      router,
+    };
+  },
 };
 </script>
