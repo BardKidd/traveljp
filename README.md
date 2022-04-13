@@ -81,7 +81,7 @@
 
 ## **使用技術**
 
-- Vue 3: 使用 composition api 才撰寫。
+- Vue 3: 使用 composition api 撰寫。
 - Vue CLI: 快速架設開發環境。
 - Vue Router: 建立整體網站路由。
 - Axios: 串接 API 與後端進行串接、傳遞資訊等用途。
