@@ -1,21 +1,33 @@
 <template>
-  <div class="container orderSearchBG mb-32"></div>
-  <div class="container w-4/5 mx-auto mb-16">
-    <div class="flex items-center mb-32">
-      <div class="lrLine flex-1"></div>
-      <h1 class="text-center flex-1 font-bold text-6xl otherFont">訂單搜尋</h1>
-      <div class="lrLine flex-1"></div>
+  <div class="orderSearchBG mb-32"></div>
+  <div class="container w-5/6 lg:w-4/5 mx-auto mb-16">
+    <!-- 本頁標題 開始 -->
+    <div class="flex items-center mb-12 sm:mb-24 md:mb-32">
+      <div class="hidden lg:block lrLine flex-1"></div>
+      <h1
+        class="text-center flex-1 font-bold text-4xl md:text-5xl lg:text-6xl otherFont"
+      >
+        訂單搜尋
+      </h1>
+      <div class="hidden lg:block lrLine flex-1"></div>
     </div>
+    <!-- 本頁標題 結束 -->
     <!-- 訂單搜尋框 開始 -->
-    <div class="flex border rounded hover:shadow-md shadow p-10">
+    <div class="md:flex rounded hover:md:shadow-md md:shadow p-10">
       <input
         type="text"
-        class="border rounded-lg flex-2 mr-5 p-5 text-lg"
+        class="w-full md:w-auto md:flex-2 border rounded-lg md:mr-5 p-5 text-lg"
         placeholder="訂單編號"
         v-model.trim="inputValue"
         @keyup.enter="getOrder"
       />
-      <button type="button" @click="getOrder" class="commonBtn">送出</button>
+      <button
+        type="button"
+        @click="getOrder"
+        class="w-full md:w-auto mt-3 md:mt-0 commonBtn"
+      >
+        送出
+      </button>
     </div>
     <!-- 訂單搜尋框 結束 -->
     <!-- 搜尋結果 開始 -->

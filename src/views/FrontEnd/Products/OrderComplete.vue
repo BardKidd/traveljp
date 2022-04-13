@@ -11,16 +11,19 @@
     <p
       class="font-bold text-lg top-2/3 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute"
     >
-      訂單編號：{{ orderId
-      }}<font-awesome-icon
+      訂單編號：
+      <span class="inline-block">{{ orderId }}</span>
+      <font-awesome-icon
         @click="copyText(orderId, '訂單編號複製成功')"
-        class="pl-2 cursor-pointer"
+        class="hidden md:inline-block pl-2 cursor-pointer"
         :icon="['fas', 'copy']"
       />
     </p>
   </div>
 
-  <div class="container w-1/2 h-[10vh] mx-auto flex justify-between">
+  <div
+    class="container w-full md:w-1/2 md:flex text-center h-[10vh] mx-auto justify-between"
+  >
     <router-link
       class="text-xl otherFont font-bold hover:underline"
       :to="{ name: 'ShopList' }"

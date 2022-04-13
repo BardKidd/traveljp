@@ -1,26 +1,28 @@
 <template>
   <!-- 導覽列 開始 -->
-  <section class="container text-center w-3/5 mx-auto pt-44 flex">
+  <section class="text-center w-5/6 md:w-4/5 lg:w-3/5 mx-auto pt-44 flex">
     <p
-      class="py-2 flex-1 px-5 text-xl font-bold bg-primary-retouch2 rounded-t-md"
+      class="py-2 flex-1 px-5 text-lg md:text-xl font-bold bg-primary-retouch2 rounded-t-md"
     >
       1. 購物明細
     </p>
-    <p class="py-2 flex-1 px-5 text-xl font-bold bg-primary-red rounded-t-md">
+    <p
+      class="py-2 flex-1 px-5 text-lg md:text-xl font-bold bg-primary-red rounded-t-md"
+    >
       2. 確認訂單
     </p>
     <p
-      class="py-2 flex-1 px-5 text-xl font-bold bg-primary-retouch2 rounded-t-md"
+      class="py-2 flex-1 px-5 text-lg md:text-xl font-bold bg-primary-retouch2 rounded-t-md"
     >
       3. 完成訂購
     </p>
   </section>
   <!-- 導覽列 結束 -->
 
-  <section class="container w-3/5 mx-auto pt-10 primary-black">
+  <section class="w-5/6 md:w-4/5 lg:w-3/5 mx-auto pt-10 primary-black">
     <!-- 購物車列表 開始 -->
     <div class="flex items-center justify-between border-b-4 pb-10">
-      <h1 class="text-5xl font-bold">確認訂單</h1>
+      <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold">確認訂單</h1>
     </div>
     <table>
       <thead>
@@ -43,14 +45,14 @@
             <img :src="order.product?.imagesUrl[0]" alt="" />
           </td>
           <td class="pl-1">
-            <h3 class="text-lg text-justify">
+            <h3 class="text-md md:text-lg text-justify">
               {{ order.product?.title }}
             </h3>
             <p class="primary-red text-justify">
               {{ order.product?.category }}
             </p>
           </td>
-          <td class="text-center">
+          <td class="text-center w-1/5">
             {{ order.qty }}
           </td>
           <td class="text-center font-bold">

@@ -1,11 +1,17 @@
 <template>
-  <div class="container aboutUsBG mb-32"></div>
-  <div class="container w-4/5 mx-auto mb-16">
-    <div class="flex items-center mb-32">
-      <div class="lrLine flex-1"></div>
-      <h1 class="text-center flex-1 font-bold text-6xl otherFont">關於我們</h1>
-      <div class="lrLine flex-1"></div>
+  <div class="aboutUsBG mb-32"></div>
+  <div class="container w-5/6 lg:w-4/5 mx-auto mb-16">
+    <!-- 本頁標題 開始 -->
+    <div class="flex items-center mb-0 lg:mb-32">
+      <div class="hidden lg:block lrLine flex-1"></div>
+      <h1
+        class="text-center flex-1 font-bold text-4xl md:text-5xl lg:text-6xl otherFont"
+      >
+        關於我們
+      </h1>
+      <div class="hidden lg:block lrLine flex-1"></div>
     </div>
+    <!-- 本頁標題 結束 -->
     <div>
       <img class="mx-auto" src="~@/assets/Image/logo.png" alt="" />
     </div>
@@ -27,9 +33,9 @@
     </div>
     <!-- 品牌簡介 結束 -->
     <!-- 日旅購！優勢 開始 -->
-    <div class="mt-44">
+    <div class="mt-20 lg:mt-44">
       <h2 class="text-3xl leading-loose">日旅購！優勢</h2>
-      <div class="flex flex-wrap">
+      <div class="md:flex flex-wrap">
         <div class="flex-1">
           <img src="~@/assets/Image/4393.jpg" alt="" />
           <p class="font-bold primary-red text-lg mt-8">深入式的景點規劃</p>
@@ -56,7 +62,7 @@
     </div>
     <!-- 日旅購！優勢 結束 -->
     <!-- 對於疫情的應對 開始 -->
-    <div class="mt-44">
+    <div class="mt-20 lg:mt-44">
       <h2 class="text-3xl leading-loose">對於疫情的應對</h2>
       <p class="leading-loose">
         2020
@@ -80,11 +86,11 @@
           >已接種第 3
           劑疫苗並滿足疫苗種類等相關條件者，入境後無須隔離檢疫。</span
         >
-        <span class="block">
+        <span class="block write break-all">
           如 簽證資訊請洽日本台灣交流協會台北事務所：
           https://www.koryu.or.jp/tw/news/?itemid=2762&dispmid=4266
         </span>
-        <span class="block">
+        <span class="block break-all">
           最新入境隔離檢疫資訊請參考厚生勞動省：
           https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000121431_00342.html
         </span>
