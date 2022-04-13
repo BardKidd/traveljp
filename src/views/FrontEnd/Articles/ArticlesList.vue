@@ -15,7 +15,7 @@
 
     <section class="flex flex-wrap">
       <!-- 右側卡片區塊 開始 -->
-      <div class="flex-1 ml-10 flex flex-wrap">
+      <div class="flex-1 ml-6 md:ml-10 flex flex-wrap">
         <Card
           @readMore="getProductDetail(card)"
           v-for="card of rows"

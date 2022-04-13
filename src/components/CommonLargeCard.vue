@@ -4,8 +4,12 @@
       <img class="pr-3" :src="cardData.image" alt="圖片" />
     </div>
     <div class="flex-1 primary-black font-bold">
-      <h3 class="text-3xl leading-loose">{{ cardData.title }}</h3>
-      <p class="otherFont leading-loose">{{ cardData.description }}</p>
+      <h3 class="text-xl sm:text-2xl md:text-3xl leading-loose">
+        {{ cardData.title }}
+      </h3>
+      <p class="text-md sm:text-xl otherFont leading-loose">
+        {{ cardData.description }}
+      </p>
       <div class="primary-red text-sm leading-loose">
         <font-awesome-icon :icon="['fas', 'tag']" />
         <span v-for="tag of cardData.tag" :key="tag" class="pl-2"
