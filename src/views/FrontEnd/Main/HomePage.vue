@@ -3,7 +3,7 @@
     <section class="absolute bottom-28 pl-12 z-20">
       <div class="z-30 pb-14 pl-6 w-full">
         <h1
-          class="leading-normal text-4xl primary-white tracking-widest after:content-[''] after:h-0.5 after:block after:bg-white mainTitle"
+          class="leading-normal text-2xl sm:text-3xl md:text-4xl primary-white tracking-widest after:content-[''] after:h-0.5 after:block after:bg-white mainTitle"
         >
           絢爛東方的海上國度
         </h1>

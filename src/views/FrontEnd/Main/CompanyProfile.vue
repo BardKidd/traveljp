@@ -15,10 +15,10 @@
     <div
       class="pt-10 pl-10 pr-10 lg:pt-20 lg:pl-20 lg:flex-1 xl:pt-40 xl:pl-40 otherFont text-justify primary-black"
     >
-      <h3 class="text-4xl font-bold whitespace-nowrap">
+      <h3 class="text-xl sm:text-2xl md:text-4xl font-bold whitespace-nowrap">
         全台最優質的旅行安排公司
       </h3>
-      <p class="mt-4 text-lg">
+      <p class="mt-4 text-md sm:text-lg">
         別猶豫了，來一趟說走就走了旅行！日旅購是一家專注日本旅遊的規劃團隊！
       </p>
       <button
