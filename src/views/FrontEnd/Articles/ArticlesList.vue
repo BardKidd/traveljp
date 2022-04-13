@@ -1,11 +1,17 @@
 <template>
-  <div class="container articlesListBG mb-32"></div>
-  <div class="container w-4/5 mx-auto mb-16">
+  <div class="articlesListBG mb-32"></div>
+  <div class="container w-5/6 lg:w-4/5 mx-auto mb-16">
+    <!-- 本頁標題 開始 -->
     <div class="flex items-center mb-32">
-      <div class="lrLine flex-1"></div>
-      <h1 class="text-center flex-1 font-bold text-6xl otherFont">旅遊札記</h1>
-      <div class="lrLine flex-1"></div>
+      <div class="hidden lg:block lrLine flex-1"></div>
+      <h1
+        class="text-center flex-1 font-bold text-4xl md:text-5xl lg:text-6xl otherFont"
+      >
+        旅遊札記
+      </h1>
+      <div class="hidden lg:block lrLine flex-1"></div>
     </div>
+    <!-- 本頁標題 結束 -->
 
     <section class="flex flex-wrap">
       <!-- 右側卡片區塊 開始 -->

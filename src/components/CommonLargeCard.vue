@@ -1,5 +1,5 @@
 <template>
-  <div class="flex mb-2">
+  <div class="lg:flex mb-4 lg:mb-2">
     <div class="flex-1">
       <img class="pr-3" :src="cardData.image" alt="圖片" />
     </div>

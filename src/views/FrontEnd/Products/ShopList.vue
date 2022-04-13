@@ -1,6 +1,6 @@
 <template>
   <div class="shopListBG mb-32"></div>
-  <div class="container w-4/5 mx-auto mb-16">
+  <div class="container w-5/6 lg:w-4/5 mx-auto mb-16">
     <!-- 本頁標題 開始 -->
     <div class="flex items-center mb-32">
       <div class="hidden lg:block lrLine flex-1"></div>
