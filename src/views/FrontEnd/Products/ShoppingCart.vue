@@ -2,17 +2,17 @@
   <!-- 導覽列 開始 -->
   <section class="text-center w-5/6 md:w-4/5 lg:w-3/5 mx-auto pt-44 flex">
     <p
-      class="py-2 flex-1 px-5 text-lg md:text-xl font-bold bg-primary-red rounded-t-md"
+      class="py-2 flex-1 px-5 text-md sm:text-lg md:text-xl font-bold bg-primary-red rounded-t-md"
     >
       1. 購物明細
     </p>
     <p
-      class="py-2 flex-1 px-5 text-lg md:text-xl font-bold bg-primary-retouch2 rounded-t-md"
+      class="py-2 flex-1 px-5 text-md sm:text-lg md:text-xl font-bold bg-primary-retouch2 rounded-t-md"
     >
       2. 確認訂單
     </p>
     <p
-      class="py-2 flex-1 px-5 text-lg md:text-xl font-bold bg-primary-retouch2 rounded-t-md"
+      class="py-2 flex-1 px-5 text-md sm:text-lg md:text-xl font-bold bg-primary-retouch2 rounded-t-md"
     >
       3. 完成訂購
     </p>
@@ -44,7 +44,7 @@
             <img :src="item.product?.imagesUrl[0]" alt="" />
           </td>
           <td class="pl-1">
-            <h3 class="text-md md:text-lg text-justify">
+            <h3 class="text-sm sm:text-md md:text-lg text-justify">
               {{ item.product?.title }}
             </h3>
             <p class="primary-red text-justify">
@@ -60,10 +60,10 @@
               @change="changeQty(item)"
             />
           </td>
-          <td class="w-1/5 text-center font-bold">
+          <td class="text-sm sm:text-md w-1/5 text-center font-bold">
             {{ item.product?.price }}
           </td>
-          <td class="w-1/5 text-center font-bold">
+          <td class="text-sm sm:text-md w-1/5 text-center font-bold">
             <span
               :class="item.total !== item.final_total ? 'line-through' : ''"
               class="primary-black block"
@@ -191,7 +191,7 @@
               :icon="['fas', 'arrow-left']"
             />繼續購物
           </router-link>
-          <div>
+          <div class="text-right">
             <span class="mr-5 font-bold otherFont text-lg"
               >總金額: {{ computedTotal }}</span
             >

@@ -2,7 +2,7 @@
   <!-- 導覽列 開始 -->
   <section class="text-center w-5/6 md:w-4/5 lg:w-3/5 mx-auto pt-44 flex">
     <p
-      class="py-2 flex-1 px-5 text-lg md:text-xl font-bold bg-primary-retouch2 rounded-t-md"
+      class="py-2 flex-1 px-5 text-md sm:text-lg md:text-xl font-bold bg-primary-retouch2 rounded-t-md"
     >
       1. 購物明細
     </p>
@@ -45,20 +45,20 @@
             <img :src="order.product?.imagesUrl[0]" alt="" />
           </td>
           <td class="pl-1">
-            <h3 class="text-md md:text-lg text-justify">
+            <h3 class="text-sm sm:text-md md:text-lg text-justify">
               {{ order.product?.title }}
             </h3>
             <p class="primary-red text-justify">
               {{ order.product?.category }}
             </p>
           </td>
-          <td class="text-center w-1/5">
+          <td class="text-sm sm:text-md text-center w-1/5">
             {{ order.qty }}
           </td>
-          <td class="text-center font-bold">
+          <td class="text-sm sm:text-md text-center font-bold">
             {{ order.product?.price }}
           </td>
-          <td class="text-center font-bold primary-red">
+          <td class="text-sm sm:text-md text-center font-bold primary-red">
             {{ order.final_total }}
           </td>
         </tr>
@@ -96,7 +96,7 @@
       <div
         class="mt-5 mb-10 bg-primary-retouch rounded p-5 flex justify-end items-center"
       >
-        <div>
+        <div class="text-right">
           <span class="mr-5 font-bold otherFont text-lg"
             >總金額: {{ orderInfo.total }}</span
           >
