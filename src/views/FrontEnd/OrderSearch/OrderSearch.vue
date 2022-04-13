@@ -33,7 +33,7 @@
     <!-- 搜尋結果 開始 -->
     <section
       v-if="orderData.id"
-      class="container w-3/5 mx-auto pt-10 primary-black"
+      class="container w-full md:w-4/5 lg:w-3/5 mx-auto pt-10 primary-black"
     >
       <!-- 購物車列表 開始 -->
       <table>
@@ -57,7 +57,7 @@
               <img :src="order.product?.imagesUrl[0]" alt="" />
             </td>
             <td class="pl-1">
-              <h3 class="text-lg text-justify">
+              <h3 class="text-sm md:text-lg text-justify">
                 {{ order.product?.title }}
               </h3>
               <p class="primary-red text-justify">
@@ -70,7 +70,7 @@
             <td class="text-center font-bold">
               {{ order.product?.price }}
             </td>
-            <td class="font-bold">
+            <td class="font-bold text-sm md:text-md">
               <div v-if="order?.coupon">
                 <span class="block">{{ order?.coupon.title }}</span>
                 <span>{{ order?.coupon.percent }}%</span>
