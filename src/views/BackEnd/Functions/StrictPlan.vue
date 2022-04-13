@@ -145,11 +145,20 @@ export default {
       axios
         .get(api)
         .then((res) => {
-          rows.value = res.data.products;
-          rows.value.forEach((item) => {
-            item.cn_is_enable = item.is_enabled ? "是" : "否";
-          });
-          paginationInfo.value = res.data.pagination;
+          if (res.data.success) {
+            rows.value = res.data.products;
+            rows.value.forEach((item) => {
+              item.cn_is_enable = item.is_enabled ? "是" : "否";
+            });
+            paginationInfo.value = res.data.pagination;
+          } else {
+            $ElNotification({
+              title: "錯誤",
+              message: res.data.message,
+              type: "error",
+            });
+          }
+
           store.commit("ISLOADING", false);
         })
         .catch((error) => {

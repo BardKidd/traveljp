@@ -149,11 +149,19 @@ export default {
       axios
         .get(api)
         .then((res) => {
-          rows.value = res.data.articles;
-          rows.value.forEach((item) => {
-            item.cn_isPublic = item.isPublic ? "是" : "否";
-          });
-          paginationInfo.value = res.data.pagination;
+          if (res.data.success) {
+            rows.value = res.data.articles;
+            rows.value.forEach((item) => {
+              item.cn_isPublic = item.isPublic ? "是" : "否";
+            });
+            paginationInfo.value = res.data.pagination;
+          } else {
+            $ElNotification({
+              title: "錯誤",
+              message: res.data.message,
+              type: "error",
+            });
+          }
           store.commit("ISLOADING", false);
         })
         .catch((error) => {

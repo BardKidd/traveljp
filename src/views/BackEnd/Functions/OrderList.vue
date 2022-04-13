@@ -122,19 +122,27 @@ export default {
       axios
         .get(api)
         .then((res) => {
-          rows.value = res.data.orders;
+          if (res.data.success) {
+            rows.value = res.data.orders;
 
-          rows.value.forEach((item) => {
-            item.cn_is_paid = item.is_paid ? "是" : "否";
-            if (item.is_paid) {
-              const time = new Date(item.paid_date * 1000);
-              const year = time.getFullYear();
-              const month = addZero(time.getMonth() + 1);
-              const day = addZero(time.getDate());
-              item.paid_date_form = `${year}-${month}-${day}`;
-            }
-          });
-          paginationInfo.value = res.data.pagination;
+            rows.value.forEach((item) => {
+              item.cn_is_paid = item.is_paid ? "是" : "否";
+              if (item.is_paid) {
+                const time = new Date(item.paid_date * 1000);
+                const year = time.getFullYear();
+                const month = addZero(time.getMonth() + 1);
+                const day = addZero(time.getDate());
+                item.paid_date_form = `${year}-${month}-${day}`;
+              }
+            });
+            paginationInfo.value = res.data.pagination;
+          } else {
+            $ElNotification({
+              title: "錯誤",
+              message: res.data.message,
+              type: "error",
+            });
+          }
           store.commit("ISLOADING", false);
         })
         .catch((error) => {

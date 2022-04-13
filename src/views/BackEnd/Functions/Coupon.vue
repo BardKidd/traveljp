@@ -145,16 +145,25 @@ export default {
       axios
         .get(api)
         .then((res) => {
-          rows.value = res.data.coupons;
-          rows.value.forEach((item) => {
-            item.cn_is_enable = item.is_enabled ? "是" : "否";
-            const time = new Date(item.due_date);
-            const year = time.getFullYear();
-            const month = addZero(time.getMonth() + 1);
-            const date = addZero(time.getDate());
-            item.due_date = `${year}-${month}-${date}`;
-          });
-          paginationInfo.value = res.data.pagination;
+          if (res.data.success) {
+            rows.value = res.data.coupons;
+            rows.value.forEach((item) => {
+              item.cn_is_enable = item.is_enabled ? "是" : "否";
+              const time = new Date(item.due_date);
+              const year = time.getFullYear();
+              const month = addZero(time.getMonth() + 1);
+              const date = addZero(time.getDate());
+              item.due_date = `${year}-${month}-${date}`;
+            });
+            paginationInfo.value = res.data.pagination;
+          } else {
+            $ElNotification({
+              title: "錯誤",
+              message: res.data.message,
+              type: "error",
+            });
+          }
+
           store.commit("ISLOADING", false);
         })
         .catch((error) => {
