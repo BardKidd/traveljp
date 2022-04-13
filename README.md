@@ -1,4 +1,4 @@
-# 日旅購！旅遊店商平台 | TraveJapan
+# 日旅購！旅遊電商平台 | TraveJapan
 
 ---
 
