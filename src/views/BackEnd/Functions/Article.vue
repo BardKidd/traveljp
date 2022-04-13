@@ -61,7 +61,7 @@
 
   <Pagination
     @handleCurrentPage="changePage"
-    v-if="rows.length > 0"
+    v-if="rows?.length > 0"
     :total="paginationInfo.total_pages"
   ></Pagination>
 
