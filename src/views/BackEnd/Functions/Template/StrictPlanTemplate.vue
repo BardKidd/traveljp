@@ -6,9 +6,9 @@
         <input
           name="file-to-upload"
           type="file"
-          ref="file1"
+          ref="file"
           accept="image/*"
-          @change="getFile1($event)"
+          @change="getFile($event)"
         />
       </div>
       <div class="flex flex-col mt-3 p-2">
@@ -182,7 +182,7 @@ export default {
     const handleForm = () => {
       emit("getFormData", product.value);
     };
-    // 取得照片1功能
+    // 取得照片功能
     const getFile = ($event) => {
       file.value = $event.target.files[0];
       uploadFile(file.value);

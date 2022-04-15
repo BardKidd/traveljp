@@ -2,8 +2,15 @@
   <div class="w-full sm:w-1/2 lg:w-1/3 font-bold">
     <div class="sm:ml-3 md:ml-5">
       <img
+        v-if="props.productData?.imagesUrl"
         :src="props.productData?.imagesUrl[0]"
         alt="地點首圖"
+        class="cursor-pointer w-full object-center object-cover h-52"
+      />
+      <img
+        v-else
+        src="#"
+        alt="未提供圖片"
         class="cursor-pointer w-full object-center object-cover h-52"
       />
       <h2 class="font-bold text-lg mt-5 cursor-pointer">

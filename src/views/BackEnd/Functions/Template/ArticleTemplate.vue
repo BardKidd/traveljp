@@ -104,9 +104,9 @@
       <input
         name="file-to-upload"
         type="file"
-        ref="file1"
+        ref="file"
         accept="image/*"
-        @change="getFile1($event)"
+        @change="getFile($event)"
       />
     </div>
     <div class="flex flex-col mt-3" v-if="article.image">
@@ -153,8 +153,8 @@ export default {
     const store = useStore();
     const $ElNotification = inject("$ElNotification");
 
-    // 取得照片1功能
-    const getFile1 = ($event) => {
+    // 取得照片功能
+    const getFile = ($event) => {
       file1.value = $event.target.files[0];
       uploadFile(file1.value);
     };
@@ -216,7 +216,7 @@ export default {
       handleForm,
       handleClose,
       handleInputConfirm,
-      getFile1,
+      getFile,
     };
   },
   components: {

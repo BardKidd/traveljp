@@ -18,7 +18,7 @@
         <div class="overflow-hidden rounded-xl">
           <input
             class="hidden"
-            v-for="(radio, index) of detail?.imagesUrl.length"
+            v-for="(radio, index) of detail?.imagesUrl?.length"
             :key="radio"
             :id="`radio${index}`"
             type="radio"
@@ -50,7 +50,7 @@
                 :for="`radio${index}`"
                 class="inline-block manual-btn border-2 p-1 rounded-xl border-[#fff] cursor-pointer mr-10 hover:bg-primary-red"
                 :class="show === index ? 'bg-slate-100' : ''"
-                v-for="(manual, index) of detail?.imagesUrl.length"
+                v-for="(manual, index) of detail?.imagesUrl?.length"
                 :key="manual"
               ></label>
             </div>
